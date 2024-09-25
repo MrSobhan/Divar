@@ -1,0 +1,241 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+:root {
+    --primary-color: #a62626;
+    --text-color: rgba(0, 0, 0, 0.56);
+    --white-color: #fff;
+    --black-color: #000;
+    --font-size-sm: 1.2rem;
+    --font-size-md: 1.4rem;
+    --font-size-lg: 1.8rem;
+    --font-size-xl: 2.3rem;
+    --transition: all 0.4s ease;
+    --border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* !=======================================Default Style!======================================= */
+html {
+    font-size: 62.5%;
+}
+* {
+    outline: none;
+    color: var(--text-color);
+}
+body {
+    font-family: "iransans-regular";
+}
+button {
+    background-color: transparent;
+    border: none;
+}
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+i {
+    transition: var(--transition);
+}
+a:hover {
+    color: var(--black-color);
+}
+input {
+    border: none;
+}
+button {
+    padding: 0;
+    margin: 0;
+}
+.bi {
+    display: flex;
+    align-items: center;
+}
+/* !=======================================End Default Style!======================================= */
+
+/* !=======================================Header Style!======================================= */
+.header {
+    padding: 0.8rem 0;
+    background-color: var(--white-color);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 2px 0px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    z-index: 1;
+}
+.header__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header__right {
+    display: flex;
+    align-items: center;
+}
+.header__logo-img {
+    width: 4.8rem;
+    height: 4.8rem;
+}
+.header__left {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.header__left-link {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-sm);
+    margin: 0 1.5rem;
+    font-family: "iransans-medium";
+    padding: 1rem 1.3rem;
+    border-radius: 0.3rem;
+}
+.header__left-link:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.header__left-link:hover .header__left-icon {
+    color: var(--black-color);
+}
+/* Drop Down */
+.header__left-dropdown {
+    position: absolute;
+    top: 4rem;
+    background-color: var(--white-color);
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08), 0 -8px 32px -4px rgba(0, 0, 0, 0.04),
+        0 16px 24px -6px rgba(0, 0, 0, 0.04);
+    border-radius: 0.3rem;
+    width: 22rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.header__left-dropdown-link {
+    display: flex;
+    padding: 1.5rem;
+    border-bottom: var(--border);
+    align-items: center;
+    font-size: var(--font-size-sm);
+    color: var(--black-color);
+}
+.header__left-dropdown-link:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.header__left-dropdown-icon {
+    color: var(--black-color);
+    margin-left: 1rem;
+    font-size: var(--font-size-md);
+}
+/* End Drop Down */
+.header__left-icon.bi-person {
+    font-size: var(--font-size-lg);
+    margin-left: 0.7rem;
+}
+.header__left-icon.bi-chat {
+    font-size: var(--font-size-md);
+    margin-left: 0.7rem;
+}
+/* !=======================================End Header Style!======================================= */
+
+/* !=======================================Main Style!======================================= */
+.main {
+    margin-top: 15rem;
+}
+.main__title {
+    font-size: 3rem;
+    font-family: "iransans-bold";
+    text-align: center;
+    color: var(--black-color);
+}
+.form {
+    max-width: 60rem;
+    margin: 4rem auto;
+}
+.form__wrapper {
+    margin: 1rem 0;
+}
+.form__label {
+    font-size: var(--font-size-md);
+    color: var(--black-color);
+    font-family: "iransans-bold";
+    margin-bottom: 0.5rem;
+    display: block;
+}
+.form__input {
+    width: 100%;
+    border: var(--border);
+    font-size: 1.6rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.3rem;
+}
+.form__input:focus {
+    border: 1px solid var(--primary-color);
+}
+.form__input::placeholder {
+    font-size: var(--font-size-md);
+}
+.form__textarea {
+    width: 100%;
+    height: 20rem;
+    border: var(--border);
+    border-radius: 0.3rem;
+    font-size: 1.6rem;
+    padding: .5rem 1.5rem;
+}
+.form__textarea:focus {
+    border: 1px solid var(--primary-color);
+}
+.form__textarea::placeholder {
+    font-size: var(--font-size-md);
+}
+/* !=======================================End Main Style!======================================= */
+
+/* !=======================================Footer Style!======================================= */
+.footer {
+    padding: 2rem 0;
+}
+.footer__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.footer__right {
+    display: flex;
+    align-items: center;
+}
+.footer__links {
+    margin-right: 3rem;
+}
+.footer__link {
+    position: relative;
+    margin: 0 1rem;
+}
+.footer__link::before {
+    content: "";
+    position: absolute;
+    right: -1rem;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.footer__link:first-child::before {
+    display: none;
+}
+.footer__social-media {
+    display: flex;
+}
+.footer__social-media-link {
+    margin-right: 2rem;
+}
+.footer__social-media-icon {
+    font-size: 1.6rem;
+}
+/* !=======================================End Footer Style!======================================= */
+
+/* !=======================================Active Class Style!======================================= */
+.header__left-dropdown--active {
+    visibility: visible;
+    opacity: 1;
+}
+/* !=======================================End Active Class Style!======================================= */

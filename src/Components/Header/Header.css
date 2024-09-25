@@ -1,0 +1,22 @@
+/* !=======================================Header Style!======================================= */
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .header__logo {
+    width: 6.4rem;
+    height: 6.4rem;
+  }
+  .header__menu-list {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    border-bottom: var(--border);
+    padding: 1rem 0;
+    margin-top: 3rem;
+  }
+  .header__menu-link {
+    font-size: 1.2rem;
+  }
+  /* !=======================================End Header Style!======================================= */

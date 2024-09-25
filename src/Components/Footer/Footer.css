@@ -1,0 +1,41 @@
+/* !=======================================Footer!======================================= */
+
+.footer__section-first {
+    padding: 3rem 0;
+    border-bottom: var(--border);
+}
+
+.footer__imgs {
+    display: flex;
+    justify-content: center;
+}
+
+.footer__img {
+    width: 6.4rem;
+    height: 6.4rem;
+}
+
+.footer__section-second {
+    padding: 3rem 0;
+}
+
+.footer__list {
+    display: flex;
+    justify-content: center;
+}
+
+.footer__link {
+    font-size: 1.8rem;
+    margin: 0 2rem;
+}
+
+#footer__social-media{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+/* !=======================================End Footer Style!======================================= */

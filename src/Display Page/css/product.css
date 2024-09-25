@@ -1,0 +1,1053 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+:root {
+    --primary-color: #a62626;
+    --text-color: rgba(0, 0, 0, 0.56);
+    --white-color: #fff;
+    --black-color: #000;
+    --font-size-sm: 1.2rem;
+    --font-size-md: 1.4rem;
+    --font-size-lg: 1.8rem;
+    --font-size-xl: 2.3rem;
+    --transition: all 0.4s ease;
+    --border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* !=======================================Default Style!======================================= */
+html {
+    font-size: 62.5%;
+}
+* {
+    outline: none;
+    color: var(--text-color);
+}
+body {
+    font-family: "iransans-regular";
+}
+button {
+    background-color: transparent;
+    border: none;
+}
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+i {
+    transition: var(--transition);
+}
+a:hover {
+    color: var(--black-color);
+}
+input {
+    border: none;
+}
+button {
+    padding: 0;
+    margin: 0;
+}
+.bi {
+    display: flex;
+    align-items: center;
+}
+/* !=======================================End Default Style!======================================= */
+
+/* !=======================================Header Style!======================================= */
+.header {
+    padding: 0.8rem 0;
+    background-color: var(--white-color);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 2px 0px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    z-index: 9;
+}
+.header__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header__right {
+    display: flex;
+    align-items: center;
+}
+.header__logo-img {
+    width: 4.8rem;
+    height: 4.8rem;
+}
+.header__country {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-md);
+    font-family: "iransans-bold";
+    margin: 0 2rem;
+    transition: var(--transition);
+    padding: 1rem 1.3rem;
+    border-radius: 0.3rem;
+}
+.header__country *,
+.header__category-btn * {
+    transition: var(--transition);
+}
+.header__country:hover,
+.header__category-btn:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.header__country:hover *,
+.header__category-btn:hover * {
+    color: var(--black-color);
+}
+.header__country-icon {
+    font-size: 1.6rem;
+}
+.header__country-title {
+    margin-right: 0.8rem;
+}
+.header__category {
+    position: relative;
+    margin: 0 2rem;
+}
+.header__category-btn {
+    display: flex;
+    align-items: center;
+    font-family: "iransans-bold";
+    transition: var(--transition);
+    padding: 1rem 1.3rem;
+    border-radius: 0.3rem;
+}
+.header__category-btn-title {
+    font-size: var(--font-size-md);
+    margin-left: 0.5rem;
+}
+.header__category-btn-icon {
+    font-size: 1.3rem;
+}
+/* Header Category Menu */
+.header__category-menu {
+    position: absolute;
+    background-color: var(--white-color);
+    width: 20rem;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08), 0 -8px 32px -4px rgba(0, 0, 0, 0.04),
+        0 16px 24px -6px rgba(0, 0, 0, 0.04);
+    border-radius: 0 0.5rem 0.5rem 0;
+    z-index: 100;
+    top: 4.5rem;
+    height: 50rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+.header__category-menu-right {
+    padding: 2.5rem 2rem;
+}
+.header__category-menu-btn {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-sm);
+    border: var(--border);
+    padding: 0.7rem;
+    border-radius: 0.3rem;
+}
+.header__category-menu-btn:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.header__category-menu-btn-icon {
+    margin-left: 0.5rem;
+}
+.haeder__category-menu-list {
+    margin: 1rem 0;
+    position: relative;
+}
+.header__category-menu-item:hover .header__category-dropdown {
+    visibility: visible;
+    opacity: 1;
+}
+.header__category-menu-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--font-size-sm);
+    padding: 1rem 0.5rem;
+    border-radius: 0.3rem;
+}
+.header__category-menu-link:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+.header__category-menu-link-right {
+    display: flex;
+    align-items: center;
+}
+.header__category-menu-icon {
+    margin-left: 0.5rem;
+}
+.header__category-menu-arrow-icon {
+    font-size: 1rem;
+}
+.header__category-dropdown {
+    position: absolute;
+    top: -6.3rem;
+    left: -92rem;
+    background-color: var(--white-color);
+    border-radius: 0.5rem 0 0 0.5rem;
+    width: 90rem;
+    height: 50rem;
+    border-right: var(--border);
+    padding: 2rem;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08), 0 -8px 32px -4px rgba(0, 0, 0, 0.04),
+        0 16px 24px -6px rgba(0, 0, 0, 0.04);
+    transition: var(--transition);
+    visibility: hidden;
+    opacity: 0;
+}
+.header__category-dropdown-list {
+    margin: 2rem 0;
+}
+.header__category-dropdown-title {
+    font-size: var(--font-size-sm);
+    color: var(--black-color);
+    font-family: "iransans-medium";
+    margin-bottom: 1rem;
+    display: block;
+}
+.header__category-dropdown-title:hover {
+    color: var(--primary-color);
+}
+.header__category-dropdown-link {
+    display: block;
+    font-size: var(--font-size-sm);
+    padding: 0.5rem 0;
+}
+.header__category-dropdown-link:hover {
+    color: var(--primary-color);
+}
+/* End Header Category Menu */
+.header__searchbar {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Searchbar Dropdown */
+.header__searchbar-dropdown {
+    position: absolute;
+    top: 3.8rem;
+    width: 100%;
+    background-color: var(--white-color);
+    border-top: var(--border);
+    border-radius: 0 0 0.3rem 0.3rem;
+    padding: 2rem 0;
+    opacity: 0;
+    visibility: hidden;
+}
+.header__searchbar-dropdown-title {
+    display: block;
+    font-size: var(--font-size-md);
+    margin: 1rem 0;
+    padding: 0 1.5rem;
+}
+.header__searchbar-dropdown-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0.8rem;
+}
+.header__searchbar-dropdown-link {
+    display: block;
+    font-size: var(--font-size-sm);
+    padding: 0.7rem 1rem;
+    margin: 0.5rem 0.7rem;
+    border: var(--border);
+    border-radius: 2rem;
+}
+.header__searchbar-dropdown-link:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+/* End Searchbar Dropdown */
+.header__form {
+    height: 3.8rem;
+    width: 40rem;
+}
+.header__form-input {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 0.3rem;
+    color: var(--text-color);
+    padding: 0.5rem 3.5rem 0.5rem 1rem;
+    font-size: var(--font-size-sm);
+}
+.header__searchbar-icon {
+    font-size: var(--font-size-md);
+    position: absolute;
+    right: 1rem;
+}
+.header__left {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.header__left-link {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-sm);
+    margin: 0 1.5rem;
+    font-family: "iransans-medium";
+    padding: 1rem 1.3rem;
+    border-radius: 0.3rem;
+}
+.header__left-link:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.header__left-link:hover .header__left-icon {
+    color: var(--black-color);
+}
+/* Drop Down */
+.header__left-dropdown {
+    position: absolute;
+    top: 4rem;
+    background-color: var(--white-color);
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08), 0 -8px 32px -4px rgba(0, 0, 0, 0.04),
+        0 16px 24px -6px rgba(0, 0, 0, 0.04);
+    border-radius: 0.3rem;
+    width: 22rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.header__left-dropdown-link {
+    display: flex;
+    padding: 1.5rem;
+    border-bottom: var(--border);
+    align-items: center;
+    font-size: var(--font-size-sm);
+    color: var(--black-color);
+}
+.header__left-dropdown-link:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.header__left-dropdown-icon {
+    color: var(--black-color);
+    margin-left: 1rem;
+    font-size: var(--font-size-md);
+}
+/* End Drop Down */
+.header__left-icon.bi-person {
+    font-size: var(--font-size-lg);
+    margin-left: 0.7rem;
+}
+.header__left-icon.bi-chat {
+    font-size: var(--font-size-md);
+    margin-left: 0.7rem;
+}
+.header__left-btn {
+    font-size: var(--font-size-md);
+    font-family: "iransans-bold";
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 0.3rem;
+    padding: 0.8rem 1.3rem;
+}
+/* !=======================================End Header Style!======================================= */
+
+/* !=======================================Main Style!======================================= */
+.main {
+    margin-top: 10rem;
+}
+.main__breadcrumb {
+    display: flex;
+}
+.main__breadcrumb-link {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-sm);
+    font-family: "iransans-medium";
+}
+.main__breadcrumb-icon {
+    padding: 0 0.6rem;
+}
+/* ===================Product Style=================== */
+.product {
+    margin-top: 4rem;
+    margin-left: 7rem;
+}
+.product__name {
+    font-size: 2.4rem;
+    color: var(--black-color);
+    font-family: "iransans-bold";
+}
+.product__location {
+    display: block;
+    margin-top: 2rem;
+    font-size: 1.6rem;
+}
+.product__verify {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    border: var(--border);
+    width: fit-content;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+}
+.product__verify-img {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+.product__verify-text {
+    font-size: var(--font-size-md);
+}
+.product__btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+}
+.product__btn-tel {
+    font-size: 1.6rem;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 1rem 0rem;
+    border-radius: 0.3rem;
+    width: 12rem;
+}
+.product__btn-chat {
+    border: var(--border);
+    padding: 1rem 0rem;
+    width: 10rem;
+    border-radius: 0.3rem;
+    font-size: 1.6rem;
+    transition: var(--transition);
+}
+.product__btn-chat:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.product__btn-save {
+    margin-left: 2rem;
+}
+.product__btn-icon {
+    font-size: var(--font-size-md);
+    color: var(--black-color);
+}
+.product__btn {
+    padding: 1rem;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+.product__btn:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.product__info-list {
+    margin-top: 2rem;
+}
+.product__info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+    border-bottom: var(--border);
+    padding: 1.5rem 0;
+}
+.product__info-value {
+    color: var(--black-color);
+}
+.product__intro {
+    margin-top: 2.5rem;
+}
+.product__intro-title {
+    font-size: 1.7rem;
+    font-family: "iransans-bold";
+    color: var(--black-color);
+}
+.product__intro-desc {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    line-height: 2.5rem;
+    color: var(--black-color);
+}
+.product__feedback {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.6rem;
+    font-family: "iransans-medium";
+    border-bottom: var(--border);
+    padding: 1.5rem 0;
+}
+.product__feedback-right {
+    display: flex;
+}
+.product__feedback-text {
+    margin-right: 1rem;
+    color: var(--black-color);
+}
+.product__tags {
+    margin-top: 1rem;
+}
+.product__tag {
+    margin: 1rem 0;
+    display: block;
+    padding: 1rem 1.5rem;
+    width: fit-content;
+    border-radius: 0.3rem;
+    font-size: var(--font-size-md);
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.product__tag:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+/* ===================End Product Style=================== */
+
+/* ===================Product Style=================== */
+.product-preview__slider-img {
+    border-radius: 0.3rem;
+    height: 36.6rem;
+    width: 100%;
+}
+.product-preview__input {
+    width: 100%;
+    height: 12rem;
+    border-radius: 0.3rem;
+    margin-top: 2rem;
+    border: var(--border);
+    font-size: var(--font-size-md);
+    transition: var(--transition);
+    padding: 1rem;
+}
+.product-preview__input:focus {
+    border: 1px solid var(--primary-color);
+}
+.product-preview__input-notics {
+    font-size: var(--font-size-sm);
+    margin: 0.5rem 0;
+}
+.product-preview__map-img {
+    width: 100%;
+    margin-top: 3rem;
+}
+.product-preview__shop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem 0;
+    border: var(--border);
+    border-radius: 0.3rem;
+    padding: 1rem 2rem 1rem 3rem;
+}
+.product-preview__shop-right {
+    display: flex;
+}
+.product-preview__shop-right-right {
+}
+.product-preview__shop-img {
+    width: 6.4rem;
+    height: 6.4rem;
+    border-radius: 0.3rem;
+}
+.product-preview__shop-right-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 1rem;
+}
+.product-preview__shop-title {
+    font-size: 1.6rem;
+    font-family: "iransans-bold";
+    display: block;
+    color: var(--black-color);
+}
+.product-preview__shop-text {
+    display: block;
+    margin-top: 1rem;
+    font-size: var(--font-size-sm);
+}
+.product-preview__shop-icon {
+    font-size: var(--font-size-lg);
+}
+.product-preview__send{
+    margin-top: 2rem;
+}
+.product-preview__send-title{
+    font-size: 1.5rem;
+    font-family: "iransans-bold";
+    color: var(--black-color);
+    margin-bottom: 1rem;
+    display: block;
+}
+.product-preview__send-item{
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    border-bottom: var(--border);
+    padding: 1.5rem 0;
+}
+.product-preview__send-icon{
+    font-size: 1.8rem;
+    color: var(--black-color);
+
+}
+.product-preview__send-text{
+    margin-right: 1rem;
+    color: var(--black-color);
+}
+.product-preview__location{
+    font-size: 1.5rem;
+    color: var(--black-color);
+    margin-top: 1rem;
+    line-height: 2.3rem;
+}
+.product-preview__help{
+    margin-top: 2.5rem;
+}
+.product-preview__help-item{
+    font-size: var(--font-size-md);
+    display: flex;
+    align-items: center;
+    border-bottom: var(--border);
+    padding: 1.5rem 0;
+}
+.product-preview__help-icon{
+    margin-left: 1rem;
+    font-size: 1.6rem;
+    font-family: "iransans-medium";
+}
+/* ===================End Product Style=================== */
+.main__slider {
+    margin-top: 4rem;
+}
+.main__slider-title {
+    font-size: 1.7rem;
+    color: var(--black-color);
+    font-family: "iransans-bold";
+    margin-bottom: 2rem;
+}
+.main__slider-item {
+    background-color: var(--white-color);
+    border: var(--border);
+    border-radius: .3rem;
+    overflow: hidden;
+}
+.main__slider-img {
+    height: 20rem;
+    width: 100%;
+}
+.main__slider-link{
+    display: block;
+    margin: 1.3rem 1.5rem;
+    font-size: var(--font-size-md);
+    font-family: "iransans-bold";
+    color: var(--black-color);
+}
+.main__slider-price{
+    display: block;
+    margin: 1.3rem 1.5rem;
+    font-size: var(--font-size-sm);
+}
+/* !=======================================End Main Style!======================================= */
+
+/* !=======================================Swiper Style!======================================= */
+.swiper-pagination-bullet {
+    background-color: var(--white-color);
+    opacity: 0.5;
+    width: 1.2rem;
+    height: 1.2rem;
+    transition: var(--transition);
+}
+.swiper-pagination-bullet-active {
+    background-color: var(--primary-color);
+    opacity: 1;
+    height: 1.2rem;
+    width: 2rem;
+    border-radius: 2rem;
+}
+/* !=======================================End Swiper Style!======================================= */
+
+/* !=======================================Footer Style!======================================= */
+.footer {
+    padding: 2rem 0;
+    margin-top: 7rem;
+}
+.footer__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.footer__right {
+    display: flex;
+    align-items: center;
+}
+.footer__links {
+    margin-right: 3rem;
+}
+.footer__link {
+    position: relative;
+    margin: 0 1rem;
+}
+.footer__link::before {
+    content: "";
+    position: absolute;
+    right: -1rem;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.footer__link:first-child::before {
+    display: none;
+}
+.footer__social-media {
+    display: flex;
+}
+.footer__social-media-link {
+    margin-right: 2rem;
+}
+.footer__social-media-icon {
+    font-size: 1.6rem;
+}
+/* !=======================================End Footer Style!======================================= */
+
+/* !=======================================Country Modal Style!======================================= */
+.country-modal {
+    position: fixed;
+    margin: auto;
+    right: 0;
+    top: 0;
+    bottom: 3rem;
+    left: 0;
+    background-color: red;
+    width: 49rem;
+    height: 95%;
+    box-shadow: 0 8px 48px 8px rgba(0, 0, 0, 0.04), 0 12px 16px -8px rgba(0, 0, 0, 0.12),
+        0 24px 32px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 0.5rem;
+    background-color: var(--white-color);
+    z-index: 11;
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--transition);
+}
+.country-modal__header-wrapper {
+    padding: 2.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+}
+.country-modal__title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.country-modal__title {
+    font-size: var(--font-size-lg);
+    color: var(--black-color);
+    font-family: "iransans-bold";
+}
+.country-modal__btn {
+    font-size: var(--font-size-sm);
+    color: var(--primary-color);
+    border-radius: 2rem;
+    padding: 0.2rem 1rem;
+}
+.country-modal__btn:hover {
+    background-color: rgba(166, 38, 38, 0.1);
+}
+.country-modal__selected {
+    display: flex;
+    margin: 2rem 0;
+    padding: 0.5rem 0;
+    overflow-x: scroll;
+}
+.country-modal__selected::-webkit-scrollbar {
+    height: 0.5rem;
+    background-color: var(--white-color);
+}
+.country-modal__selected::-webkit-scrollbar-button {
+    display: none;
+}
+.country-modal__selected::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.12);
+    border-radius: 2rem;
+}
+.country-modal__selected-item {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    border: 1px solid var(--primary-color);
+    background-color: rgba(166, 38, 38, 0.1);
+    border-radius: 2rem;
+    padding: 0.4rem 1rem;
+    margin-left: 1.5rem;
+}
+.country-modal__selected-text {
+    color: var(--primary-color);
+    font-size: var(--font-size-md);
+}
+.country-modal__selected-btn {
+    margin-right: 1rem;
+    padding: 0rem;
+}
+.country-modal__selected-btn:hover {
+    background-color: rgba(166, 38, 38, 0.1);
+    border-radius: 50%;
+}
+.country-modal__selected-icon {
+    color: var(--primary-color);
+    font-size: 1.7rem;
+}
+.country-modal__searchbar {
+    position: relative;
+}
+.country-modal__input {
+    width: 100%;
+    border: var(--border);
+    border-radius: 0.2rem;
+    font-size: 1.6rem;
+    padding: 0.8rem 4rem 0.8rem 1rem;
+    transition: all 0.4s ease;
+}
+.country-modal__input:focus {
+    border: 1px solid var(--primary-color);
+}
+.country-modal__icon {
+    font-size: 1.6rem;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 1.3rem;
+}
+.country-modal__cities {
+    padding: 0 3.5rem;
+    overflow-y: scroll;
+    height: 58%;
+    scrollbar-width: 0;
+}
+.country-modal__cities::-webkit-scrollbar {
+    width: 0;
+}
+.country-modal__cities-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.6rem;
+    color: var(--black-color);
+    border-bottom: var(--border);
+    padding: 1.7rem 0;
+    cursor: pointer;
+}
+.country-modal__cities-checkbox {
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 0.3rem;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+.country-modal__cities-arrow-icon {
+    font-size: var(--font-size-lg);
+}
+.country-modal__footer {
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.12);
+}
+.country-modal__footer-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 0 2.5rem;
+    height: 7rem;
+}
+.country-modal__btn-footer {
+    width: 50%;
+    padding: 1.3rem 0;
+    margin: 0 0.6rem;
+    border-radius: 0.3rem;
+    font-size: 1.6rem;
+}
+.country-modal__close {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    transition: var(--transition);
+}
+.country-modal__close:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+    color: var(--black-color);
+}
+.country-modal__accept {
+    background-color: #f5f5f5;
+}
+.country-modal__accept--active {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-family: "iransans-bold";
+}
+/* !=======================================End Country Modal Style!======================================= */
+
+/* !=======================================Login Modal Style!======================================= */
+.login-modal {
+    position: fixed;
+    margin: auto;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 49rem;
+    height: 70%;
+    box-shadow: 0 8px 48px 8px rgba(0, 0, 0, 0.04), 0 12px 16px -8px rgba(0, 0, 0, 0.12),
+        0 24px 32px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 0.5rem;
+    background-color: var(--white-color);
+    z-index: 11;
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.login-modal__header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5rem 3rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+}
+.login-modal__title {
+    font-size: var(--font-size-lg);
+    color: var(--black-color);
+    font-family: "iransans-medium";
+}
+.login-modal__header-btn {
+    padding: 0.7rem;
+    transition: var(--transition);
+    border-radius: 50%;
+}
+.login-modal__header-btn:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.login-modal__icon {
+    font-size: var(--font-size-xl);
+}
+.login-modal__main {
+    padding: 4rem 3rem;
+}
+.login-modal__main-title {
+    font-size: 1.6rem;
+    color: var(--black-color);
+    font-family: "iransans-medium";
+    margin-bottom: 3rem;
+    display: block;
+}
+.login-modal__main-notic {
+    font-size: var(--font-size-md);
+    line-height: 2.4rem;
+}
+.login-modal__form-wrapper {
+    position: relative;
+    margin: 1.5rem 0;
+}
+.login-modal__input {
+    width: 100%;
+    border: var(--border);
+    border-radius: 0.5rem;
+    padding: 0.8rem 2rem 0.8rem 6rem;
+    font-size: 1.5rem;
+}
+.login-modal__form-text {
+    position: absolute;
+    top: 1.1rem;
+    left: 0.9rem;
+    color: var(--black-color);
+    font-size: 1.2rem;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+}
+.login-modal__condition {
+    font-size: var(--font-size-md);
+}
+.login-modal__condition-link {
+    color: var(--primary-color);
+}
+.login-modal__condition-link:hover {
+    color: var(--primary-color);
+}
+.login-modal__footer {
+    padding: 1rem 3rem;
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.12);
+    display: flex;
+    justify-content: flex-end;
+}
+.login-modal__footer-btn {
+    font-size: 1.6rem;
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    padding: 1rem 2.5rem;
+    border-radius: 0.3rem;
+    font-family: "iransans-bold";
+}
+/* !=======================================End Login Modal Style!======================================= */
+
+/* !=======================================Overlay Modal Style!======================================= */
+.overlay {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+/* !=======================================End Overlay Modal Style!======================================= */
+
+/* !=======================================Overlay Header Style!======================================= */
+.overlay-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 8;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+/* !=======================================End Overlay Header Style!======================================= */
+
+/* !=======================================Active Class Style!======================================= */
+/* به sidebar__filter-price اد بشه */
+/* به sidebar__filter-condition اد بشه */
+.accordion--active {
+    max-height: 20rem !important;
+    overflow: auto !important;
+    margin: 0 1rem 2rem 1rem;
+}
+/* به country-modal اد بشه */
+.country-modal--active {
+    opacity: 1;
+    visibility: visible;
+    bottom: 0;
+}
+/* به header__left-dropdown اد بشه */
+.header__left-dropdown--active {
+    visibility: visible;
+    opacity: 1;
+}
+/* به login-modal اد بشه */
+.login-modal--active {
+    opacity: 1;
+    visibility: visible;
+}
+/* به header__searchbar-dropdown اد بشه */
+.header__searchbar-dropdown--active {
+    opacity: 1;
+    visibility: visible;
+}
+/* به header__category-menu اد بشه */
+.header__category-menu--active {
+    opacity: 1;
+    visibility: visible;
+}
+.overlay--active {
+    opacity: 1;
+    visibility: visible;
+}
+.overlay-header--active {
+    opacity: 1;
+    visibility: visible;
+}
+/* !=======================================End Active Class Style!======================================= */

@@ -1,0 +1,74 @@
+
+/* ==========Sidebar Category========== */
+
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+.sidebar__category {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    min-height: 235px;
+}
+.sidebar__category-title {
+    font-size:1.2rem;
+    color:#000;
+    font-family: "iransans-medium";
+}
+.sidebar__category-list {
+    margin: 1rem 0;
+}
+.sidebar__category-link_details p{
+    margin-top: 5px;
+}
+.sidebar__category-link_details{ 
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.subCategory-list li{
+    margin-top: 15px;
+}
+.active-category .subCategory-list{
+display: block !important;
+}
+.all-categories p{
+    margin-top: 5px;
+    cursor: pointer;
+}
+.active-subCategory{
+    color: red;
+    padding-right: 5px;
+    border-right:solid 1px red !important;
+}
+.subCategory-list li{
+    font-size: 1.3rem;
+}
+.all-categories{
+    display: flex;
+    gap: 15px;
+    flex-direction: row-reverse;
+    font-size: 1.5rem;
+    justify-content: right;
+    align-items: center;
+}
+.subCategory-list{
+    padding-right: 2rem;
+    display: none;
+}
+.sidebar__category-link {
+    padding: 1rem 0;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: start;
+    justify-content: right;
+    /* flex-flow: column; */
+}
+.sidebar__category-link:hover .sidebar__category-icon {
+    color:#000;
+}
+.sidebar__category-icon {
+    margin-left: 0.5rem;
+    display: inline;
+}
+
+/* ==========End Sidebar Category========== */

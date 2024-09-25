@@ -1,0 +1,115 @@
+:root {
+    --primary-color: #a62626;
+    --text-color: rgba(0, 0, 0, 0.56);
+    --white-color: #fff;
+    --black-color: #000;
+    --font-size-sm: 1.2rem;
+    --font-size-md: 1.4rem;
+    --font-size-lg: 1.8rem;
+    --font-size-xl: 2.3rem;
+    --transition: all 0.4s ease;
+    --border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* !=======================================Default Style!======================================= */
+html {
+    font-size: 62.5%;
+}
+
+* {
+    outline: none;
+    color: var(--text-color);
+    font-family: "IRANSans" !important;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+i {
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--black-color);
+}
+
+input {
+    border: none;
+}
+
+button {
+    padding: 0;
+    margin: 0;
+}
+
+.bi {
+    display: flex;
+    align-items: center;
+}
+
+/* !=======================================End Default Style!======================================= */
+
+/* !=======================================Wrapper Style!======================================= */
+.wrapper {
+    width: 60rem;
+    margin: 3rem 0;
+}
+
+/* !=======================================End Wrapper Style!======================================= */
+
+/* !=======================================Loading!======================================= */
+#loading {
+    margin: 0 auto;
+    margin-top: 270px;
+    width: 36px;
+    height: 36px;
+    position: relative;
+    z-index: 99999;
+    border: 3px solid rgb(222 3 3);
+    border-radius: 50%;
+    border-top-color: #e6e6e6;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+#loading-container {
+    position: fixed;
+    top: 65px;
+    z-index: 99999;
+    background-color: white;
+    width: 100%;
+    height: 100vh;
+}
+
+.active-login-loader {
+    display: block !important;
+    background: transparent !important;
+}
+
+@keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+/* !=======================================Loading!======================================= */

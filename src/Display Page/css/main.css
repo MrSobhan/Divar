@@ -1,0 +1,939 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+:root {
+    --primary-color: #a62626;
+    --text-color: rgba(0, 0, 0, 0.56);
+    --white-color: #fff;
+    --black-color: #000;
+    --font-size-sm: 1.2rem;
+    --font-size-md: 1.4rem;
+    --font-size-lg: 1.8rem;
+    --font-size-xl: 2.3rem;
+    --transition: all 0.4s ease;
+    --border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* !=======================================Default Style!======================================= */
+html {
+    font-size: 62.5%;
+}
+* {
+    outline: none;
+    color: var(--text-color);
+}
+body {
+    font-family: "iransans-regular";
+}
+button {
+    background-color: transparent;
+    border: none;
+}
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+i {
+    transition: var(--transition);
+}
+a:hover {
+    color: var(--black-color);
+}
+input {
+    border: none;
+}
+button {
+    padding: 0;
+    margin: 0;
+}
+.bi {
+    display: flex;
+    align-items: center;
+}
+/* !=======================================End Default Style!======================================= */
+
+/* !=======================================Header Style!======================================= */
+.header {
+    padding: 0.8rem 0;
+    background-color: var(--white-color);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 2px 0px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    z-index: 1;
+}
+.header__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header__right {
+    display: flex;
+    align-items: center;
+}
+.header__logo-img {
+    width: 4.8rem;
+    height: 4.8rem;
+}
+.header__country {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-md);
+    font-family: "iransans-bold";
+    margin: 0 2rem;
+    transition: var(--transition);
+    padding: 1rem 1.3rem;
+    border-radius: 0.3rem;
+}
+.header__country *,
+.header__category-btn * {
+    transition: var(--transition);
+}
+.header__country:hover,
+.header__category-btn:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.header__country:hover *,
+.header__category-btn:hover * {
+    color: var(--black-color);
+}
+.header__country-icon {
+    font-size: 1.6rem;
+}
+.header__country-title {
+    margin-right: 0.8rem;
+}
+.header__category {
+    position: relative;
+    margin: 0 2rem;
+}
+.header__category-btn {
+    display: flex;
+    align-items: center;
+    font-family: "iransans-bold";
+    transition: var(--transition);
+    padding: 1rem 1.3rem;
+    border-radius: 0.3rem;
+}
+.header__category-btn-title {
+    font-size: var(--font-size-md);
+    margin-left: 0.5rem;
+}
+.header__category-btn-icon {
+    font-size: 1.3rem;
+}
+/* Header Category Menu */
+.header__category-menu{
+    position: absolute;
+    background-color: var(--white-color);
+    width: 20rem;
+    box-shadow: 0 1px 6px 0 rgba(0, 0 ,0 , .08), 0 -8px 32px -4px rgba(0, 0 ,0 , .04), 0 16px 24px -6px rgba(0 ,0 ,0, .04);
+    border-radius: 0 .5rem .5rem 0;
+    z-index: 100;
+    top: 4.5rem;
+    height: 50rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+.header__category-menu-right{
+    padding: 2.5rem 2rem;
+}
+.header__category-menu-btn{
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-sm);
+    border: var(--border);
+    padding: .7rem;
+    border-radius: .3rem;
+}
+.header__category-menu-btn:hover {
+    background-color: rgba(0 ,0 ,0, .04);
+}
+.header__category-menu-btn-icon{
+    margin-left: .5rem;
+}
+.haeder__category-menu-list{
+    margin: 1rem 0;
+    position: relative;
+}
+.header__category-menu-item:hover .header__category-dropdown {
+    visibility: visible;
+    opacity: 1;
+}
+.header__category-menu-link{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--font-size-sm);
+    padding: 1rem .5rem;
+    border-radius: .3rem;
+}
+.header__category-menu-link:hover {
+    background-color: rgba(0 ,0 ,0, .06);
+}
+.header__category-menu-link-right {
+    display: flex;
+    align-items: center;
+}
+.header__category-menu-icon{
+    margin-left: .5rem;
+}
+.header__category-menu-arrow-icon {
+    font-size: 1rem;
+}
+.header__category-dropdown{
+    position: absolute;
+    top: -6.3rem;
+    left: -92rem;
+    background-color: var(--white-color);
+    border-radius: .5rem 0 0 .5rem;
+    width: 90rem;
+    height: 50rem;
+    border-right: var(--border);
+    padding: 2rem;
+    box-shadow: 0 1px 6px 0 rgba(0, 0 ,0 , .08), 0 -8px 32px -4px rgba(0, 0 ,0 , .04), 0 16px 24px -6px rgba(0 ,0 ,0, .04);
+    transition: var(--transition);
+    visibility: hidden;
+    opacity: 0;
+}
+.header__category-dropdown-list{
+    margin: 2rem 0;
+}
+.header__category-dropdown-title{
+    font-size: var(--font-size-sm);
+    color: var(--black-color);
+    font-family: "iransans-medium";
+    margin-bottom: 1rem;
+    display: block;
+}
+.header__category-dropdown-title:hover {
+    color: var(--primary-color);
+}
+.header__category-dropdown-item{
+
+}
+.header__category-dropdown-link{
+    display: block;
+    font-size: var(--font-size-sm);
+    padding: .5rem 0;
+}
+.header__category-dropdown-link:hover {
+    color: var(--primary-color);
+}
+/* End Header Category Menu */
+.header__searchbar {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Searchbar Dropdown */
+.header__searchbar-dropdown {
+    position: absolute;
+    top: 3.8rem;
+    width: 100%;
+    background-color: var(--white-color);
+    border-top: var(--border);
+    border-radius: 0 0 0.3rem 0.3rem;
+    padding: 2rem 0;
+    opacity: 0;
+    visibility: hidden;
+}
+.header__searchbar-dropdown-title {
+    display: block;
+    font-size: var(--font-size-md);
+    margin: 1rem 0;
+    padding: 0 1.5rem;
+}
+.header__searchbar-dropdown-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0.8rem;
+}
+.header__searchbar-dropdown-link {
+    display: block;
+    font-size: var(--font-size-sm);
+    padding: 0.7rem 1rem;
+    margin: 0.5rem 0.7rem;
+    border: var(--border);
+    border-radius: 2rem;
+}
+.header__searchbar-dropdown-link:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+/* End Searchbar Dropdown */
+.header__form {
+    height: 3.8rem;
+    width: 40rem;
+}
+.header__form-input {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 0.3rem;
+    color: var(--text-color);
+    padding: 0.5rem 3.5rem 0.5rem 1rem;
+    font-size: var(--font-size-sm);
+}
+.header__searchbar-icon {
+    font-size: var(--font-size-md);
+    position: absolute;
+    right: 1rem;
+}
+.header__left {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.header__left-link {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-sm);
+    margin: 0 1.5rem;
+    font-family: "iransans-medium";
+    padding: 1rem 1.3rem;
+    border-radius: 0.3rem;
+}
+.header__left-link:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.header__left-link:hover .header__left-icon {
+    color: var(--black-color);
+}
+/* Drop Down */
+.header__left-dropdown {
+    position: absolute;
+    top: 4rem;
+    background-color: var(--white-color);
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08), 0 -8px 32px -4px rgba(0, 0, 0, 0.04),
+        0 16px 24px -6px rgba(0, 0, 0, 0.04);
+    border-radius: 0.3rem;
+    width: 22rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.header__left-dropdown-link {
+    display: flex;
+    padding: 1.5rem;
+    border-bottom: var(--border);
+    align-items: center;
+    font-size: var(--font-size-sm);
+    color: var(--black-color);
+}
+.header__left-dropdown-link:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.header__left-dropdown-icon {
+    color: var(--black-color);
+    margin-left: 1rem;
+    font-size: var(--font-size-md);
+}
+/* End Drop Down */
+.header__left-icon.bi-person {
+    font-size: var(--font-size-lg);
+    margin-left: 0.7rem;
+}
+.header__left-icon.bi-chat {
+    font-size: var(--font-size-md);
+    margin-left: 0.7rem;
+}
+.header__left-btn {
+    font-size: var(--font-size-md);
+    font-family: "iransans-bold";
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 0.3rem;
+    padding: 0.8rem 1.3rem;
+}
+/* !=======================================End Header Style!======================================= */
+
+/* !=======================================Main Style!======================================= */
+.main {
+    margin-top: 10rem;
+}
+/* ==========Sidebar Category========== */
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 6.9rem;
+    bottom: 0;
+    width: 25%;
+    overflow: auto;
+    padding: 0 1rem;
+    background-color: var(--white-color);
+    padding-top: 4rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+.sidebar__category {
+    border-bottom: var(--border);
+}
+.sidebar__category-title {
+    font-size: var(--font-size-sm);
+    color: var(--black-color);
+    font-family: "iransans-medium";
+}
+.sidebar__category-list {
+    margin: 1rem 0;
+}
+.sidebar__category-link {
+    display: flex;
+    padding: 1rem 0;
+    font-size: var(--font-size-md);
+    font-family: "iransans-medium";
+}
+.sidebar__category-link:hover .sidebar__category-icon {
+    color: var(--black-color);
+}
+.sidebar__category-icon {
+    margin-left: 0.5rem;
+}
+/* ==========End Sidebar Category========== */
+
+/* ==========Sidebar Filter========== */
+.sidebar__filter {
+    border-bottom: var(--border);
+    padding: 0 0.5rem;
+}
+.sidebar__filter-item {
+    scrollbar-width: 0;
+}
+.sidebar__filter-item::-webkit-scrollbar {
+    width: 0;
+}
+.sidebar__filter-title-wrapper {
+    cursor: pointer;
+    display: flex;
+    padding: 1.5rem 0;
+}
+.sidebar__filter-icon {
+    font-size: var(--font-size-sm);
+}
+.sidebar__filter-title {
+    font-family: "iransans-bold";
+    font-size: var(--font-size-sm);
+    color: var(--black-color);
+    margin-right: 1rem;
+}
+.sidebar__filter-price {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+.sidebar__filter-price-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.sidebar__filter-price-label {
+    font-size: var(--font-size-sm);
+}
+.sidebar__filter-price-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: var(--border);
+    border-radius: 0.3rem;
+    padding: 0.5rem 1rem;
+    font-size: var(--font-size-sm);
+    width: 75%;
+    cursor: pointer;
+    margin: 1rem 0;
+}
+.sidebar__filter-price-left {
+    display: flex;
+    align-items: center;
+}
+.sidebar__filter-price-text {
+    margin-left: 0.7rem;
+}
+.sidebar__filter-condition {
+    margin: 0 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+.sidebar__filter-condition-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sidebar__filter-condition-left {
+    margin: 1rem 0;
+}
+.sidebar__filter-condition-label {
+    font-size: var(--font-size-sm);
+    color: rgba(0, 0, 0, 0.87);
+    font-family: "iransans-medium";
+}
+/* Swith Style */
+.sidebar__filter-condition-switch {
+    position: relative;
+    display: inline-block;
+    width: 3.6rem;
+    height: 1.8rem;
+}
+.sidebar__filter-condition-switch .sidebar__filter-condition-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.sidebar__filter-condition-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 4rem;
+}
+.sidebar__filter-condition-slider:before {
+    position: absolute;
+    content: "";
+    height: 1.6rem;
+    width: 1.6rem;
+    left: 0;
+    bottom: 0.1rem;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.24);
+}
+.sidebar__filter-condition-input:checked + .sidebar__filter-condition-slider {
+    background-color: var(--primary-color);
+}
+.sidebar__filter-condition-input:checked + .sidebar__filter-condition-slider:before {
+    transform: translateX(1.9rem);
+}
+/* End Swith Style */
+.sidebar__links {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+}
+.sidebar__link {
+    padding: 0 0.8rem;
+    line-height: 3rem;
+    font-size: var(--font-size-sm);
+}
+.sidebar__icons {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+.sidebar__icon-link {
+    padding: 0 1.3rem;
+}
+.sidebar__icon-link:hover .sidebar__icon {
+    color: var(--black-color);
+}
+.sidebar__icon {
+    font-size: var(--font-size-lg);
+}
+.sidebar__images {
+    margin: 2rem 0;
+}
+/* ==========End Sidebar Filter========== */
+
+/* ==========Main Products========== */
+.product-card {
+    display: flex;
+    border: var(--border);
+    border-radius: 0.3rem;
+    padding: 1.5rem 2rem;
+    margin: 1rem 0;
+}
+.product-card__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 2rem;
+}
+.product-card__link {
+    color: var(--black-color);
+    font-size: var(--font-size-md);
+    font-family: "iransans-bold";
+    line-height: 2rem;
+}
+.product-card__right-bottom {
+    font-size: var(--font-size-sm);
+}
+.product-card__condition {
+    display: block;
+}
+.product-card__price {
+    margin: .5rem 0;
+    display: block;
+}
+.product-card__time {
+    display: block;
+}
+.product-card__left {
+    display: flex;
+    align-items: flex-end;
+}
+.product-card__img {
+    border-radius: 0.3rem;
+}
+.product-card__icon {
+    font-size: var(--font-size-md);
+}
+/* ==========End Main Products========== */
+
+/* !=======================================End Main Style!======================================= */
+
+/* !=======================================Country Modal Style!======================================= */
+.country-modal {
+    position: fixed;
+    margin: auto;
+    right: 0;
+    top: 0;
+    bottom: 3rem;
+    left: 0;
+    background-color: red;
+    width: 49rem;
+    height: 95%;
+    box-shadow: 0 8px 48px 8px rgba(0, 0, 0, 0.04), 0 12px 16px -8px rgba(0, 0, 0, 0.12),
+        0 24px 32px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 0.5rem;
+    background-color: var(--white-color);
+    z-index: 2;
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--transition);
+}
+.country-modal__header-wrapper {
+    padding: 2.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+}
+.country-modal__title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.country-modal__title {
+    font-size: var(--font-size-lg);
+    color: var(--black-color);
+    font-family: "iransans-bold";
+}
+.country-modal__btn {
+    font-size: var(--font-size-sm);
+    color: var(--primary-color);
+    border-radius: 2rem;
+    padding: 0.2rem 1rem;
+}
+.country-modal__btn:hover {
+    background-color: rgba(166, 38, 38, 0.1);
+}
+.country-modal__selected {
+    display: flex;
+    margin: 2rem 0;
+    padding: 0.5rem 0;
+    overflow-x: scroll;
+}
+.country-modal__selected::-webkit-scrollbar {
+    height: 0.5rem;
+    background-color: var(--white-color);
+}
+.country-modal__selected::-webkit-scrollbar-button {
+    display: none;
+}
+.country-modal__selected::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.12);
+    border-radius: 2rem;
+}
+.country-modal__selected-item {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    border: 1px solid var(--primary-color);
+    background-color: rgba(166, 38, 38, 0.1);
+    border-radius: 2rem;
+    padding: 0.4rem 1rem;
+    margin-left: 1.5rem;
+}
+.country-modal__selected-text {
+    color: var(--primary-color);
+    font-size: var(--font-size-md);
+}
+.country-modal__selected-btn {
+    margin-right: 1rem;
+    padding: 0rem;
+}
+.country-modal__selected-btn:hover {
+    background-color: rgba(166, 38, 38, 0.1);
+    border-radius: 50%;
+}
+.country-modal__selected-icon {
+    color: var(--primary-color);
+    font-size: 1.7rem;
+}
+.country-modal__searchbar {
+    position: relative;
+}
+.country-modal__input {
+    width: 100%;
+    border: var(--border);
+    border-radius: 0.2rem;
+    font-size: 1.6rem;
+    padding: 0.8rem 4rem 0.8rem 1rem;
+    transition: all 0.4s ease;
+}
+.country-modal__input:focus {
+    border: 1px solid var(--primary-color);
+}
+.country-modal__icon {
+    font-size: 1.6rem;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 1.3rem;
+}
+.country-modal__cities {
+    padding: 0 3.5rem;
+    overflow-y: scroll;
+    height: 58%;
+    scrollbar-width: 0;
+}
+.country-modal__cities::-webkit-scrollbar {
+    width: 0;
+}
+.country-modal__cities-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.6rem;
+    color: var(--black-color);
+    border-bottom: var(--border);
+    padding: 1.7rem 0;
+    cursor: pointer;
+}
+.country-modal__cities-checkbox {
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: .3rem;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+.country-modal__cities-arrow-icon {
+    font-size: var(--font-size-lg);
+}
+.country-modal__footer {
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.12);
+}
+.country-modal__footer-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 0 2.5rem;
+    height: 7rem;
+}
+.country-modal__btn-footer {
+    width: 50%;
+    padding: 1.3rem 0;
+    margin: 0 0.6rem;
+    border-radius: 0.3rem;
+    font-size: 1.6rem;
+}
+.country-modal__close {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    transition: var(--transition);
+}
+.country-modal__close:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+    color: var(--black-color);
+}
+.country-modal__accept {
+    background-color: #f5f5f5;
+}
+.country-modal__accept--active {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-family: "iransans-bold";
+}
+/* !=======================================End Country Modal Style!======================================= */
+
+/* !=======================================Login Modal Style!======================================= */
+.login-modal {
+    position: fixed;
+    margin: auto;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 49rem;
+    height: 70%;
+    box-shadow: 0 8px 48px 8px rgba(0, 0, 0, 0.04), 0 12px 16px -8px rgba(0, 0, 0, 0.12),
+        0 24px 32px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 0.5rem;
+    background-color: var(--white-color);
+    z-index: 2;
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.login-modal__header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5rem 3rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+}
+.login-modal__title {
+    font-size: var(--font-size-lg);
+    color: var(--black-color);
+    font-family: "iransans-medium";
+}
+.login-modal__header-btn {
+    padding: 0.7rem;
+    transition: var(--transition);
+    border-radius: 50%;
+}
+.login-modal__header-btn:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.login-modal__icon {
+    font-size: var(--font-size-xl);
+}
+.login-modal__main {
+    padding: 4rem 3rem;
+}
+.login-modal__main-title {
+    font-size: 1.6rem;
+    color: var(--black-color);
+    font-family: "iransans-medium";
+    margin-bottom: 3rem;
+    display: block;
+}
+.login-modal__main-notic {
+    font-size: var(--font-size-md);
+    line-height: 2.4rem;
+}
+.login-modal__form-wrapper {
+    position: relative;
+    margin: 1.5rem 0;
+}
+.login-modal__input {
+    width: 100%;
+    border: var(--border);
+    border-radius: 0.5rem;
+    padding: 0.8rem 2rem 0.8rem 6rem;
+    font-size: 1.5rem;
+}
+.login-modal__form-text {
+    position: absolute;
+    top: 1.1rem;
+    left: 0.9rem;
+    color: var(--black-color);
+    font-size: 1.2rem;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+}
+.login-modal__condition {
+    font-size: var(--font-size-md);
+}
+.login-modal__condition-link {
+    color: var(--primary-color);
+}
+.login-modal__condition-link:hover {
+    color: var(--primary-color);
+}
+.login-modal__footer {
+    padding: 1rem 3rem;
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.12);
+    display: flex;
+    justify-content: flex-end;
+}
+.login-modal__footer-btn {
+    font-size: 1.6rem;
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    padding: 1rem 2.5rem;
+    border-radius: 0.3rem;
+    font-family: "iransans-bold";
+}
+/* !=======================================End Login Modal Style!======================================= */
+
+/* !=======================================Overlay Modal Style!======================================= */
+.overlay {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+/* !=======================================End Overlay Modal Style!======================================= */
+
+/* !=======================================Overlay Header Style!======================================= */
+.overlay-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+/* !=======================================End Overlay Header Style!======================================= */
+
+/* !=======================================Active Class Style!======================================= */
+/* به sidebar__filter-price اد بشه */
+/* به sidebar__filter-condition اد بشه */
+.accordion--active {
+    max-height: 20rem !important;
+    overflow: auto !important;
+    margin: 0 1rem 2rem 1rem;
+}
+/* به country-modal اد بشه */
+.country-modal--active {
+    opacity: 1;
+    visibility: visible;
+    bottom: 0;
+}
+/* به header__left-dropdown اد بشه */
+.header__left-dropdown--active {
+    visibility: visible;
+    opacity: 1;
+}
+/* به login-modal اد بشه */
+.login-modal--active {
+    opacity: 1;
+    visibility: visible;
+}
+/* به header__searchbar-dropdown اد بشه */
+.header__searchbar-dropdown--active {
+    opacity: 1;
+    visibility: visible;
+}
+/* به header__category-menu اد بشه */
+.header__category-menu--active {
+    opacity: 1;
+    visibility: visible;
+}
+.overlay--active {
+    opacity: 1;
+    visibility: visible;
+}
+.overlay-header--active {
+    opacity: 1;
+    visibility: visible;
+}
+/* !=======================================End Active Class Style!======================================= */

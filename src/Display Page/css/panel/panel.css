@@ -1,0 +1,608 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+:root {
+    --primary-color: #a62626;
+    --text-color: rgba(0, 0, 0, 0.56);
+    --white-color: #fff;
+    --black-color: #000;
+    --font-size-sm: 1.2rem;
+    --font-size-md: 1.4rem;
+    --font-size-lg: 1.8rem;
+    --font-size-xl: 2.3rem;
+    --transition: all 0.4s ease;
+    --border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* !=======================================Default Style!======================================= */
+html {
+    font-size: 62.5%;
+}
+* {
+    outline: none;
+    color: var(--text-color);
+}
+body {
+    font-family: "iransans-regular";
+}
+button {
+    background-color: transparent;
+    border: none;
+}
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+i {
+    transition: var(--transition);
+}
+a:hover {
+    color: var(--black-color);
+}
+input {
+    border: none;
+}
+button {
+    padding: 0;
+    margin: 0;
+}
+.bi {
+    display: flex;
+    align-items: center;
+}
+/* !=======================================End Default Style!======================================= */
+
+/* !=======================================Header Style!======================================= */
+.header {
+    padding: 0.8rem 0;
+    background-color: var(--white-color);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 2px 0px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    z-index: 1;
+}
+.header__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header__right {
+    display: flex;
+    align-items: center;
+}
+.header__logo-img {
+    width: 4.8rem;
+    height: 4.8rem;
+}
+.header__country {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-md);
+    font-family: "iransans-bold";
+    margin: 0 2rem;
+    transition: var(--transition);
+    padding: 1rem 1.3rem;
+    border-radius: 0.3rem;
+}
+.header__country * {
+    transition: var(--transition);
+}
+.header__country:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.header__country:hover * {
+    color: var(--black-color);
+}
+.header__country-icon {
+    font-size: 1.6rem;
+}
+.header__country-title {
+    margin-right: 0.8rem;
+}
+.header__form {
+    height: 3.8rem;
+    width: 40rem;
+}
+.header__form-input {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 0.3rem;
+    color: var(--text-color);
+    padding: 0.5rem 3.5rem 0.5rem 1rem;
+    font-size: var(--font-size-sm);
+}
+.header__left {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.header__left-link {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-sm);
+    margin: 0 1.5rem;
+    font-family: "iransans-medium";
+    padding: 1rem 1.3rem;
+    border-radius: 0.3rem;
+}
+.header__left-link:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.header__left-link:hover .header__left-icon {
+    color: var(--black-color);
+}
+/* Drop Down */
+.header__left-dropdown {
+    position: absolute;
+    top: 4rem;
+    background-color: var(--white-color);
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08), 0 -8px 32px -4px rgba(0, 0, 0, 0.04),
+        0 16px 24px -6px rgba(0, 0, 0, 0.04);
+    border-radius: 0.3rem;
+    width: 22rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.header__left-dropdown-link {
+    display: flex;
+    padding: 1.5rem;
+    border-bottom: var(--border);
+    align-items: center;
+    font-size: var(--font-size-sm);
+    color: var(--black-color);
+}
+.header__left-dropdown-link:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.header__left-dropdown-icon {
+    color: var(--black-color);
+    margin-left: 1rem;
+    font-size: var(--font-size-md);
+}
+/* End Drop Down */
+.header__left-icon.bi-person {
+    font-size: var(--font-size-lg);
+    margin-left: 0.7rem;
+}
+.header__left-icon.bi-chat {
+    font-size: var(--font-size-md);
+    margin-left: 0.7rem;
+}
+.header__left-btn {
+    font-size: var(--font-size-md);
+    font-family: "iransans-bold";
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 0.3rem;
+    padding: 0.8rem 1.3rem;
+}
+/* !=======================================End Header Style!======================================= */
+
+/* !=======================================Main Style!======================================= */
+.main {
+    margin-top: 10rem;
+}
+/* *====================Sidebar====================* */
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 6rem;
+    bottom: 0;
+    overflow: auto;
+    width: 25%;
+    scrollbar-width: none;
+    padding: 4rem 2rem 1rem 2rem;
+}
+.sidebar__user {
+    display: flex;
+    align-items: center;
+}
+.sidebar__user-right {
+    margin-left: 1rem;
+}
+.sidebar__user-icon {
+    font-size: 1.8rem;
+}
+.sidebar__user-text {
+    font-size: var(--font-size-md);
+    color: var(--black-color);
+    font-family: "iransans-bold";
+}
+.sidebar__user-phone {
+    font-size: var(--font-size-sm);
+    margin-top: 1rem;
+}
+.sidebar__menu-list {
+    padding: 1.5rem 0;
+}
+.sidebar__menu-link {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 0;
+    font-size: var(--font-size-md);
+    color: var(--black-color);
+}
+
+.sidebar__menu-icon {
+    margin-left: 1rem;
+}
+.sidebar__link-item {
+    display: flex;
+    align-items: center;
+    border-bottom: var(--border);
+    border-top: var(--border);
+    font-size: var(--font-size-md);
+    color: var(--black-color);
+    padding: 2rem 0;
+}
+.sidebar__logout {
+    border-top: none;
+}
+.sidebar__link-icon {
+    margin-left: 1rem;
+}
+.sidebar__links {
+    margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--font-size-sm);
+}
+.sidebar__link {
+    padding: 0 1rem;
+    line-height: 3rem;
+}
+.sidebar__social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+}
+.sidebar__social-link {
+    font-size: 1.6rem;
+    margin: 0 2rem;
+}
+/* *====================End Sidebar====================* */
+
+/* *====================Main Content====================* */
+.verify {
+    max-width: 50rem;
+    margin: 2rem auto;
+}
+.verify__notic {
+    font-size: var(--font-size-md);
+    line-height: 2.5rem;
+}
+.verify__nationality {
+    margin-top: 4rem;
+}
+.verify__nationality-title {
+    display: block;
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    font-family: "iransans-medium";
+    color: var(--black-color);
+}
+.verify__nationality-subtitle {
+    font-size: var(--font-size-sm);
+}
+.verify__nationality-select {
+    position: relative;
+}
+.verify__nationality-select-wrapper {
+    display: flex;
+    justify-content: space-between;
+    border: var(--border);
+    border-radius: 0.3rem;
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+    cursor: pointer;
+}
+.verify__nationality-select-name {
+    font-size: 1.6rem;
+    font-family: "iransans-medium";
+    color: var(--black-color);
+}
+.verify__nationality-select-icon {
+    font-size: var(--font-size-md);
+}
+.verify__nationality-dropdown {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    top: 6rem;
+    background-color: var(--white-color);
+    width: 100%;
+    border-radius: 0.3rem;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08), 0 -8px 32px -4px rgba(0, 0, 0, 0.04),
+        0 16px 24px -6px rgba(0, 0, 0, 0.04);
+    transition: var(--transition);
+}
+.verify__nationality-dropdown-item {
+    padding: 1.5rem;
+    font-size: var(--font-size-md);
+    transition: var(--transition);
+    cursor: pointer;
+}
+.verify__nationality-dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.verify__national-code {
+    margin-top: 4rem;
+}
+.verify__national-code-title {
+    display: block;
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    font-family: "iransans-medium";
+    color: var(--black-color);
+}
+.verify__national-code-subtitle {
+    font-size: var(--font-size-sm);
+}
+.verify__national-code-form {
+    margin: 1rem 0;
+}
+.verify__national-input {
+    display: block;
+    padding: 1rem 1.5rem;
+    border-radius: 0.3rem;
+    width: 100%;
+    border: var(--border);
+    font-size: var(--font-size-md);
+}
+.verify__national-input:focus {
+    border: 1px solid var(--primary-color);
+}
+.verify__national-btn {
+    margin-top: 3rem;
+    border-radius: 0.3rem;
+    width: 100%;
+    padding: 1.5rem 0;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-size: 1.6rem;
+}
+/* *====================End Main Content====================* */
+
+/* !=======================================End Main Style!======================================= */
+
+/* !=======================================Country Modal Style!======================================= */
+.country-modal {
+    position: fixed;
+    margin: auto;
+    right: 0;
+    top: 0;
+    bottom: 3rem;
+    left: 0;
+    background-color: red;
+    width: 49rem;
+    height: 95%;
+    box-shadow: 0 8px 48px 8px rgba(0, 0, 0, 0.04), 0 12px 16px -8px rgba(0, 0, 0, 0.12),
+        0 24px 32px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 0.5rem;
+    background-color: var(--white-color);
+    z-index: 2;
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--transition);
+}
+.country-modal__header-wrapper {
+    padding: 2.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+}
+.country-modal__title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.country-modal__title {
+    font-size: var(--font-size-lg);
+    color: var(--black-color);
+    font-family: "iransans-bold";
+}
+.country-modal__btn {
+    font-size: var(--font-size-sm);
+    color: var(--primary-color);
+    border-radius: 2rem;
+    padding: 0.2rem 1rem;
+}
+.country-modal__btn:hover {
+    background-color: rgba(166, 38, 38, 0.1);
+}
+.country-modal__selected {
+    display: flex;
+    margin: 2rem 0;
+    padding: 0.5rem 0;
+    overflow-x: scroll;
+    scrollbar-color: rgba(0, 0, 0, 0.12) var(--white-color);
+    scrollbar-width: thin;
+}
+.country-modal__selected::-webkit-scrollbar {
+    height: 0.5rem;
+    background-color: var(--white-color);
+}
+.country-modal__selected::-webkit-scrollbar-button {
+    display: none;
+}
+.country-modal__selected::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.12);
+    border-radius: 2rem;
+}
+.country-modal__selected-item {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    border: 1px solid var(--primary-color);
+    background-color: rgba(166, 38, 38, 0.1);
+    border-radius: 2rem;
+    padding: 0.4rem 1rem;
+    margin-left: 1.5rem;
+}
+.country-modal__selected-text {
+    color: var(--primary-color);
+    font-size: var(--font-size-md);
+}
+.country-modal__selected-btn {
+    margin-right: 1rem;
+    padding: 0rem;
+}
+.country-modal__selected-btn:hover {
+    background-color: rgba(166, 38, 38, 0.1);
+    border-radius: 50%;
+}
+.country-modal__selected-icon {
+    color: var(--primary-color);
+    font-size: 1.7rem;
+}
+.country-modal__searchbar {
+    position: relative;
+}
+.country-modal__input {
+    width: 100%;
+    border: var(--border);
+    border-radius: 0.2rem;
+    font-size: 1.6rem;
+    padding: 0.8rem 4rem 0.8rem 1rem;
+    transition: all 0.4s ease;
+}
+.country-modal__input:focus {
+    border: 1px solid var(--primary-color);
+}
+.country-modal__icon {
+    font-size: 1.6rem;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 1.3rem;
+}
+.country-modal__cities {
+    padding: 0 3.5rem;
+    overflow-y: scroll;
+    height: 31rem;
+    scrollbar-width: none;
+}
+.country-modal__cities-list {
+    margin-bottom: 3rem;
+}
+.country-modal__cities::-webkit-scrollbar {
+    width: 0;
+}
+.country-modal__cities-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.6rem;
+    color: var(--black-color);
+    border-bottom: var(--border);
+    padding: 1.7rem 0;
+    cursor: pointer;
+}
+.country-modal__cities-checkbox {
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 0.3rem;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+.country-modal__cities-arrow-icon {
+    font-size: var(--font-size-lg);
+}
+.country-modal__footer {
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.12);
+    background-color: var(--white-color);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+.country-modal__footer-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 2rem 2.5rem;
+    /* height: 7rem; */
+}
+.country-modal__btn-footer {
+    width: 50%;
+    padding: 1.3rem 0;
+    margin: 0 0.6rem;
+    border-radius: 0.3rem;
+    font-size: 1.6rem;
+}
+.country-modal__close {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    transition: var(--transition);
+}
+.country-modal__close:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+    color: var(--black-color);
+}
+.country-modal__accept {
+    background-color: #f5f5f5;
+}
+.country-modal__accept--active {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-family: "iransans-bold";
+}
+/* !=======================================End Country Modal Style!======================================= */
+
+/* !=======================================Overlay Modal Style!======================================= */
+.overlay {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+/* !=======================================End Overlay Modal Style!======================================= */
+
+/* !=======================================Active Class Style!======================================= */
+/* به country-modal اد بشه */
+.country-modal--active {
+    opacity: 1;
+    visibility: visible;
+    bottom: 0;
+}
+/* به header__left-dropdown اد بشه */
+.header__left-dropdown--active {
+    visibility: visible;
+    opacity: 1;
+}
+.overlay--active {
+    opacity: 1;
+    visibility: visible;
+}
+/* باید به verify__nationality-dropdown-item اد بشه */
+.verify__nationality-dropdown-item--active {
+    background-color: rgba(0, 0, 0, 0.04);
+    color: var(--primary-color);
+}
+/* باید به verify__nationality-dropdown اد بشه */
+.verify__nationality-dropdown--active {
+    visibility: visible;
+    opacity: 1;
+    top: 4.5rem;
+}
+/* باید به verify__nationality-select-icon اد بشه */
+.verify__nationality-select-icon--active {
+    transform: rotate(180deg);
+}
+/* باید به sidebar__menu-link اد بشه */
+.sidebar__menu-link--active,
+.sidebar__menu-link--active * {
+    color: var(--primary-color);
+}
+.sidebar__menu-link--active:hover,
+.sidebar__menu-link--active *:hover {
+    color: var(--primary-color);
+}
+/* !=======================================End Active Class Style!======================================= */
