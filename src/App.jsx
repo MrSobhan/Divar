@@ -43,13 +43,13 @@ const App = () => {
   const [baseUrl, setBaseUrl] = useState("https://divarapi.liara.run")
 
   return (
-    <>
+    <div className="testtt">
       <AuthContext.Provider
         value={{
           getCookie,
           baseUrl,
           setLocalStorage,
-          getLocalStorage,
+          getLocalStorage
         }}
       >
         {router}
@@ -61,7 +61,7 @@ const App = () => {
           </div>
         )
       }
-    </>
+    </div>
   );
 }
 

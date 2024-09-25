@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-const BodyCategoryItem = ({ backToAllCategories, title, subCategories }) => {
+const BodyCategoryItem = ({ backToAllCategories, title, subCategories , catID }) => {
     return (
         <li className="sidebar__category-item">
             <div className="all-categories" onClick={backToAllCategories}>
@@ -18,7 +18,7 @@ const BodyCategoryItem = ({ backToAllCategories, title, subCategories }) => {
                     {subCategories?.map(subCategory => (
 
                         <li key={subCategory._id} >
-                            <Link to={'/main/' + subCategory._id}>{subCategory.title}</Link>
+                            <Link to={'/main/' + subCategory._id} className={subCategory._id == catID ? 'text-danger' : ''}>{subCategory.title}</Link>
                             {/* {subCategory.title} */}
                         </li>
 

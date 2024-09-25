@@ -14,7 +14,7 @@ const Sidebar = () => {
 
     const [category, setCategory] = useState([])
     const [subCategory, setSubCategory] = useState([])
-    const [subSubCategory, setSubSubCategory] = useState([])
+    // const [subSubCategory, setSubSubCategory] = useState([])
     const [mainCategory, setMainCategory] = useState([])
     const [filtersSubCategory, setFiltersSubCategory] = useState([])
     useEffect(() => {
@@ -26,24 +26,15 @@ const Sidebar = () => {
 
     }, [])
     useEffect(() => {
-        
-        
+
         if (categoryId) {
             setMainCategory(category.filter(category => category._id == categoryId))
 
             category.forEach(category => {
                 let filterArrySub = category.subCategories.filter((sub) => sub._id == categoryId)
 
-                if (subCategory.length == 0 && filterArrySub.length != 0) {
+                if (filterArrySub.length != 0 && subCategory != filterArrySub) {
                     setSubCategory(filterArrySub)
-                } else {
-                    category.subCategories.forEach((sub) => {
-                        let filterArrySubSub = sub.subCategories.filter((subSub => subSub._id == categoryId))
-                        if (subSubCategory.length == 0 && filterArrySubSub.length != 0) {
-                            setSubSubCategory([{ name: filterArrySubSub[0].title, parent: sub.title }])
-                        }
-
-                    })
                 }
 
 
@@ -52,10 +43,10 @@ const Sidebar = () => {
 
     }, [categoryId])
 
-    useEffect(() => {
-    console.log(filtersSubCategory);
-    
-    }, [filtersSubCategory])
+    // useEffect(() => {
+    // console.log(filtersSubCategory);
+
+    // }, [filtersSubCategory])
 
 
 
@@ -66,7 +57,7 @@ const Sidebar = () => {
     const backToAllCategories = () => {
         navigetor('/main')
     }
-  
+
 
     return (
         <div className="sidebar">
@@ -78,28 +69,22 @@ const Sidebar = () => {
                         categoryId ?
                             (mainCategory.length != 0 ? (mainCategory.map((category) => (
 
-                                <BodyCategoryItem {...category} key={category._id} backToAllCategories={backToAllCategories} />
+                                <BodyCategoryItem {...category} key={category._id} backTollCategories={backToAllCategories} />
 
-                            ))) : (subSubCategory.length == 0 ? (
+                            ))) : (subCategory.length != 0 && (
                                 subCategory.map((category) => (
 
 
                                     <>
-                                        <BodyCategoryItem {...category} key={category._id} backToAllCategories={backToAllCategories} />
+                                        <BodyCategoryItem {...category} key={category._id} backToAllCategories={backToAllCategories} catID={categoryId} />
                                         {/* {category.filters.length != 0 && filtersSubCategory.length == 0 && setFiltersSubCategory(category.filters)} */}
                                         {/* {filterArry.push(subCategory.filters)} */}
-                                        {/* {console.log(category.filters)} */}
+                                        {/* {console.log(category)} */}
 
                                     </>
 
 
                                 ))
-                            ) : (
-                                <>
-                                    <h5>{subSubCategory[0]?.parent}</h5>
-                                    <p>{subSubCategory[0]?.name}</p>
-                                </>
-
                             )
 
 
@@ -126,7 +111,6 @@ const Sidebar = () => {
                 {
 
                     useEffect(() => {
-
                         filtersSubCategory.length != 0 && filtersSubCategory.map(filter => (
 
                             filter.type == 'selectbox' ? (

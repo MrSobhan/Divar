@@ -1,6 +1,8 @@
 /* Start Default Styles */
 
 html {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   font-size: 62.5%;
 }
@@ -9,6 +11,7 @@ body {
   line-height: 1.6;
   font-size: 1.6rem;
   direction: rtl;
+  background-color: var(--white-color);
 }
 
 *,

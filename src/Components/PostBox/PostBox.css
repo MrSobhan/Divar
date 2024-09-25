@@ -5,6 +5,7 @@
     border-radius: 0.3rem;
     padding: 1.5rem 2rem;
     margin: 1rem 0;
+    background-color: var(--white-color);
 }
 
 .product-card__right {

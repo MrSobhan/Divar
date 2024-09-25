@@ -5,12 +5,12 @@
     display: none;
 }
 .sidebar__category {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: var(--border);
     min-height: 235px;
 }
 .sidebar__category-title {
     font-size:1.2rem;
-    color:#000;
+    color:var(--black-color);
     font-family: "iransans-medium";
 }
 .sidebar__category-list {
@@ -64,11 +64,10 @@ display: block !important;
     /* flex-flow: column; */
 }
 .sidebar__category-link:hover .sidebar__category-icon {
-    color:#000;
+    color:var(--black-color);
 }
 .sidebar__category-icon {
     margin-left: 0.5rem;
     display: inline;
 }
-
 /* ==========End Sidebar Category========== */

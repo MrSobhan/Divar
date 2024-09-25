@@ -1,13 +1,12 @@
-import React, { useEffect, useState, useContext } from 'react';
-import AuthContext from '../../context/authContext';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
 import './HeaderMain.css'
 
-const HeaderMain = () => {
-    const authContext = useContext(AuthContext)
-    const { categoryId } = useParams()
-    const navigetor = useNavigate()
-    const [valueSearch, setValueSearch] = useState(authContext.getLocalStorage('valueSearch'))
+const HeaderMain = ({ changeValueSearch,
+    emptyValueSearch,
+    keyUpInputHandler,
+    valueSearch,
+    setValueSearch }) => {
+
     const [activeModal, setActiveModal] = useState(false)
     const [popularSearch, setPopularSearch] = useState(['خودروسواری',
         'اپارتمان',
@@ -18,25 +17,6 @@ const HeaderMain = () => {
         'تلویزیون'
     ])
 
-    useEffect(() => {
-        window.addEventListener('keyup', (e) => {
-            if (e.keyCode == 13) {
-                // console.log('Good!' , valueSearch);
-                authContext.setLocalStorage('valueSearch', valueSearch)
-                navigetor(`/main/${categoryId ? categoryId : ''}`)
-            }
-        })
-    }, [valueSearch, categoryId])
-
-    const changeValueSearch = (value) => {
-        setValueSearch(value)
-    }
-
-    const emptyValueSearch = () => {
-        setValueSearch('')
-        authContext.setLocalStorage('valueSearch', '')
-        navigetor(`/main`)
-    }
     return (
         <header className="header">
             <div className="container-fluid">
@@ -316,7 +296,7 @@ const HeaderMain = () => {
                         </div>
                         <div className="header__searchbar">
                             <div className="header__form">
-                                <input className="header__form-input" type="text" placeholder="جستجو در تمام آگهی ها..." value={valueSearch} onChange={(e) => changeValueSearch(e.target.value)} onMouseEnter={() => setActiveModal(true)} />
+                                <input className="header__form-input" type="text" placeholder="جستجو در تمام آگهی ها..." value={valueSearch} onChange={(e) => changeValueSearch(e.target.value)} onMouseEnter={() => setActiveModal(true)} onKeyUp={(e) => keyUpInputHandler(e)} />
                                 <i className={valueSearch?.length != 0 ? 'bi bi-x-circle active' : 'bi bi-x-circle'} onClick={emptyValueSearch}></i>
                             </div>
                             <i className="header__searchbar-icon bi bi-search"></i>
@@ -324,9 +304,9 @@ const HeaderMain = () => {
                                 <span className="header__searchbar-dropdown-title">بیشترین جستجوهای دیوار</span>
                                 <ul className="header__searchbar-dropdown-list">
                                     {
-                                        popularSearch.map((item) => (
+                                        popularSearch.map((item , index) => (
 
-                                            <li className="header__searchbar-dropdown-item">
+                                            <li className="header__searchbar-dropdown-item" key={index}>
                                                 <a className="header__searchbar-dropdown-link" href="#" onClick={(e) => setValueSearch(e.target.innerHTML)}>{item}</a>
                                             </li>
                                         ))
