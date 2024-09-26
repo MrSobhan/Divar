@@ -2,33 +2,46 @@ import React, { useContext, useEffect, useState } from 'react';
 import HeaderMain from '../../Components/HeaderMain/HeaderMain'
 import Sidebar from '../../Components/Sidebar/Sidebar'
 import AuthContext from '../../context/authContext';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import PostBox from '../../Components/PostBox/PostBox';
 import './Main.css'
 
 const Main = () => {
     const authContext = useContext(AuthContext)
-    const { categoryId } = useParams()
+    const navigator = useNavigate()
+    const { categoryId , urgent } = useParams()
     const [posts, setPosts] = useState([])
     const [valueSearch, setValueSearch] = useState('')
     const citiesIDs = authContext.getLocalStorage('city')
 
 
-    const fetchApi = (isEmpty) => {
-        let Url = `${authContext.baseUrl}/v1/post/?city=${citiesIDs[0].id}`
-        Url += categoryId ? `&categoryId=${categoryId}` : ''
-        Url += isEmpty && (valueSearch != '' ? `&search=${valueSearch}` : '')
+    // const fetchApi = (isEmpty) => {
+    //     let Url = `${authContext.baseUrl}/v1/post/?city=${citiesIDs[0].id}`
+    //     Url += categoryId ? `&categoryId=${categoryId}` : ''
+    //     Url += isEmpty && (valueSearch != '' ? `&search=${valueSearch}` : '')
 
-        fetch(Url)
-            .then(res => res.json()).then(posts => {
-                setPosts(posts.data.posts);
-                console.log(posts.data.posts);
+    //     fetch(Url)
+    //         .then(res => res.json()).then(posts => {
+    //             setPosts(posts.data.posts);
+    //             console.log(posts.data.posts);
 
-            })
-    }
+    //         })
+    // }
+
+    // useEffect(() => {
+    //     authContext.fetchApi(true, valueSearch, categoryId).then(posts => { setPosts(posts.data.posts) })
+
+    // }, [categoryId])
+
 
     useEffect(() => {
-        fetchApi(true)
+        authContext.fetchApi(valueSearch, categoryId)
+        .then(posts => { setPosts(posts.data.posts) })
+        if (!citiesIDs) {
+            navigator('/')
+        }
+        console.log(location);
+        
     }, [categoryId])
 
 
@@ -40,27 +53,28 @@ const Main = () => {
     const changeValueSearch = (value) => {
         setValueSearch(value)
     }
-
     const emptyValueSearch = () => {
         setValueSearch('')
-        fetchApi(false)
+        authContext.fetchApi(fvalueSearch, categoryId)
+        .then(posts => { setPosts(posts.data.posts) })
     }
     const keyUpInputHandler = (e) => {
         if (e.keyCode == 13) {
-            fetchApi(true)
+            authContext.fetchApi(valueSearch, categoryId)
+            .then(posts => { setPosts(posts.data.posts) })
         }
     }
 
     return (
         <>
             <HeaderMain
-                changeValueSearch={(val)=>changeValueSearch(val)}
+                changeValueSearch={(value) => changeValueSearch(value)}
                 emptyValueSearch={emptyValueSearch}
-                keyUpInputHandler={(event)=>keyUpInputHandler(event)}
+                keyUpInputHandler={(event) => keyUpInputHandler(event)}
                 valueSearch={valueSearch}
                 setValueSearch={setValueSearch}
             />
-            <main className="main">
+            <main className="main-container">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-3">
@@ -70,7 +84,7 @@ const Main = () => {
                             <div className="row">
 
                                 {
-                                    posts.length != 0 ? (posts.map((post) => <PostBox key={post._id} {...post} />)) : (
+                                    posts?.length != 0 ? (posts.map((post) => <PostBox key={post._id} {...post} />)) : (
                                         <div className='col-12'>
                                             <p className="empty w-100">آگهی یافت نشد</p>
                                         </div>

@@ -47,7 +47,6 @@ const Index = () => {
 
 
     return (
-
         <>
             <Header />
             <main className="main">

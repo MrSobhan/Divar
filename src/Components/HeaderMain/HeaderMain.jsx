@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import AuthContext from '../../context/authContext';
 import './HeaderMain.css'
 
 const HeaderMain = ({ changeValueSearch,
@@ -7,6 +8,9 @@ const HeaderMain = ({ changeValueSearch,
     valueSearch,
     setValueSearch }) => {
 
+    const authContext = useContext(AuthContext)
+    const darkMode = authContext.getLocalStorage('theme')
+    const [theme, setTheme] = useState('dark')
     const [activeModal, setActiveModal] = useState(false)
     const [popularSearch, setPopularSearch] = useState(['خودروسواری',
         'اپارتمان',
@@ -16,6 +20,38 @@ const HeaderMain = ({ changeValueSearch,
         'استخدام',
         'تلویزیون'
     ])
+
+    const darkModeHandler = () => {
+        // if (darkMode) {
+        setTheme(prevState => {
+            let ThemeMode = prevState == 'dark' ? 'light' : 'dark'
+            authContext.setLocalStorage('theme', ThemeMode)
+            return ThemeMode
+        })
+        // }
+    }
+
+    useEffect(() => {
+        if (darkMode) {
+            setTheme(darkMode)
+        }
+    }, [darkMode])
+
+    useEffect(() => {
+        if (theme == 'dark') {
+            document.documentElement.style.setProperty('--white-color', '#242424');
+            document.documentElement.style.setProperty('--text-color', 'rgba(255, 255, 255, 0.56)');
+            document.documentElement.style.setProperty('--black-color', '#fff');
+            document.documentElement.style.setProperty('--border', '1px solid rgba(255, 255, 255, 0.2)');
+        } else {
+            document.documentElement.style.setProperty('--white-color', '#f4f4f4');
+            document.documentElement.style.setProperty('--text-color', 'rgba(0, 0, 0, 0.56)');
+            document.documentElement.style.setProperty('--black-color', '#242424');
+            document.documentElement.style.setProperty('--border', '1px solid rgba(0, 0, 0, 0.2)');
+
+        }
+        console.log('change!!!');
+    }, [theme])
 
     return (
         <header className="header">
@@ -294,17 +330,17 @@ const HeaderMain = ({ changeValueSearch,
                                 </div>
                             </div>
                         </div>
-                        <div className="header__searchbar">
+                        <div className="header__searchbar" onMouseLeave={() => setActiveModal(false)}>
                             <div className="header__form">
                                 <input className="header__form-input" type="text" placeholder="جستجو در تمام آگهی ها..." value={valueSearch} onChange={(e) => changeValueSearch(e.target.value)} onMouseEnter={() => setActiveModal(true)} onKeyUp={(e) => keyUpInputHandler(e)} />
                                 <i className={valueSearch?.length != 0 ? 'bi bi-x-circle active' : 'bi bi-x-circle'} onClick={emptyValueSearch}></i>
                             </div>
                             <i className="header__searchbar-icon bi bi-search"></i>
-                            <div className="header__searchbar-dropdown" style={{ display: activeModal ? '' : 'none' }} onMouseLeave={() => setActiveModal(false)}>
+                            <div className="header__searchbar-dropdown" style={{ display: activeModal ? '' : 'none' }}>
                                 <span className="header__searchbar-dropdown-title">بیشترین جستجوهای دیوار</span>
                                 <ul className="header__searchbar-dropdown-list">
                                     {
-                                        popularSearch.map((item , index) => (
+                                        popularSearch.map((item, index) => (
 
                                             <li className="header__searchbar-dropdown-item" key={index}>
                                                 <a className="header__searchbar-dropdown-link" href="#" onClick={(e) => setValueSearch(e.target.innerHTML)}>{item}</a>
@@ -317,6 +353,19 @@ const HeaderMain = ({ changeValueSearch,
                         </div>
                     </div>
                     <div className="header__left">
+                        {
+                            theme == 'dark' ? (
+                                <a className="header__left-link" href="#" onClick={darkModeHandler}>
+                                    <i className="header__left-icon bi bi-brightness-high"></i>
+                                    حالت روشن
+                                </a>
+                            ) : (
+                                <a className="header__left-link" href="#" onClick={darkModeHandler}>
+                                    <i className="header__left-icon bi bi-moon"></i>
+                                    حالت تاریک
+                                </a>
+                            )
+                        }
                         <a className="header__left-link" href="#">
                             <i className="header__left-icon bi bi-person"></i>
                             دیوار من

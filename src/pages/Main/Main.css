@@ -1,9 +1,9 @@
 /* !=======================================Main Style!======================================= */
-.main {
-    margin-top: 10rem;
+.main-container {
+    margin-top: 8rem;
     /* background-color: aqua; */
+    min-width: 1530px;
 }
-
 
 /* ==========Sidebar Filter========== */
 .sidebar__filter {
@@ -75,9 +75,10 @@
 }
 
 .sidebar__filter-condition {
+    position: relative;
     margin: 0 1rem;
-    max-height: 0;
-    overflow: hidden;
+    /* max-height: 0; */
+    /* overflow: hidden; */
     transition: max-height 0.4s ease;
 }
 

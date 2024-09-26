@@ -5,7 +5,8 @@ const AuthContext = createContext({
     getCookie: () => { },
     baseUrl: "",
     setLocalStorage: () => { },
-    getLocalStorage: () => { }
+    getLocalStorage: () => { },
+    fetchApi: () => { }
 });
 
 export default AuthContext;

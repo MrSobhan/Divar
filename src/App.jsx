@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRoutes } from "react-router-dom";
+import { useRoutes , useParams } from "react-router-dom";
 import AuthContext from "./context/authContext";
 import routes from "./routes";
 
@@ -14,7 +14,7 @@ const App = () => {
   const [allCookie, setAllCookie] = useState(document.cookie)
 
   useEffect(() => {
-    window.addEventListener('load' , setIsLoad(false))
+    window.addEventListener('load', setIsLoad(false))
   }, [])
 
   const getCookie = (param) => {
@@ -39,17 +39,34 @@ const App = () => {
     return JSON.parse(localStorage.getItem(key))
   }
 
-
   const [baseUrl, setBaseUrl] = useState("https://divarapi.liara.run")
 
+  
+  const fetchApi = (valueSearch , categoryId) => {
+    const citiesIDs = getLocalStorage('city')
+    
+
+    let Url = `${baseUrl}/v1/post/?city=${citiesIDs[0].id}`
+    Url += categoryId ? `&categoryId=${categoryId}` : ''
+    Url += valueSearch != '' ? `&search=${valueSearch}` : ''
+    
+    return fetch(Url)
+      .then(res => res.json())
+  
+  }
+
+
+  
+
   return (
-    <div className="testtt">
+    <div>
       <AuthContext.Provider
         value={{
           getCookie,
           baseUrl,
           setLocalStorage,
-          getLocalStorage
+          getLocalStorage,
+          fetchApi
         }}
       >
         {router}

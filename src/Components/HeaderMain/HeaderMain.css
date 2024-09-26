@@ -159,9 +159,6 @@
 .header__category-dropdown-title:hover {
   color: var(--primary-color);
 }
-.header__category-dropdown-item{
-
-}
 .header__category-dropdown-link{
   display: block;
   font-size: var(--font-size-sm);
@@ -221,6 +218,7 @@
   justify-content: space-evenly;
   background-color: rgba(0, 0, 0, 0.04);
   padding-left: 1rem;
+  border: var(--border);
 }
 
 .header__form > i{
@@ -296,6 +294,14 @@ display: block;
   font-size: var(--font-size-md);
 }
 /* End Drop Down */
+.header__left-icon.bi-brightness-high {
+  font-size: var(--font-size-md);
+  margin-left: 0.7rem;
+}
+.header__left-icon.bi-moon {
+  font-size: var(--font-size-md);
+  margin-left: 0.7rem;
+}
 .header__left-icon.bi-person {
   font-size: var(--font-size-lg);
   margin-left: 0.7rem;

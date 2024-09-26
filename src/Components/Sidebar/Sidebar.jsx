@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useCallback } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import AuthContext from '../../context/authContext'
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import './Sidebar.css'
@@ -51,7 +51,7 @@ const Sidebar = () => {
 
 
     const changeInputHandler = () => {
-        //codes...
+        navigetor('/main/urgent=true')
     }
 
     const backToAllCategories = () => {
@@ -69,7 +69,7 @@ const Sidebar = () => {
                         categoryId ?
                             (mainCategory.length != 0 ? (mainCategory.map((category) => (
 
-                                <BodyCategoryItem {...category} key={category._id} backTollCategories={backToAllCategories} />
+                                <BodyCategoryItem {...category} key={category._id} backToAllCategories={backToAllCategories} />
 
                             ))) : (subCategory.length != 0 && (
                                 subCategory.map((category) => (
@@ -247,7 +247,7 @@ const Sidebar = () => {
                             </div>
                             <div className="sidebar__filter-condition-left">
                                 <label className="sidebar__filter-condition-switch">
-                                    <input className="sidebar__filter-condition-input" type="checkbox" checked={true} onChange={changeInputHandler} />
+                                    <input className="sidebar__filter-condition-input" type="checkbox" checked={false} onChange={changeInputHandler} />
                                     <span className="sidebar__filter-condition-slider"></span>
                                 </label>
                             </div>
