@@ -9,40 +9,77 @@ import './Main.css'
 const Main = () => {
     const authContext = useContext(AuthContext)
     const navigator = useNavigate()
-    const { categoryId , urgent } = useParams()
+    const { categoryId } = useParams()
     const [posts, setPosts] = useState([])
     const [valueSearch, setValueSearch] = useState('')
+    const [isLoad, setIsLoad] = useState(true)
+
+    const [arryFilter, setArryFilter] = useState(authContext.filtersPosts.filter)
+    const [minPrice, setMinPrice] = useState(authContext.filtersPosts.price.min)
+    const [maxPrice, setMaxPrice] = useState(authContext.filtersPosts.price.max)
+
+
     const citiesIDs = authContext.getLocalStorage('city')
 
 
-    // const fetchApi = (isEmpty) => {
-    //     let Url = `${authContext.baseUrl}/v1/post/?city=${citiesIDs[0].id}`
-    //     Url += categoryId ? `&categoryId=${categoryId}` : ''
-    //     Url += isEmpty && (valueSearch != '' ? `&search=${valueSearch}` : '')
+    const fetchApi = (isEmpty) => {
+        setIsLoad(true)
+        let Url = `${authContext.baseUrl}/v1/post/?city=${citiesIDs[0].id}`
+        Url += categoryId ? `&categoryId=${categoryId}` : ''
+        Url += isEmpty && (valueSearch != '' ? `&search=${valueSearch}` : '')
 
-    //     fetch(Url)
-    //         .then(res => res.json()).then(posts => {
-    //             setPosts(posts.data.posts);
-    //             console.log(posts.data.posts);
+        fetch(Url)
+            .then(res => res.json()).then(posts => {
+                setIsLoad(false)
+                let filteredPosts = posts.data.posts
 
-    //         })
-    // }
 
-    // useEffect(() => {
-    //     authContext.fetchApi(true, valueSearch, categoryId).then(posts => { setPosts(posts.data.posts) })
+                if (arryFilter.includes('justPhoto')) {
+                    filteredPosts = filteredPosts.filter((post) => post.pics.length);
+                }
+                if (arryFilter.includes('exchange')) {
+                    filteredPosts = filteredPosts.filter((post) => post.exchange);
+                }
+                console.log(authContext.filtersPosts.price);
 
-    // }, [categoryId])
+                // min / max price filtering
 
+                if (maxPrice != 0) {
+                    if (minPrice != 0) {
+                        filteredPosts = filteredPosts.filter(
+                            (post) => post.price >= minPrice && post.price <= maxPrice
+                        );
+                    } else {
+                        filteredPosts = filteredPosts.filter((post) => post.price <= maxPrice);
+                    }
+                } else {
+                    if (minPrice != 0) {
+                        filteredPosts = filteredPosts.filter((post) => post.price >= minPrice);
+                    }
+                }
+
+
+                setPosts(filteredPosts)
+
+            })
+    }
 
     useEffect(() => {
-        authContext.fetchApi(valueSearch, categoryId)
-        .then(posts => { setPosts(posts.data.posts) })
-        if (!citiesIDs) {
-            navigator('/')
-        }
-        console.log(location);
-        
-    }, [categoryId])
+        fetchApi(true)
+    }, [categoryId, arryFilter,minPrice, maxPrice])
+
+
+
+
+    // useEffect(() => {
+    //     authContext.fetchApi(valueSearch, categoryId)
+    //     .then(posts => { setPosts(posts.data.posts) })
+    //     if (!citiesIDs) {
+    //         navigator('/')
+    //     }
+    //     console.log(location);
+
+    // }, [categoryId])
 
 
 
@@ -55,13 +92,11 @@ const Main = () => {
     }
     const emptyValueSearch = () => {
         setValueSearch('')
-        authContext.fetchApi(fvalueSearch, categoryId)
-        .then(posts => { setPosts(posts.data.posts) })
+        fetchApi(false)
     }
     const keyUpInputHandler = (e) => {
         if (e.keyCode == 13) {
-            authContext.fetchApi(valueSearch, categoryId)
-            .then(posts => { setPosts(posts.data.posts) })
+            fetchApi(true)
         }
     }
 
@@ -78,7 +113,10 @@ const Main = () => {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-3">
-                            <Sidebar />
+                            <Sidebar
+                                setArryFilter={setArryFilter}
+                                setMinPrice={setMinPrice}
+                                setMaxPrice={setMaxPrice} />
                         </div>
                         <div className="col-9">
                             <div className="row">
@@ -96,6 +134,13 @@ const Main = () => {
                     </div>
                 </div>
             </main>
+            {
+                isLoad && (
+                    <div id="loading-container">
+                        <div id="loading"></div>
+                    </div>
+                )
+            }
         </>
     );
 }

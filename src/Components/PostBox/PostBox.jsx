@@ -54,7 +54,7 @@ const PostBox = ({ _id, title,
                             :
                             <img
                                 className="product-card__img img-fluid"
-                                src="/public/images/main/noPicture.PNG"
+                                src="../../public/images/main/noPicture.png"
                             />
                     }
 

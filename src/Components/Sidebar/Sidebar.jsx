@@ -1,27 +1,28 @@
 import React, { useEffect, useState, useContext } from 'react';
 import AuthContext from '../../context/authContext'
 import { useNavigate, Link, useParams } from 'react-router-dom';
-import './Sidebar.css'
 import Social from '../Social/Social';
 import BodyCategoryItem from '../bodyCategoryItem/bodyCategoryItem';
+import Accordion from 'react-bootstrap/Accordion';
+import './Sidebar.css'
 
-const Sidebar = () => {
+const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice }) => {
     const authContext = useContext(AuthContext)
     const { categoryId } = useParams()
     const navigetor = useNavigate()
 
-    // console.log(categoryId);
 
     const [category, setCategory] = useState([])
     const [subCategory, setSubCategory] = useState([])
-    // const [subSubCategory, setSubSubCategory] = useState([])
     const [mainCategory, setMainCategory] = useState([])
     const [filtersSubCategory, setFiltersSubCategory] = useState([])
+    const [justPhotoController, setJustPhotoController] = useState(false)
+    const [exchangeController, setExchangeController] = useState(false)
+
     useEffect(() => {
         fetch(`${authContext.baseUrl}/v1/category`)
             .then(res => res.json()).then(category => {
                 setCategory(category.data.categories);
-                // console.log(category.data.categories);
             })
 
     }, [])
@@ -43,15 +44,23 @@ const Sidebar = () => {
 
     }, [categoryId])
 
-    // useEffect(() => {
-    // console.log(filtersSubCategory);
 
-    // }, [filtersSubCategory])
 
 
 
     const changeInputHandler = () => {
-        navigetor('/main/urgent=true')
+        authContext.filtersPosts.filter = []
+
+        if (justPhotoController) {
+            authContext.filtersPosts.filter.push('justPhoto')
+        }
+        if (exchangeController) {
+            authContext.filtersPosts.filter.push('exchange')
+        }
+
+        setArryFilter(authContext.filtersPosts.filter)
+
+
     }
 
     const backToAllCategories = () => {
@@ -114,7 +123,7 @@ const Sidebar = () => {
                         filtersSubCategory.length != 0 && filtersSubCategory.map(filter => (
 
                             filter.type == 'selectbox' ? (
-                                <div class="sidebar__filter" key={filter._id}>
+                                <div className="sidebar__filter" key={filter._id}>
                                     <div className="accordion accordion-flush" id="accordionFlushExample">
                                         <div className="accordion-item">
                                             <h2 className="accordion-header">
@@ -152,10 +161,10 @@ const Sidebar = () => {
                                     </div>
                                 </div>
                             ) : (
-                                <div class="sidebar__filter" key={filter._id}>
-                                    <label class="switch">
-                                        <input id="exchange_controll" class="icon-controll" type="checkbox" />
-                                        <span class="slider round"></span>
+                                <div className="sidebar__filter" key={filter._id}>
+                                    <label className="switch">
+                                        <input id="exchange_controll" className="icon-controll" type="checkbox" />
+                                        <span className="slider round"></span>
                                     </label>
                                     <p>{filter.name}</p>
                                 </div>
@@ -203,7 +212,7 @@ const Sidebar = () => {
 
                 </div> */}
 
-                <div className="sidebar__filter">
+                {/* <div className="sidebar__filter">
                     <div className="sidebar__filter-title-wrapper">
                         <i className="sidebar__filter-icon bi bi-chevron-down"></i>
                         <span className="sidebar__filter-title">قیمت</span>
@@ -234,7 +243,57 @@ const Sidebar = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
+
+                <Accordion defaultActiveKey="0" className='my-4'>
+                    <Accordion.Item eventKey="0">
+                        <Accordion.Header>
+                            <span className="sidebar__filter-title">قیمت</span>
+                        </Accordion.Header>
+                        <Accordion.Body>
+                            <div className="sidebar__filter-price-wrapper my-2">
+                                <label className="sidebar__filter-price-label">حداقل</label>
+                                <select className='form-control mx-3 sidebar__formSelect' id="min-price-selectbox" onChange={(e)=> setMinPrice(e.target.value)}>
+                                    <option value="0">مبلغ پیشفرض</option>
+                                    <option value="10000">10 هزار</option>
+                                    <option value="50000">50 هزار</option>
+                                    <option value="200000">200 هزار</option>
+                                    <option value="500000">500 هزار</option>
+                                    <option value="1000000">1 میلیون</option>
+                                    <option value="5000000">5 میلیون</option>
+                                    <option value="10000000">10 میلیون</option>
+                                    <option value="20000000">20 میلیون</option>
+                                    <option value="50000000">50 میلیون</option>
+                                    <option value="100000000">100 میلیون</option>
+                                    <option value="150000000">150 میلیون</option>
+                                    <option value="200000000">200 میلیون</option>
+                                </select>
+                                <p className='fs-6'>تومان</p>
+                            </div>
+                            <div className="sidebar__filter-price-wrapper mt-4">
+                                <label className="sidebar__filter-price-label">حداکثر</label>
+                                <select className='form-control mx-3 sidebar__formSelect' id="max-price-selectbox" onChange={(e)=> setMaxPrice(e.target.value)}>
+                                    <option value="0">مبلغ پیشفرض</option>
+                                    <option value="10000">10 هزار</option>
+                                    <option value="50000">50 هزار</option>
+                                    <option value="200000">200 هزار</option>
+                                    <option value="500000">500 هزار</option>
+                                    <option value="1000000">1 میلیون</option>
+                                    <option value="5000000">5 میلیون</option>
+                                    <option value="10000000">10 میلیون</option>
+                                    <option value="20000000">20 میلیون</option>
+                                    <option value="50000000">50 میلیون</option>
+                                    <option value="100000000">100 میلیون</option>
+                                    <option value="150000000">150 میلیون</option>
+                                    <option value="200000000">200 میلیون</option>
+                                </select>
+                                <p className='fs-6'>تومان</p>
+                            </div>
+                        </Accordion.Body>
+                    </Accordion.Item>
+
+                </Accordion>
+
                 <div className="sidebar__filter">
                     <div className="sidebar__filter-title-wrapper">
                         <i className="sidebar__filter-icon bi bi-chevron-down"></i>
@@ -247,19 +306,19 @@ const Sidebar = () => {
                             </div>
                             <div className="sidebar__filter-condition-left">
                                 <label className="sidebar__filter-condition-switch">
-                                    <input className="sidebar__filter-condition-input" type="checkbox" checked={false} onChange={changeInputHandler} />
-                                    <span className="sidebar__filter-condition-slider"></span>
+                                    <input className="sidebar__filter-condition-input" type="checkbox" checked={justPhotoController} onChange={changeInputHandler} />
+                                    <span className="sidebar__filter-condition-slider" onClick={() => setJustPhotoController((prev) => !prev)}></span>
                                 </label>
                             </div>
                         </div>
                         <div className="sidebar__filter-condition-wrapper">
                             <div className="sidebar__filter-condition-right">
-                                <label className="sidebar__filter-condition-label">فقط فوری ها</label>
+                                <label className="sidebar__filter-condition-label">معاوضه</label>
                             </div>
                             <div className="sidebar__filter-condition-left">
                                 <label className="sidebar__filter-condition-switch">
-                                    <input className="sidebar__filter-condition-input" type="checkbox" checked={true} onChange={changeInputHandler} />
-                                    <span className="sidebar__filter-condition-slider"></span>
+                                    <input className="sidebar__filter-condition-input" type="checkbox" checked={exchangeController} onChange={changeInputHandler} />
+                                    <span className="sidebar__filter-condition-slider" onClick={() => setExchangeController((prev) => !prev)}></span>
                                 </label>
                             </div>
                         </div>

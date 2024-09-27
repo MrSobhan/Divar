@@ -2,7 +2,8 @@
 .main-container {
     margin-top: 8rem;
     /* background-color: aqua; */
-    min-width: 1530px;
+    width: 1530px;
+    padding: 0 50px;
 }
 
 /* ==========Sidebar Filter========== */
@@ -94,7 +95,7 @@
 
 .sidebar__filter-condition-label {
     font-size: var(--font-size-sm);
-    color: rgba(0, 0, 0, 0.87);
+    color: var(--black-color);
     font-family: "iransans-medium";
 }
 

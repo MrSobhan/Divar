@@ -10,12 +10,11 @@ const App = () => {
 
   const router = useRoutes(routes);
 
-  const [isLoad, setIsLoad] = useState(true)
   const [allCookie, setAllCookie] = useState(document.cookie)
 
-  useEffect(() => {
-    window.addEventListener('load', setIsLoad(false))
-  }, [])
+  // useEffect(() => {
+  //   window.addEventListener('load', setIsLoad(false))
+  // }, [])
 
   const getCookie = (param) => {
     const paramValue = param + '='
@@ -42,43 +41,36 @@ const App = () => {
   const [baseUrl, setBaseUrl] = useState("https://divarapi.liara.run")
 
   
-  const fetchApi = (valueSearch , categoryId) => {
-    const citiesIDs = getLocalStorage('city')
+  // const fetchApi = (valueSearch , categoryId) => {
+  //   const citiesIDs = getLocalStorage('city')
     
 
-    let Url = `${baseUrl}/v1/post/?city=${citiesIDs[0].id}`
-    Url += categoryId ? `&categoryId=${categoryId}` : ''
-    Url += valueSearch != '' ? `&search=${valueSearch}` : ''
+  //   let Url = `${baseUrl}/v1/post/?city=${citiesIDs[0].id}`
+  //   Url += categoryId ? `&categoryId=${categoryId}` : ''
+  //   Url += valueSearch != '' ? `&search=${valueSearch}` : ''
     
-    return fetch(Url)
-      .then(res => res.json())
+  //   return fetch(Url)
+  //     .then(res => res.json())
   
-  }
+  // }
+
+  const filtersPosts = {price : {min : 0 , max : 0} , filter : []}
 
 
   
 
   return (
-    <div>
       <AuthContext.Provider
         value={{
           getCookie,
           baseUrl,
           setLocalStorage,
           getLocalStorage,
-          fetchApi
+          filtersPosts
         }}
       >
         {router}
       </AuthContext.Provider>
-      {
-        isLoad && (
-          <div id="loading-container">
-            <div id="loading"></div>
-          </div>
-        )
-      }
-    </div>
   );
 }
 

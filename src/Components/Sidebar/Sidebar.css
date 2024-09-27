@@ -70,4 +70,14 @@ display: block !important;
     margin-left: 0.5rem;
     display: inline;
 }
+.sidebar__formSelect option{
+    background-color: var(--white-color);
+    color: var(--black-color);
+}
+.accordion{
+    --bs-accordion-bg: var(--white-color) !important;
+}
+/* .accordion-button::after{
+    background-color: var(--white-color) !important;
+} */
 /* ==========End Sidebar Category========== */
