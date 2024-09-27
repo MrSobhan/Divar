@@ -40,7 +40,6 @@ const Main = () => {
                 if (arryFilter.includes('exchange')) {
                     filteredPosts = filteredPosts.filter((post) => post.exchange);
                 }
-                console.log(authContext.filtersPosts.price);
 
                 // min / max price filtering
 
