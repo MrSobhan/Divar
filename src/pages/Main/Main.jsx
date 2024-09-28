@@ -10,6 +10,7 @@ const Main = () => {
     const authContext = useContext(AuthContext)
     const navigator = useNavigate()
     const { categoryId } = useParams()
+    const [allPost, setAllPost] = useState([])
     const [posts, setPosts] = useState([])
     const [valueSearch, setValueSearch] = useState('')
     const [isLoad, setIsLoad] = useState(true)
@@ -31,54 +32,48 @@ const Main = () => {
         fetch(Url)
             .then(res => res.json()).then(posts => {
                 setIsLoad(false)
-                let filteredPosts = posts.data.posts
-
-
-                if (arryFilter.includes('justPhoto')) {
-                    filteredPosts = filteredPosts.filter((post) => post.pics.length);
-                }
-                if (arryFilter.includes('exchange')) {
-                    filteredPosts = filteredPosts.filter((post) => post.exchange);
-                }
-
-                // min / max price filtering
-
-                if (maxPrice != 0) {
-                    if (minPrice != 0) {
-                        filteredPosts = filteredPosts.filter(
-                            (post) => post.price >= minPrice && post.price <= maxPrice
-                        );
-                    } else {
-                        filteredPosts = filteredPosts.filter((post) => post.price <= maxPrice);
-                    }
-                } else {
-                    if (minPrice != 0) {
-                        filteredPosts = filteredPosts.filter((post) => post.price >= minPrice);
-                    }
-                }
-
-
-                setPosts(filteredPosts)
-
+                setAllPost(posts.data.posts)
+                ShowFiltredPost(posts.data.posts)
             })
+    }
+
+    const ShowFiltredPost = (postsData) => {
+        let filteredPosts = postsData
+
+
+        if (arryFilter.includes('justPhoto')) {
+            filteredPosts = filteredPosts.filter((post) => post.pics.length);
+        }
+        if (arryFilter.includes('exchange')) {
+            filteredPosts = filteredPosts.filter((post) => post.exchange);
+        }
+
+        // min / max price filtering
+
+        if (maxPrice != 0) {
+            if (minPrice != 0) {
+                filteredPosts = filteredPosts.filter(
+                    (post) => post.price >= minPrice && post.price <= maxPrice
+                );
+            } else {
+                filteredPosts = filteredPosts.filter((post) => post.price <= maxPrice);
+            }
+        } else {
+            if (minPrice != 0) {
+                filteredPosts = filteredPosts.filter((post) => post.price >= minPrice);
+            }
+        }
+
+        setPosts(filteredPosts)
     }
 
     useEffect(() => {
         fetchApi(true)
-    }, [categoryId, arryFilter,minPrice, maxPrice])
+    }, [categoryId])
 
-
-
-
-    // useEffect(() => {
-    //     authContext.fetchApi(valueSearch, categoryId)
-    //     .then(posts => { setPosts(posts.data.posts) })
-    //     if (!citiesIDs) {
-    //         navigator('/')
-    //     }
-    //     console.log(location);
-
-    // }, [categoryId])
+    useEffect(() => {
+        ShowFiltredPost(allPost)
+    }, [arryFilter, minPrice, maxPrice])
 
 
 
@@ -122,8 +117,9 @@ const Main = () => {
 
                                 {
                                     posts?.length != 0 ? (posts.map((post) => <PostBox key={post._id} {...post} />)) : (
-                                        <div className='col-12'>
-                                            <p className="empty w-100">آگهی یافت نشد</p>
+                                        <div className="col-12 content_empty">
+                                        <i class="bi bi-search text-danger"></i>
+                                            <p className="text-danger">آگهی یافت نشد.</p>
                                         </div>
                                     )
                                 }
