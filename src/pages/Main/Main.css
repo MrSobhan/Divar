@@ -103,8 +103,8 @@
 .sidebar__filter-condition-switch {
     position: relative;
     display: inline-block;
-    width: 3.6rem;
-    height: 1.8rem;
+    width: 3.8rem;
+    height: 2rem;
 }
 
 .sidebar__filter-condition-switch .sidebar__filter-condition-input {
@@ -123,15 +123,16 @@
     background-color: #ccc;
     transition: 0.4s;
     border-radius: 4rem;
+    padding: .5rem;
 }
 
 .sidebar__filter-condition-slider:before {
     position: absolute;
     content: "";
-    height: 1.6rem;
-    width: 1.6rem;
-    left: 0;
-    bottom: 0.1rem;
+    height: 1.5rem;
+    width: 1.5rem;
+    left: 2px;
+    bottom: 0.3rem;
     background-color: white;
     transition: 0.4s;
     border-radius: 50%;

@@ -14,9 +14,9 @@ const Main = () => {
     const [valueSearch, setValueSearch] = useState('')
     const [isLoad, setIsLoad] = useState(true)
 
-    const [arryFilter, setArryFilter] = useState(authContext.filtersPosts.filter)
-    const [minPrice, setMinPrice] = useState(authContext.filtersPosts.price.min)
-    const [maxPrice, setMaxPrice] = useState(authContext.filtersPosts.price.max)
+    const [arryFilter, setArryFilter] = useState([])
+    const [minPrice, setMinPrice] = useState(0)
+    const [maxPrice, setMaxPrice] = useState(0)
 
 
     const citiesIDs = authContext.getLocalStorage('city')

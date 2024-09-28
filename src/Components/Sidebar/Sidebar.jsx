@@ -50,18 +50,16 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice }) => {
 
 
     const changeInputHandler = () => {
-        authContext.filtersPosts.filter = []
+        let filterArryPosts = []
 
         if (justPhotoController) {
-            authContext.filtersPosts.filter.push('justPhoto')
+            filterArryPosts.push('justPhoto')
         }
         if (exchangeController) {
-            authContext.filtersPosts.filter.push('exchange')
+            filterArryPosts.push('exchange')
         }
 
-        setArryFilter(authContext.filtersPosts.filter)
-
-
+        setArryFilter(filterArryPosts)
     }
 
     const backToAllCategories = () => {
@@ -250,6 +248,7 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice }) => {
                 <Accordion defaultActiveKey="0" className='my-4'>
                     <Accordion.Item eventKey="0">
                         <Accordion.Header>
+                            <i class="bi bi-chevron-down"></i>
                             <span className="sidebar__filter-title">قیمت</span>
                         </Accordion.Header>
                         <Accordion.Body>

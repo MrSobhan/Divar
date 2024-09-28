@@ -77,6 +77,12 @@ display: block !important;
 .accordion{
     --bs-accordion-bg: var(--white-color) !important;
 }
+.accordion-button:not(.collapsed){
+    background-color: transparent !important;
+}
+.accordion-button::after{
+    display: none;
+}
 /* .accordion-button::after{
     background-color: var(--white-color) !important;
 } */
