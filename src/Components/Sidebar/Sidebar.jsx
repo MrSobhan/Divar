@@ -35,6 +35,7 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice }) => {
                 let filterArrySub = category.subCategories.filter((sub) => sub._id == categoryId)
 
                 if (filterArrySub.length != 0 && subCategory != filterArrySub) {
+                    
                     setSubCategory(filterArrySub)
                 }
 
@@ -64,6 +65,7 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice }) => {
     }
 
     const backToAllCategories = () => {
+        document.title = 'دیوار'
         navigetor('/main')
     }
 
