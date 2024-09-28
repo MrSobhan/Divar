@@ -12,23 +12,37 @@ const HeaderMain = ({ changeValueSearch,
     const darkMode = authContext.getLocalStorage('theme')
     const [theme, setTheme] = useState('dark')
     const [activeModal, setActiveModal] = useState(false)
-    const [popularSearch, setPopularSearch] = useState(['خودروسواری',
+    const [activeModalCities, setActiveModalCities] = useState(false)
+    const popularSearch = ['خودروسواری',
         'اپارتمان',
         'موبایل',
         'استخدام',
         'تلویزیون',
         'استخدام',
         'تلویزیون'
-    ])
+    ]
+    const [showCityInModal, setShowCityInModal] = useState(false)
+    const [allLocation, setAllLocation] = useState({})
+    const [allCity, setAllCity] = useState({})
+
+
+
+
+    const [cities, setCities] = useState(authContext.getLocalStorage('city'))
 
     const darkModeHandler = () => {
-        // if (darkMode) {
         setTheme(prevState => {
             let ThemeMode = prevState == 'dark' ? 'light' : 'dark'
             authContext.setLocalStorage('theme', ThemeMode)
             return ThemeMode
         })
-        // }
+    }
+
+    const fetchAllLocation = () => {
+        fetch(`${authContext.baseUrl}/v1/location`)
+            .then(res => res.json()).then(cityAll => {
+                setAllLocation(cityAll.data)
+            })
     }
 
     useEffect(() => {
@@ -50,8 +64,51 @@ const HeaderMain = ({ changeValueSearch,
             document.documentElement.style.setProperty('--border', '1px solid rgba(0, 0, 0, 0.2)');
 
         }
-        console.log('change!!!');
     }, [theme])
+
+    useEffect(() => {
+        fetchAllLocation()
+    }, [])
+
+
+
+    const showCitiesHandler = (_id, name) => {
+
+        if (!showCityInModal) {
+            setShowCityInModal(true)
+
+        }
+        let FiltredCities = allLocation.cities.filter((city) => city.province_id == _id)
+        if (FiltredCities != allCity.data) {
+            setAllCity({ name, data: FiltredCities })
+        }
+    }
+    const SetCityToLocalStorage = (name, id) => {
+
+        let IsCity = cities.some((city) => city.name == name)
+
+
+
+        let ArryCityLocal = cities
+        if (!IsCity) { //* Create
+            ArryCityLocal.push({ name, id })
+            fetchAllLocation()
+        } else { //! Delete
+            ArryCityLocal = ArryCityLocal.filter(city => city.name != name)
+        }
+
+
+        setCities(ArryCityLocal)
+
+
+    }
+    const SetCitiesLocalStorage = () => {
+        setActiveModalCities(false)
+        authContext.setLocalStorage('city', cities)
+    }
+    const EmptyCityLocalStorage = () => {
+        setCities([])
+    }
 
     return (
         <header className="header">
@@ -61,10 +118,112 @@ const HeaderMain = ({ changeValueSearch,
                         <a className="header__logo-link" href="#">
                             <img className="header__logo-img" src="../images/header/logo.svg" alt="logo" />
                         </a>
-                        <button className="header__country">
+                        <button className="header__country" onClick={() => setActiveModalCities(true)}>
                             <i className="header__country-icon bi bi-geo-alt"></i>
-                            <span className="header__country-title">اصفهان</span>
+                            <span className="header__country-title">{cities?.length ? (cities.length > 1 ? cities.length + ' شهر' : cities[0].name) : 'تهران'}</span>
                         </button>
+                        {/* Start CityModal */}
+                        <div className={`city-modal ${activeModalCities && 'city-modal--active'}`} id="city-modal">
+                            <div className="city-modal__overlay"></div>
+                            <section>
+                                <div className="city-modal__header">
+                                    <div className="city-modal__header-wrapper">
+                                        <div className="city-modal__title-wrapper">
+                                            <span className="city-modal__title">انتخاب شهر</span>
+                                            <button
+                                                id="delete-all-cities"
+                                                className={`city-modal__btn ${cities?.length == 0 && 'delete_cities'}`}
+                                                onClick={EmptyCityLocalStorage}
+                                            >
+                                                حذف همه
+                                            </button>
+                                        </div>
+                                        {
+                                            cities?.length != 0 ? (
+                                                <div className="city-modal__selected" id="city-selected">
+                                                    {
+                                                        cities?.map((city) => (
+                                                            <div className="city-modal__selected-item">
+                                                                <span className="city-modal__selected-text">{city.name}</span>
+                                                                <button className="city-modal__selected-btn" onClick={() => SetCityToLocalStorage(city.name, city.id)}>
+                                                                    <i className="city-modal__selected-icon bi bi-x"></i>
+                                                                </button>
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </div>
+                                            ) : (
+                                                <p className='my-3 fs-5 text-danger'>حداقل یک شهر را انتخاب کنید.</p>
+                                            )
+                                        }
+
+                                        <div className="city-modal__searchbar">
+                                            <form className="city-modal__form">
+                                                <input
+                                                    className="city-modal__input"
+                                                    id="city-modal-search-input"
+                                                    type="text"
+                                                    placeholder="جستجو در شهرها"
+                                                />
+                                                <i className="city-modal__icon bi bi-search"></i>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="city-modal__cities">
+                                    <ul className="city-modal__cities-list" id="city_modal_list">
+                                        {
+                                            !showCityInModal ? (
+
+                                                allLocation.provinces?.map((province) => (
+                                                    <li
+                                                        onClick={() => showCitiesHandler(province.id, province.name)}
+                                                        className="city-modal__cities-item province-item"
+                                                    >
+                                                        <span>{province.name}</span>
+                                                        <i className="city-modal__cities-icon bi bi-chevron-left"></i>
+                                                    </li>
+                                                ))
+                                            ) : (
+                                                <>
+                                                    <li id="city_modal_all_province" className="city_modal_all_province" onClick={() => setShowCityInModal(false)}>
+                                                        <span>همه شهر ها</span>
+                                                        <i className="bi bi-arrow-right-short"></i>
+                                                    </li>
+                                                    <li className="city-modal__cities-item select-all-city city-item">
+                                                        <span>همه شهر های  {allCity.name}</span>
+                                                        <div id="checkboxShape"></div>
+                                                        <input type="checkbox" />
+                                                    </li>
+
+                                                    {
+                                                        allCity.data?.map(city => (
+                                                            <li className="city-modal__cities-item select-all-city city-item">
+                                                                <span>{city.name}</span>
+                                                                <div id="checkboxShape" className={cities.some(citi => citi.name == city.name) ? 'active' : ''}></div>
+                                                                <input type="checkbox" onClick={() => SetCityToLocalStorage(city.name, city.id)} />
+                                                                {/*  defaultChecked={cities.some(citi => citi.name == city.name) ? true : false} */}
+                                                            </li>
+                                                        ))
+                                                    }
+                                                </>
+                                            )
+                                        }
+                                    </ul>
+                                </div>
+                                <div className="city-modal__footer">
+                                    <div className="city-modal__footer-wrapper">
+                                        <button className="city-modal__btn-footer city-modal__close" onClick={() => setActiveModalCities(false)}>
+                                            انصراف
+                                        </button>
+                                        <button className={`city-modal__btn-footer ${cities?.length != 0 ? 'city-modal__accept--active' : 'city-modal__accept'}`} onClick={SetCitiesLocalStorage}>
+                                            تایید
+                                        </button>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        {/* End CityModal */}
                         <div className="header__category">
                             <button className="header__category-btn">
                                 <span className="header__category-btn-title">دسته ها</span>

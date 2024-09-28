@@ -24,17 +24,22 @@ const Main = () => {
 
 
     const fetchApi = (isEmpty) => {
-        setIsLoad(true)
-        let Url = `${authContext.baseUrl}/v1/post/?city=${citiesIDs[0].id}`
-        Url += categoryId ? `&categoryId=${categoryId}` : ''
-        Url += isEmpty && (valueSearch != '' ? `&search=${valueSearch}` : '')
-
-        fetch(Url)
-            .then(res => res.json()).then(posts => {
-                setIsLoad(false)
-                setAllPost(posts.data.posts)
-                ShowFiltredPost(posts.data.posts)
-            })
+        if(citiesIDs && citiesIDs.length != 0){
+            setIsLoad(true)
+            
+            let Url = `${authContext.baseUrl}/v1/post/?city=${citiesIDs[0].id}`
+            Url += categoryId ? `&categoryId=${categoryId}` : ''
+            Url += isEmpty && (valueSearch != '' ? `&search=${valueSearch}` : '')
+    
+            fetch(Url)
+                .then(res => res.json()).then(posts => {
+                    setIsLoad(false)
+                    setAllPost(posts.data.posts)
+                    ShowFiltredPost(posts.data.posts)
+                })
+        }else{
+            navigator('/')
+        }
     }
 
     const ShowFiltredPost = (postsData) => {
@@ -118,7 +123,7 @@ const Main = () => {
                                 {
                                     posts?.length != 0 ? (posts.map((post) => <PostBox key={post._id} {...post} />)) : (
                                         <div className="col-12 content_empty">
-                                        <i class="bi bi-search text-danger"></i>
+                                        <i className="bi bi-search text-danger"></i>
                                             <p className="text-danger">آگهی یافت نشد.</p>
                                         </div>
                                     )

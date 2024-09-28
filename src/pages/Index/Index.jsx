@@ -18,7 +18,7 @@ const Index = () => {
 
     useEffect(() => {
 
-        if (getCitiesIndex) {
+        if (getCitiesIndex && getCitiesIndex.length !=0) {
             navigetor(`/main`)
         }
         fetch(`${authContext.baseUrl}/v1/location`)

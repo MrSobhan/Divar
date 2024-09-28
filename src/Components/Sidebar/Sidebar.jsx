@@ -100,8 +100,8 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice }) => {
                             )
                             ) : (
                                 category.map((category) => (
-                                    <li className="sidebar__category-item">
-                                        <Link key={category._id} className="sidebar__category-link" to={'/main/' + category._id}>
+                                    <li className="sidebar__category-item" key={category._id}>
+                                        <Link className="sidebar__category-link" to={'/main/' + category._id}>
                                             <i className="sidebar__category-icon bi bi-house"></i>
                                             {category.title}
                                         </Link>
@@ -248,7 +248,7 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice }) => {
                 <Accordion defaultActiveKey="0" className='my-4'>
                     <Accordion.Item eventKey="0">
                         <Accordion.Header>
-                            <i class="bi bi-chevron-down"></i>
+                            <i className="bi bi-chevron-down"></i>
                             <span className="sidebar__filter-title">قیمت</span>
                         </Accordion.Header>
                         <Accordion.Body className=''>
