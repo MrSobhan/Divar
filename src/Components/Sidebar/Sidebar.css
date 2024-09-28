@@ -1,4 +1,3 @@
-
 /* ==========Sidebar Category========== */
 
 .sidebar::-webkit-scrollbar {
@@ -69,6 +68,10 @@ display: block !important;
 .sidebar__category-icon {
     margin-left: 0.5rem;
     display: inline;
+}
+.form-control , .form-control:focus{
+    background-color: transparent;
+    color: var(--black-color);
 }
 .sidebar__formSelect option{
     background-color: var(--white-color);

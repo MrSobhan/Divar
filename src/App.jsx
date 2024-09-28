@@ -54,7 +54,6 @@ const App = () => {
   
   // }
 
-  const filtersPosts = {price : {min : 0 , max : 0} , filter : []}
 
 
   
@@ -65,8 +64,7 @@ const App = () => {
           getCookie,
           baseUrl,
           setLocalStorage,
-          getLocalStorage,
-          filtersPosts
+          getLocalStorage
         }}
       >
         {router}

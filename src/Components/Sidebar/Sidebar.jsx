@@ -251,11 +251,11 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice }) => {
                             <i class="bi bi-chevron-down"></i>
                             <span className="sidebar__filter-title">قیمت</span>
                         </Accordion.Header>
-                        <Accordion.Body>
+                        <Accordion.Body className=''>
                             <div className="sidebar__filter-price-wrapper my-2">
                                 <label className="sidebar__filter-price-label">حداقل</label>
-                                <select className='form-control mx-3 sidebar__formSelect' id="min-price-selectbox" onChange={(e)=> setMinPrice(e.target.value)}>
-                                    <option value="0">مبلغ پیشفرض</option>
+                                <select className='form-control mx-3 sidebar__formSelect py-2 fs-5' id="min-price-selectbox" onChange={(e)=> setMinPrice(e.target.value)}>
+                                    <option value="0">مبلغ پیشفرض (تومان)</option>
                                     <option value="10000">10 هزار</option>
                                     <option value="50000">50 هزار</option>
                                     <option value="200000">200 هزار</option>
@@ -269,12 +269,11 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice }) => {
                                     <option value="150000000">150 میلیون</option>
                                     <option value="200000000">200 میلیون</option>
                                 </select>
-                                <p className='fs-6'>تومان</p>
                             </div>
                             <div className="sidebar__filter-price-wrapper mt-4">
                                 <label className="sidebar__filter-price-label">حداکثر</label>
-                                <select className='form-control mx-3 sidebar__formSelect' id="max-price-selectbox" onChange={(e)=> setMaxPrice(e.target.value)}>
-                                    <option value="0">مبلغ پیشفرض</option>
+                                <select className='form-control mx-3 sidebar__formSelect py-2 fs-5' id="max-price-selectbox" onChange={(e)=> setMaxPrice(e.target.value)}>
+                                    <option value="0">مبلغ پیشفرض (تومان)</option>
                                     <option value="10000">10 هزار</option>
                                     <option value="50000">50 هزار</option>
                                     <option value="200000">200 هزار</option>
@@ -288,7 +287,6 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice }) => {
                                     <option value="150000000">150 میلیون</option>
                                     <option value="200000000">200 میلیون</option>
                                 </select>
-                                <p className='fs-6'>تومان</p>
                             </div>
                         </Accordion.Body>
                     </Accordion.Item>
