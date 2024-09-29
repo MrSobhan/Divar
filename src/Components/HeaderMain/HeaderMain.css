@@ -545,7 +545,7 @@
   background-position: center;
   z-index: -1;
   left: 4px;
-  border: 1px solid black;
+  border: var(--border);
   border-radius: 3px;
 }
 
@@ -674,19 +674,20 @@
 }
 
 .city-modal__close {
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: var(--border);
   transition: all 0.4s ease;
 }
 
 .city-modal__close:hover {
-  background-color: rgba(0, 0, 0, 0.06);
-  color: #000;
+  /* background-color: var(--text-color); */
+  color: var(--black-color);
 }
 
 .city-modal__accept {
-  background-color: #f5f5f5;
+  background-color: var(--white-color);
   cursor: default !important;
   pointer-events: none;
+  border: var(--border);
 }
 
 .city-modal__accept--active {

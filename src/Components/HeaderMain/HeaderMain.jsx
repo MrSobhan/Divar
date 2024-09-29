@@ -24,6 +24,7 @@ const HeaderMain = ({ changeValueSearch,
     const [showCityInModal, setShowCityInModal] = useState(false)
     const [allLocation, setAllLocation] = useState({})
     const [allCity, setAllCity] = useState({})
+    const [valueSearchCities, setValueSearchCities] = useState('')
 
     const [cities, setCities] = useState(authContext.getLocalStorage('city'))
 
@@ -46,6 +47,10 @@ const HeaderMain = ({ changeValueSearch,
     }
 
     useEffect(() => {
+        fetchAllLocation()
+    }, [])
+    
+    useEffect(() => {
         if (darkMode) {
             setTheme(darkMode)
         }
@@ -67,8 +72,17 @@ const HeaderMain = ({ changeValueSearch,
     }, [theme])
 
     useEffect(() => {
-        fetchAllLocation()
-    }, [])
+        if (valueSearchCities.length) {
+            let FilterCityBySearch = allLocation.cities.filter((city) => city.name.includes(valueSearchCities))
+            if (FilterCityBySearch.length) {
+                setAllCity({ name: valueSearchCities, data: FilterCityBySearch })
+                setShowCityInModal(true)
+            }
+        } else {
+            setShowCityInModal(false)
+        }
+
+    }, [valueSearchCities])
 
 
 
@@ -83,7 +97,7 @@ const HeaderMain = ({ changeValueSearch,
             setAllCity({ name, data: FiltredCities })
         }
     }
-    const SetCityToLocalStorage = (name, id) => {
+    const checkBoxCitiesHandler = (name, id) => {
 
         let IsCity = cities.some((city) => city.name == name)
 
@@ -145,7 +159,7 @@ const HeaderMain = ({ changeValueSearch,
                                                         cities?.map((city) => (
                                                             <div className="city-modal__selected-item" key={city.id}>
                                                                 <span className="city-modal__selected-text">{city.name}</span>
-                                                                <button className="city-modal__selected-btn" onClick={() => SetCityToLocalStorage(city.name, city.id)}>
+                                                                <button className="city-modal__selected-btn" onClick={() => checkBoxCitiesHandler(city.name, city.id)}>
                                                                     <i className="city-modal__selected-icon bi bi-x"></i>
                                                                 </button>
                                                             </div>
@@ -164,6 +178,8 @@ const HeaderMain = ({ changeValueSearch,
                                                     id="city-modal-search-input"
                                                     type="text"
                                                     placeholder="جستجو در شهرها"
+                                                    value={valueSearchCities}
+                                                    onChange={(e) => setValueSearchCities(e.target.value)}
                                                 />
                                                 <i className="city-modal__icon bi bi-search"></i>
                                             </form>
@@ -177,9 +193,9 @@ const HeaderMain = ({ changeValueSearch,
 
                                                 allLocation.provinces?.map((province) => (
                                                     <li
-                                                    key={province.id}
-                                                    onClick={() => showCitiesHandler(province.id, province.name)}
-                                                    className="city-modal__cities-item province-item"
+                                                        key={province.id}
+                                                        onClick={() => showCitiesHandler(province.id, province.name)}
+                                                        className="city-modal__cities-item province-item"
                                                     >
                                                         <span>{province.name}</span>
                                                         <i className="city-modal__cities-icon bi bi-chevron-left"></i>
@@ -199,10 +215,10 @@ const HeaderMain = ({ changeValueSearch,
 
                                                     {
                                                         allCity.data?.map(city => (
-                                                            <li className="city-modal__cities-item select-all-city city-item">
+                                                            <li className="city-modal__cities-item select-all-city city-item" key={city.id}>
                                                                 <span>{city.name}</span>
                                                                 <div id="checkboxShape" className={cities.some(citi => citi.name == city.name) ? 'active' : ''}></div>
-                                                                <input type="checkbox" onClick={() => SetCityToLocalStorage(city.name, city.id)} />
+                                                                <input type="checkbox" onClick={() => checkBoxCitiesHandler(city.name, city.id)} />
                                                                 {/*  defaultChecked={cities.some(citi => citi.name == city.name) ? true : false} */}
                                                             </li>
                                                         ))
@@ -214,7 +230,7 @@ const HeaderMain = ({ changeValueSearch,
                                 </div>
                                 <div className="city-modal__footer">
                                     <div className="city-modal__footer-wrapper">
-                                        <button className="city-modal__btn-footer city-modal__close" onClick={() => setActiveModalCities(false)}>
+                                        <button className="city-modal__btn-footer city-modal__close" onClick={() => { setActiveModalCities(false); setShowCityInModal(false) }}>
                                             انصراف
                                         </button>
                                         <button className={`city-modal__btn-footer ${cities?.length != 0 ? 'city-modal__accept--active' : 'city-modal__accept'}`} onClick={SetCitiesLocalStorage}>
