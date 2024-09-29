@@ -1,12 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
 import AuthContext from '../../context/authContext';
+import { useNavigate , Link } from 'react-router-dom';
+
 import './HeaderMain.css'
 
 const HeaderMain = ({ changeValueSearch,
     emptyValueSearch,
     keyUpInputHandler,
     valueSearch,
-    setValueSearch }) => {
+    setValueSearch,
+    fetchApi,
+    category }) => {
+    const navigetor = useNavigate()
 
     const authContext = useContext(AuthContext)
     const darkMode = authContext.getLocalStorage('theme')
@@ -28,7 +33,7 @@ const HeaderMain = ({ changeValueSearch,
 
     const [cities, setCities] = useState(authContext.getLocalStorage('city'))
 
-
+    const [showHeaderCategory, setShowHeaderCategory] = useState(false)
 
 
     const darkModeHandler = () => {
@@ -49,7 +54,7 @@ const HeaderMain = ({ changeValueSearch,
     useEffect(() => {
         fetchAllLocation()
     }, [])
-    
+
     useEffect(() => {
         if (darkMode) {
             setTheme(darkMode)
@@ -119,9 +124,17 @@ const HeaderMain = ({ changeValueSearch,
     const SetCitiesLocalStorage = () => {
         setActiveModalCities(false)
         authContext.setLocalStorage('city', cities)
+        fetchApi(true)
     }
     const EmptyCityLocalStorage = () => {
         setCities([])
+    }
+
+    // * Categories
+
+    const backToAllCategories = () => {
+        document.title = 'دیوار ' + cities[0].name
+        navigetor('/main')
     }
 
     return (
@@ -241,267 +254,56 @@ const HeaderMain = ({ changeValueSearch,
                             </section>
                         </div>
                         {/* End CityModal */}
-                        <div className="header__category">
+                        <div className="header__category" onMouseLeave={() => setShowHeaderCategory(false)}>
                             <button className="header__category-btn">
-                                <span className="header__category-btn-title">دسته ها</span>
+                                <span className="header__category-btn-title" onClick={() => setShowHeaderCategory(true)}>دسته ها</span>
                                 <i className="header__category-btn-icon bi bi-chevron-down"></i>
                             </button>
-                            <div className="header__category-menu">
+                            <div className={`header__category-menu ${showHeaderCategory ? 'header__category-menu--active' : ''}`}>
                                 <div className="header__category-menu-right">
-                                    <a className="header__category-menu-btn" href="#">
+                                    <a className="header__category-menu-btn" href="#" onClick={backToAllCategories}>
                                         <i className="header__category-menu-btn-icon bi bi-arrow-right"></i>
                                         همه آگهی ها
                                     </a>
                                     <ul className="haeder__category-menu-list">
-                                        <li className="header__category-menu-item">
-                                            <a className="header__category-menu-link" href="#">
-                                                <div className="header__category-menu-link-right">
-                                                    <i className="header__category-menu-icon bi bi-house"></i>
-                                                    املاک
-                                                </div>
-                                                <div className="header__category-menu-link-left">
-                                                    <i className="header__category-menu-arrow-icon bi bi-chevron-left"></i>
-                                                </div>
-                                            </a>
-                                            <div className="header__category-dropdown">
-                                                <div className="row">
-                                                    <div className="col-4">
-                                                        <ul className="header__category-dropdown-list">
-                                                            <a className="header__category-dropdown-title" href="#">فروش مسکونی</a>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="col-4">
-                                                        <ul className="header__category-dropdown-list">
-                                                            <a className="header__category-dropdown-title" href="#">فروش مسکونی</a>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="col-4">
-                                                        <ul className="header__category-dropdown-list">
-                                                            <a className="header__category-dropdown-title" href="#">فروش مسکونی</a>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="col-4">
-                                                        <ul className="header__category-dropdown-list">
-                                                            <a className="header__category-dropdown-title" href="#">فروش مسکونی</a>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li className="header__category-menu-item">
-                                            <a className="header__category-menu-link" href="#">
-                                                <div className="header__category-menu-link-right">
-                                                    <i className="header__category-menu-icon bi bi-house"></i>
-                                                    املاک
-                                                </div>
-                                                <div className="header__category-menu-link-left">
-                                                    <i className="header__category-menu-arrow-icon bi bi-chevron-left"></i>
-                                                </div>
-                                            </a>
-                                            <div className="header__category-dropdown">
-                                                <div className="row">
-                                                    <div className="col-4">
-                                                        <ul className="header__category-dropdown-list">
-                                                            <a className="header__category-dropdown-title" href="#">فروش مسکونی</a>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="col-4">
-                                                        <ul className="header__category-dropdown-list">
-                                                            <a className="header__category-dropdown-title" href="#">فروش مسکونی</a>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="col-4">
-                                                        <ul className="header__category-dropdown-list">
-                                                            <a className="header__category-dropdown-title" href="#">فروش مسکونی</a>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="col-4">
-                                                        <ul className="header__category-dropdown-list">
-                                                            <a className="header__category-dropdown-title" href="#">فروش مسکونی</a>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li className="header__category-menu-item">
-                                            <a className="header__category-menu-link" href="#">
-                                                <div className="header__category-menu-link-right">
-                                                    <i className="header__category-menu-icon bi bi-house"></i>
-                                                    املاک
-                                                </div>
-                                                <div className="header__category-menu-link-left">
-                                                    <i className="header__category-menu-arrow-icon bi bi-chevron-left"></i>
-                                                </div>
-                                            </a>
-                                            <div className="header__category-dropdown">
-                                                <div className="row">
-                                                    <div className="col-4">
-                                                        <ul className="header__category-dropdown-list">
-                                                            <a className="header__category-dropdown-title" href="#">فروش مسکونی</a>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="col-4">
-                                                        <ul className="header__category-dropdown-list">
-                                                            <a className="header__category-dropdown-title" href="#">فروش مسکونی</a>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="col-4">
-                                                        <ul className="header__category-dropdown-list">
-                                                            <a className="header__category-dropdown-title" href="#">فروش مسکونی</a>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="col-4">
-                                                        <ul className="header__category-dropdown-list">
-                                                            <a className="header__category-dropdown-title" href="#">فروش مسکونی</a>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                            <li className="header__category-dropdown-item">
-                                                                <a className="header__category-dropdown-link"
-                                                                    href="#">آپارتمان</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        {
+                                            category.length && (
+                                                category.map((catMenu) => (
+                                                    <li className="header__category-menu-item">
+                                                        <a className="header__category-menu-link" href="#">
+                                                            <div className="header__category-menu-link-right">
+                                                                <i className="header__category-menu-icon bi bi-house"></i>
+                                                                {catMenu.title}
+                                                            </div>
+                                                            <div className="header__category-menu-link-left">
+                                                                <i className="header__category-menu-arrow-icon bi bi-chevron-left"></i>
+                                                            </div>
+                                                        </a>
+                                                        <div className="header__category-dropdown">
+                                                            <div className="row">
+                                                                {
+                                                                    catMenu.subCategories.map((subCategory) => (
+                                                                        <div className="col-4">
+                                                                            <ul className="header__category-dropdown-list">
+                                                                                <Link className="header__category-dropdown-title" to={'/main/' + subCategory._id}>{subCategory.title}</Link>
+                                                                                {
+                                                                                    subCategory.subCategories.map((subSubCategory) => (
+                                                                                        <li className="header__category-dropdown-item">
+                                                                                            <Link className="header__category-dropdown-link"
+                                                                                                to={'/main/' + subSubCategory._id}>{subSubCategory.title}</Link>
+                                                                                        </li>
+                                                                                    ))
+                                                                                }
+                                                                            </ul>
+                                                                        </div>
+                                                                    ))
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                ))
+                                            )
+                                        }
                                     </ul>
                                 </div>
                             </div>

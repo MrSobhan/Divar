@@ -100,6 +100,14 @@
   transition: var(--transition);
 }
 
+.header__category-menu--active {
+  top: 40px;
+  opacity: 1;
+  visibility: visible;
+}
+
+
+
 .header__category-menu-right {
   padding: 2.5rem 2rem;
 }
@@ -393,7 +401,7 @@
   opacity: 1;
   visibility: visible;
   bottom: 0;
-} 
+}
 
 .city-modal section {
   height: 95%;

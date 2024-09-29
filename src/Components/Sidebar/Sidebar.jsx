@@ -6,26 +6,27 @@ import BodyCategoryItem from '../bodyCategoryItem/bodyCategoryItem';
 import Accordion from 'react-bootstrap/Accordion';
 import './Sidebar.css'
 
-const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice }) => {
+const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName , category }) => {
     const authContext = useContext(AuthContext)
     const { categoryId } = useParams()
     const navigetor = useNavigate()
 
 
-    const [category, setCategory] = useState([])
+    // const [category, setCategory] = useState([])
     const [subCategory, setSubCategory] = useState([])
     const [mainCategory, setMainCategory] = useState([])
+
     const [filtersSubCategory, setFiltersSubCategory] = useState([])
     const [justPhotoController, setJustPhotoController] = useState(false)
     const [exchangeController, setExchangeController] = useState(false)
 
-    useEffect(() => {
-        fetch(`${authContext.baseUrl}/v1/category`)
-            .then(res => res.json()).then(category => {
-                setCategory(category.data.categories);
-            })
+    // useEffect(() => {
+    //     fetch(`${authContext.baseUrl}/v1/category`)
+    //         .then(res => res.json()).then(category => {
+    //             setCategory(category.data.categories);
+    //         })      
 
-    }, [])
+    // }, [])
     useEffect(() => {
 
         if (categoryId) {
@@ -63,7 +64,7 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice }) => {
     }
 
     const backToAllCategories = () => {
-        document.title = 'دیوار'
+        document.title = 'دیوار ' + cityName
         navigetor('/main')
     }
 
@@ -78,14 +79,14 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice }) => {
                         categoryId ?
                             (mainCategory.length != 0 ? (mainCategory.map((category) => (
 
-                                <BodyCategoryItem {...category} key={category._id} backToAllCategories={backToAllCategories} />
+                                <BodyCategoryItem {...category} key={category._id} backToAllCategories={backToAllCategories} cityName={cityName}/>
 
                             ))) : (subCategory.length != 0 && (
                                 subCategory.map((category) => (
 
 
                                     <>
-                                        <BodyCategoryItem {...category} key={category._id} backToAllCategories={backToAllCategories} catID={categoryId} />
+                                        <BodyCategoryItem {...category} key={category._id} backToAllCategories={backToAllCategories} catID={categoryId} cityName={cityName} />
                                         {/* {category.filters.length != 0 && filtersSubCategory.length == 0 && setFiltersSubCategory(category.filters)} */}
                                         {/* {filterArry.push(subCategory.filters)} */}
                                         {/* {console.log(category)} */}

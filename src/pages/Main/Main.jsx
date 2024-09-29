@@ -20,13 +20,18 @@ const Main = () => {
     const [maxPrice, setMaxPrice] = useState(0)
 
 
-    const citiesIDs = authContext.getLocalStorage('city')
+    const [category, setCategory] = useState([])
+
+
+    let citiesIDs = authContext.getLocalStorage('city')
 
     const fetchApi = (isEmpty) => {
+        citiesIDs = authContext.getLocalStorage('city')
+        let JoinCitiesIDs = citiesIDs.map(city => city.id).join('|')
         if(citiesIDs && citiesIDs.length != 0){
             setIsLoad(true)
             
-            let Url = `${authContext.baseUrl}/v1/post/?city=${citiesIDs[0].id}`
+            let Url = `${authContext.baseUrl}/v1/post/?city=${JoinCitiesIDs}`
             Url += categoryId ? `&categoryId=${categoryId}` : ''
             Url += isEmpty && (valueSearch != '' ? `&search=${valueSearch}` : '')
     
@@ -73,6 +78,11 @@ const Main = () => {
 
     useEffect(() => {
         fetchApi(true)
+
+        fetch(`${authContext.baseUrl}/v1/category`)
+            .then(res => res.json()).then(category => {
+                setCategory(category.data.categories);
+            })      
     }, [categoryId])
 
     useEffect(() => {
@@ -106,6 +116,8 @@ const Main = () => {
                 keyUpInputHandler={(event) => keyUpInputHandler(event)}
                 valueSearch={valueSearch}
                 setValueSearch={setValueSearch}
+                fetchApi={fetchApi}
+                category={category}
             />
             <main className="main-container">
                 <div className="container-fluid">
@@ -114,7 +126,9 @@ const Main = () => {
                             <Sidebar
                                 setArryFilter={setArryFilter}
                                 setMinPrice={setMinPrice}
-                                setMaxPrice={setMaxPrice} />
+                                setMaxPrice={setMaxPrice}
+                                cityName={citiesIDs[0]?.name}
+                                category={category} />
                         </div>
                         <div className="col-9">
                             <div className="row">
