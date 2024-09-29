@@ -22,7 +22,6 @@ const Main = () => {
 
     const citiesIDs = authContext.getLocalStorage('city')
 
-
     const fetchApi = (isEmpty) => {
         if(citiesIDs && citiesIDs.length != 0){
             setIsLoad(true)

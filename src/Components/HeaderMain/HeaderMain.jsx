@@ -25,10 +25,10 @@ const HeaderMain = ({ changeValueSearch,
     const [allLocation, setAllLocation] = useState({})
     const [allCity, setAllCity] = useState({})
 
-
-
-
     const [cities, setCities] = useState(authContext.getLocalStorage('city'))
+
+
+
 
     const darkModeHandler = () => {
         setTheme(prevState => {
@@ -143,7 +143,7 @@ const HeaderMain = ({ changeValueSearch,
                                                 <div className="city-modal__selected" id="city-selected">
                                                     {
                                                         cities?.map((city) => (
-                                                            <div className="city-modal__selected-item">
+                                                            <div className="city-modal__selected-item" key={city.id}>
                                                                 <span className="city-modal__selected-text">{city.name}</span>
                                                                 <button className="city-modal__selected-btn" onClick={() => SetCityToLocalStorage(city.name, city.id)}>
                                                                     <i className="city-modal__selected-icon bi bi-x"></i>
@@ -177,8 +177,9 @@ const HeaderMain = ({ changeValueSearch,
 
                                                 allLocation.provinces?.map((province) => (
                                                     <li
-                                                        onClick={() => showCitiesHandler(province.id, province.name)}
-                                                        className="city-modal__cities-item province-item"
+                                                    key={province.id}
+                                                    onClick={() => showCitiesHandler(province.id, province.name)}
+                                                    className="city-modal__cities-item province-item"
                                                     >
                                                         <span>{province.name}</span>
                                                         <i className="city-modal__cities-icon bi bi-chevron-left"></i>
