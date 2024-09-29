@@ -6,7 +6,7 @@
 </div>
 
 <!-- ABOUT THE PROJECT -->
-## <img src="https://upload.wikimedia.org/wikipedia/fa/thumb/a/a7/DivarLogo.png/1200px-DivarLogo.png" alt="Logo" width="40" height="40"> About The Project
+## <img src="https://upload.wikimedia.org/wikipedia/fa/thumb/a/a7/DivarLogo.png/1200px-DivarLogo.png" alt="Logo" width="30" height="20"> About Divar
  ssss
 
 
