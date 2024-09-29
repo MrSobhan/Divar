@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <div align="center">
   <a href="#">
-    <img src="https://s32.picofile.com/file/8479431376/Divar.png" alt="Logo" width="80" height="80">
+    <img src="https://upload.wikimedia.org/wikipedia/fa/thumb/a/a7/DivarLogo.png/1200px-DivarLogo.png" alt="Logo" width="80" height="80">
   </a>
 </div>
 
