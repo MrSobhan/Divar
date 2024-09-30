@@ -34,10 +34,15 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName , category 
 
             category.forEach(category => {
                 let filterArrySub = category.subCategories.filter((sub) => sub._id == categoryId)
+                let filterArrySubSub = category.subCategories.filter((sub) => sub.subCategories.filter(subSub => subSub._id == categoryId).length)
 
-                if (filterArrySub.length != 0 && subCategory != filterArrySub) {
-                    
+
+                // ? Check Show SubCategory Or SubSubCategory
+
+                if (filterArrySub.length && subCategory != filterArrySub) {   
                     setSubCategory(filterArrySub)
+                }else if (filterArrySubSub.length){
+                    setSubCategory(filterArrySubSub)
                 }
 
 
@@ -77,11 +82,11 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName , category 
 
                     {
                         categoryId ?
-                            (mainCategory.length != 0 ? (mainCategory.map((category) => (
+                            (mainCategory.length ? (mainCategory.map((category) => (
 
                                 <BodyCategoryItem {...category} key={category._id} backToAllCategories={backToAllCategories} cityName={cityName}/>
 
-                            ))) : (subCategory.length != 0 && (
+                            ))) : (subCategory.length && (
                                 subCategory.map((category) => (
 
 
