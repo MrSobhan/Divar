@@ -6,13 +6,12 @@ import BodyCategoryItem from '../bodyCategoryItem/bodyCategoryItem';
 import Accordion from 'react-bootstrap/Accordion';
 import './Sidebar.css'
 
-const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName , category }) => {
+const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName, category }) => {
     const authContext = useContext(AuthContext)
     const { categoryId } = useParams()
     const navigetor = useNavigate()
 
 
-    // const [category, setCategory] = useState([])
     const [subCategory, setSubCategory] = useState([])
     const [mainCategory, setMainCategory] = useState([])
 
@@ -20,13 +19,6 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName , category 
     const [justPhotoController, setJustPhotoController] = useState(false)
     const [exchangeController, setExchangeController] = useState(false)
 
-    // useEffect(() => {
-    //     fetch(`${authContext.baseUrl}/v1/category`)
-    //         .then(res => res.json()).then(category => {
-    //             setCategory(category.data.categories);
-    //         })      
-
-    // }, [])
     useEffect(() => {
 
         if (categoryId) {
@@ -39,9 +31,9 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName , category 
 
                 // ? Check Show SubCategory Or SubSubCategory
 
-                if (filterArrySub.length && subCategory != filterArrySub) {   
+                if (filterArrySub.length && subCategory != filterArrySub) {
                     setSubCategory(filterArrySub)
-                }else if (filterArrySubSub.length){
+                } else if (filterArrySubSub.length) {
                     setSubCategory(filterArrySubSub)
                 }
 
@@ -50,10 +42,6 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName , category 
         }
 
     }, [categoryId])
-
-
-
-
 
     const changeInputHandler = () => {
         let filterArryPosts = []
@@ -84,7 +72,7 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName , category 
                         categoryId ?
                             (mainCategory.length ? (mainCategory.map((category) => (
 
-                                <BodyCategoryItem {...category} key={category._id} backToAllCategories={backToAllCategories} cityName={cityName}/>
+                                <BodyCategoryItem {...category} key={category._id} backToAllCategories={backToAllCategories} cityName={cityName} />
 
                             ))) : (subCategory.length && (
                                 subCategory.map((category) => (
@@ -125,61 +113,58 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName , category 
 
                 {
 
-                    useEffect(() => {
-                        filtersSubCategory.length != 0 && filtersSubCategory.map(filter => (
+                    filtersSubCategory.length != 0 && filtersSubCategory.map(filter => (
 
-                            filter.type == 'selectbox' ? (
-                                <div className="sidebar__filter" key={filter._id}>
-                                    <div className="accordion accordion-flush" id="accordionFlushExample">
-                                        <div className="accordion-item">
-                                            <h2 className="accordion-header">
-                                                <button
-                                                    className="accordion-button collapsed"
-                                                    type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target={'#accordion-' + filter.slug}
-                                                    aria-expanded="false"
-                                                    aria-controls={'accordion-' + filter.name}
-                                                >
-                                                    <span className="sidebar__filter-title">{
-                                                        filter.name
-                                                    }</span>
-                                                </button>
-                                            </h2>
-                                            <div
-                                                id={'#accordion-' + filter.slug}
-                                                className="accordion-collapse collapse"
-                                                aria-labelledby={'accordion-' + filter.name}
-                                                data-bs-parent="#accordionFlushExample"
+                        filter.type == 'selectbox' ? (
+                            <div className="sidebar__filter" key={filter._id}>
+                                <div className="accordion accordion-flush" id="accordionFlushExample">
+                                    <div className="accordion-item">
+                                        <h2 className="accordion-header">
+                                            <button
+                                                className="accordion-button collapsed"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target={'#accordion-' + filter.slug}
+                                                aria-expanded="false"
+                                                aria-controls={'accordion-' + filter.name}
                                             >
-                                                <div className="accordion-body">
-                                                    <select className="selectbox">
-                                                        {filter.options
-                                                            .sort((a, b) => b - a)
-                                                            .map(
-                                                                (option) =>
-                                                                    <option value={option}>{option}</option>
-                                                            )}
-                                                    </select>
-                                                </div>
+                                                <span className="sidebar__filter-title">{
+                                                    filter.name
+                                                }</span>
+                                            </button>
+                                        </h2>
+                                        <div
+                                            id={'#accordion-' + filter.slug}
+                                            className="accordion-collapse collapse"
+                                            aria-labelledby={'accordion-' + filter.name}
+                                            data-bs-parent="#accordionFlushExample"
+                                        >
+                                            <div className="accordion-body">
+                                                <select className="selectbox">
+                                                    {filter.options
+                                                        .sort((a, b) => b - a)
+                                                        .map(
+                                                            (option) =>
+                                                                <option value={option}>{option}</option>
+                                                        )}
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            ) : (
-                                <div className="sidebar__filter" key={filter._id}>
-                                    <label className="switch">
-                                        <input id="exchange_controll" className="icon-controll" type="checkbox" />
-                                        <span className="slider round"></span>
-                                    </label>
-                                    <p>{filter.name}</p>
-                                </div>
-                            )
+                            </div>
+                        ) : (
+                            <div className="sidebar__filter" key={filter._id}>
+                                <label className="switch">
+                                    <input id="exchange_controll" className="icon-controll" type="checkbox" />
+                                    <span className="slider round"></span>
+                                </label>
+                                <p>{filter.name}</p>
+                            </div>
+                        )
 
 
-                        ))
-                    }, [filtersSubCategory])
-
+                    ))
 
                 }
 
@@ -251,83 +236,96 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName , category 
                     </div>
                 </div> */}
 
-                <Accordion defaultActiveKey="0" className='my-4'>
-                    <Accordion.Item eventKey="0">
-                        <Accordion.Header>
-                            <i className="bi bi-chevron-down"></i>
-                            <span className="sidebar__filter-title">قیمت</span>
-                        </Accordion.Header>
-                        <Accordion.Body className=''>
-                            <div className="sidebar__filter-price-wrapper my-2">
-                                <label className="sidebar__filter-price-label">حداقل</label>
-                                <select className='form-control mx-3 sidebar__formSelect py-2 fs-5' id="min-price-selectbox" onChange={(e)=> setMinPrice(e.target.value)}>
-                                    <option value="0">مبلغ پیشفرض (تومان)</option>
-                                    <option value="10000">10 هزار</option>
-                                    <option value="50000">50 هزار</option>
-                                    <option value="200000">200 هزار</option>
-                                    <option value="500000">500 هزار</option>
-                                    <option value="1000000">1 میلیون</option>
-                                    <option value="5000000">5 میلیون</option>
-                                    <option value="10000000">10 میلیون</option>
-                                    <option value="20000000">20 میلیون</option>
-                                    <option value="50000000">50 میلیون</option>
-                                    <option value="100000000">100 میلیون</option>
-                                    <option value="150000000">150 میلیون</option>
-                                    <option value="200000000">200 میلیون</option>
-                                </select>
-                            </div>
-                            <div className="sidebar__filter-price-wrapper mt-4">
-                                <label className="sidebar__filter-price-label">حداکثر</label>
-                                <select className='form-control mx-3 sidebar__formSelect py-2 fs-5' id="max-price-selectbox" onChange={(e)=> setMaxPrice(e.target.value)}>
-                                    <option value="0">مبلغ پیشفرض (تومان)</option>
-                                    <option value="10000">10 هزار</option>
-                                    <option value="50000">50 هزار</option>
-                                    <option value="200000">200 هزار</option>
-                                    <option value="500000">500 هزار</option>
-                                    <option value="1000000">1 میلیون</option>
-                                    <option value="5000000">5 میلیون</option>
-                                    <option value="10000000">10 میلیون</option>
-                                    <option value="20000000">20 میلیون</option>
-                                    <option value="50000000">50 میلیون</option>
-                                    <option value="100000000">100 میلیون</option>
-                                    <option value="150000000">150 میلیون</option>
-                                    <option value="200000000">200 میلیون</option>
-                                </select>
-                            </div>
-                        </Accordion.Body>
-                    </Accordion.Item>
+                <div className="sidebar__category">
 
-                </Accordion>
+                    <Accordion defaultActiveKey="0" className='my-4'>
+                        <Accordion.Item eventKey="0">
+                            <Accordion.Header>
+                                <i className="bi bi-chevron-down"></i>
+                                <span className="sidebar__filter-title">قیمت</span>
+                            </Accordion.Header>
+                            <Accordion.Body className=''>
+                                <div className="sidebar__filter-price-wrapper my-2">
+                                    <label className="sidebar__filter-price-label">حداقل</label>
+                                    <select className='form-control mx-3 sidebar__formSelect py-2 fs-5' id="min-price-selectbox" onChange={(e) => setMinPrice(e.target.value)}>
+                                        <option value="0">مبلغ پیشفرض (تومان)</option>
+                                        <option value="10000">10 هزار</option>
+                                        <option value="50000">50 هزار</option>
+                                        <option value="200000">200 هزار</option>
+                                        <option value="500000">500 هزار</option>
+                                        <option value="1000000">1 میلیون</option>
+                                        <option value="5000000">5 میلیون</option>
+                                        <option value="10000000">10 میلیون</option>
+                                        <option value="20000000">20 میلیون</option>
+                                        <option value="50000000">50 میلیون</option>
+                                        <option value="100000000">100 میلیون</option>
+                                        <option value="150000000">150 میلیون</option>
+                                        <option value="200000000">200 میلیون</option>
+                                    </select>
+                                </div>
+                                <div class="kt-ftr-separator"></div>
+                                <div className="sidebar__filter-price-wrapper mt-4">
+                                    <label className="sidebar__filter-price-label">حداکثر</label>
+                                    <select className='form-control mx-3 sidebar__formSelect py-2 fs-5' id="max-price-selectbox" onChange={(e) => setMaxPrice(e.target.value)}>
+                                        <option value="0">مبلغ پیشفرض (تومان)</option>
+                                        <option value="10000">10 هزار</option>
+                                        <option value="50000">50 هزار</option>
+                                        <option value="200000">200 هزار</option>
+                                        <option value="500000">500 هزار</option>
+                                        <option value="1000000">1 میلیون</option>
+                                        <option value="5000000">5 میلیون</option>
+                                        <option value="10000000">10 میلیون</option>
+                                        <option value="20000000">20 میلیون</option>
+                                        <option value="50000000">50 میلیون</option>
+                                        <option value="100000000">100 میلیون</option>
+                                        <option value="150000000">150 میلیون</option>
+                                        <option value="200000000">200 میلیون</option>
+                                    </select>
+                                </div>
+                            </Accordion.Body>
+                        </Accordion.Item>
 
-                <div className="sidebar__filter">
-                    <div className="sidebar__filter-title-wrapper">
-                        <i className="sidebar__filter-icon bi bi-chevron-down"></i>
-                        <span className="sidebar__filter-title">وضعیت آگهی</span>
-                    </div>
-                    <div className="sidebar__filter-condition sidebar__filter-item">
-                        <div className="sidebar__filter-condition-wrapper">
-                            <div className="sidebar__filter-condition-right">
-                                <label className="sidebar__filter-condition-label">فقط عکس دار</label>
-                            </div>
-                            <div className="sidebar__filter-condition-left">
-                                <label className="sidebar__filter-condition-switch">
-                                    <input className="sidebar__filter-condition-input" type="checkbox" checked={justPhotoController} onChange={changeInputHandler} />
-                                    <span className="sidebar__filter-condition-slider" onClick={() => setJustPhotoController((prev) => !prev)}></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div className="sidebar__filter-condition-wrapper">
-                            <div className="sidebar__filter-condition-right">
-                                <label className="sidebar__filter-condition-label">معاوضه</label>
-                            </div>
-                            <div className="sidebar__filter-condition-left">
-                                <label className="sidebar__filter-condition-switch">
-                                    <input className="sidebar__filter-condition-input" type="checkbox" checked={exchangeController} onChange={changeInputHandler} />
-                                    <span className="sidebar__filter-condition-slider" onClick={() => setExchangeController((prev) => !prev)}></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+                    </Accordion>
+                </div>
+                <div className="sidebar__category">
+
+                    <Accordion defaultActiveKey="0">
+                        <Accordion.Item eventKey="0">
+                            <Accordion.Header>
+                                <div className="sidebar__filter-title-wrapper">
+                                    <i className="sidebar__filter-icon bi bi-chevron-down"></i>
+                                    <span className="sidebar__filter-title">وضعیت آگهی</span>
+                                </div>
+                            </Accordion.Header>
+                            <Accordion.Body>
+                                <div className="sidebar__filter-condition sidebar__filter-item">
+                                    <div className="sidebar__filter-condition-wrapper">
+                                        <div className="sidebar__filter-condition-right">
+                                            <label className="sidebar__filter-condition-label">فقط عکس دار</label>
+                                        </div>
+                                        <div className="sidebar__filter-condition-left">
+                                            <label className="sidebar__filter-condition-switch">
+                                                <input className="sidebar__filter-condition-input" type="checkbox" checked={justPhotoController} onChange={changeInputHandler} />
+                                                <span className="sidebar__filter-condition-slider" onClick={() => setJustPhotoController((prev) => !prev)}></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div className="sidebar__filter-condition-wrapper">
+                                        <div className="sidebar__filter-condition-right">
+                                            <label className="sidebar__filter-condition-label">معاوضه</label>
+                                        </div>
+                                        <div className="sidebar__filter-condition-left">
+                                            <label className="sidebar__filter-condition-switch">
+                                                <input className="sidebar__filter-condition-input" type="checkbox" checked={exchangeController} onChange={changeInputHandler} />
+                                                <span className="sidebar__filter-condition-slider" onClick={() => setExchangeController((prev) => !prev)}></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Accordion.Body>
+                        </Accordion.Item>
+
+                    </Accordion>
                 </div>
             </div>
             <div className="sidebar__links">
@@ -337,18 +335,7 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName , category 
                 <a className="sidebar__link" href="#">کسب و کارها</a>
                 <a className="sidebar__link" href="#">پشتیبانی و قوانین</a>
             </div>
-            {/* <div className="sidebar__icons">
-                <a className="sidebar__icon-link" href="#">
-                    <i className="sidebar__icon bi bi-twitter"></i>
-                </a>
-                <a className="sidebar__icon-link" href="#">
-                    <i className="sidebar__icon bi bi-instagram"></i>
-                </a>
-                <a className="sidebar__icon-link" href="#">
-                    <i className="sidebar__icon bi bi-linkedin"></i>
-                </a>
-            </div> */}
-            <div id='footer__social-media'>
+            <div id="footer__social-media">
                 <Social />
             </div>
             <div className="sidebar__images">
