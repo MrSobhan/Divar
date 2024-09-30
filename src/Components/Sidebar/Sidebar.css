@@ -112,7 +112,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color:#585858;
     transition: 0.4s;
     border-radius: 4rem;
     padding: .5rem;
@@ -124,7 +124,7 @@
     height: 1.5rem;
     width: 1.5rem;
     left: 2px;
-    bottom: 0.3rem;
+    bottom: 0.25rem;
     background-color: white;
     transition: 0.4s;
     border-radius: 50%;
@@ -144,6 +144,7 @@
     display: flex;
     flex-wrap: wrap;
     margin: 1rem 0;
+    justify-content: center;
 }
 
 .sidebar__link {
