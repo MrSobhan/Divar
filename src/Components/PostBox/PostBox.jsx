@@ -10,21 +10,13 @@ const PostBox = ({ _id, title,
     pics, createdAt }) => {
     const authContext = useContext(AuthContext)
 
-    const [publishDate, setPublishDate] = useState(new Date(createdAt))
-    const [newDate, setNewDate] = useState(new Date())
 
-    const [relativeTime, setRelativeTime] = useState('')
-
-    useEffect(() => {
-        let miliSecond = newDate - publishDate
-        setRelativeTime(Math.floor((miliSecond / 3600000)));
-
-    }, [])
-
+    const Time = authContext.calcuteRelativeTimeDifference(createdAt)
+    
 
     return (
         <div className="col-4">
-            <Link to={'main/' + _id} className="product-card">
+            <Link to={'/post/' + _id} className="product-card">
                 <div className="product-card__right">
                     <div className="product-card__right-top">
                         <p className="product-card__link">{title}</p>
@@ -40,7 +32,7 @@ const PostBox = ({ _id, title,
                                     : price.toLocaleString() + " تومان"
                             }
                         </span>
-                        <span className="product-card__time">{relativeTime > 24 ? (Math.floor(relativeTime / 24) + ' روز پیش') : (relativeTime + 'ساعت پیش ')}</span>
+                        <span className="product-card__time">{Time}</span>
                     </div>
                 </div>
                 <div className="product-card__left">

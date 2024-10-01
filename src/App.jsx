@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRoutes , useParams } from "react-router-dom";
+import { useRoutes, useParams } from "react-router-dom";
 import AuthContext from "./context/authContext";
 import routes from "./routes";
 
@@ -10,26 +10,24 @@ const App = () => {
 
   const router = useRoutes(routes);
 
-  const [allCookie, setAllCookie] = useState(document.cookie)
+  const baseUrl = "https://divarapi.liara.run"
 
-  // useEffect(() => {
-  //   window.addEventListener('load', setIsLoad(false))
-  // }, [])
+  // const [allCookie, setAllCookie] = useState(document.cookie)
 
-  const getCookie = (param) => {
-    const paramValue = param + '='
-    let result = null
-    const cookieArry = allCookie.split('; ')
-    cookieArry.forEach(cookie => {
-      if (cookie.indexOf(paramValue) == 0) {
-        result = cookie.substring(paramValue.length)
-      }
-    });
+  // const getCookie = (param) => {
+  //   const paramValue = param + '='
+  //   let result = null
+  //   const cookieArry = allCookie.split('; ')
+  //   cookieArry.forEach(cookie => {
+  //     if (cookie.indexOf(paramValue) == 0) {
+  //       result = cookie.substring(paramValue.length)
+  //     }
+  //   });
 
 
 
-    return result;
-  }
+  //   return result;
+  // }
 
   const setLocalStorage = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value))
@@ -37,38 +35,37 @@ const App = () => {
   const getLocalStorage = (key) => {
     return JSON.parse(localStorage.getItem(key))
   }
+  const calcuteRelativeTimeDifference = (createdAt) => {
 
-  const [baseUrl, setBaseUrl] = useState("https://divarapi.liara.run")
 
-  
-  // const fetchApi = (valueSearch , categoryId) => {
-  //   const citiesIDs = getLocalStorage('city')
+    const publishDate = new Date(createdAt)
+    const newDate = new Date()
+
+    let relativeTime = null
+
+    let miliSecond = newDate - publishDate
+    relativeTime = Math.floor((miliSecond / 3600000))
+
+    let TimeReturn = relativeTime > 24 ? (Math.floor(relativeTime / 24) + ' روز پیش') : (relativeTime + 'ساعت پیش ')
     
+    return TimeReturn;
 
-  //   let Url = `${baseUrl}/v1/post/?city=${citiesIDs[0].id}`
-  //   Url += categoryId ? `&categoryId=${categoryId}` : ''
-  //   Url += valueSearch != '' ? `&search=${valueSearch}` : ''
-    
-  //   return fetch(Url)
-  //     .then(res => res.json())
-  
-  // }
+  }
 
 
 
-  
 
   return (
-      <AuthContext.Provider
-        value={{
-          getCookie,
-          baseUrl,
-          setLocalStorage,
-          getLocalStorage
-        }}
-      >
-        {router}
-      </AuthContext.Provider>
+    <AuthContext.Provider
+      value={{
+        baseUrl,
+        setLocalStorage,
+        getLocalStorage,
+        calcuteRelativeTimeDifference
+      }}
+    >
+      {router}
+    </AuthContext.Provider>
   );
 }
 

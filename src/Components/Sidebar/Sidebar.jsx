@@ -6,7 +6,7 @@ import BodyCategoryItem from '../bodyCategoryItem/bodyCategoryItem';
 import Accordion from 'react-bootstrap/Accordion';
 import './Sidebar.css'
 
-const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName, category }) => {
+const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, category }) => {
     const authContext = useContext(AuthContext)
     const { categoryId } = useParams()
     const navigetor = useNavigate()
@@ -18,6 +18,8 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName, category }
     const [filtersSubCategory, setFiltersSubCategory] = useState([])
     const [justPhotoController, setJustPhotoController] = useState(false)
     const [exchangeController, setExchangeController] = useState(false)
+
+    const cityName = authContext.getLocalStorage('city')[0]?.name
 
     useEffect(() => {
 
@@ -263,7 +265,7 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, cityName, category }
                                         <option value="200000000">200 میلیون</option>
                                     </select>
                                 </div>
-                                <div class="kt-ftr-separator"></div>
+                                <div className="kt-ftr-separator"></div>
                                 <div className="sidebar__filter-price-wrapper mt-4">
                                     <label className="sidebar__filter-price-label">حداکثر</label>
                                     <select className='form-control mx-3 sidebar__formSelect py-2 fs-5' id="max-price-selectbox" onChange={(e) => setMaxPrice(e.target.value)}>

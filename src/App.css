@@ -114,3 +114,13 @@ body::-webkit-scrollbar-track{
 }
 
 /* !=======================================Loading!======================================= */
+
+.swal-button-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swal-button-container button , .swal-button-container button:hover{
+    background-color: var(--primary-color) !important;
+}

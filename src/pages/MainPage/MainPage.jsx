@@ -4,13 +4,13 @@ import Sidebar from '../../Components/Sidebar/Sidebar'
 import AuthContext from '../../context/authContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import PostBox from '../../Components/PostBox/PostBox';
-import './Main.css'
+import './MainPage.css'
 
-const Main = () => {
+const MainPage = () => {
     const authContext = useContext(AuthContext)
     const navigator = useNavigate()
     const { categoryId } = useParams()
-    const [allPost, setAllPost] = useState([])
+    const [repositoryPostsForFilter, setRepositoryPostsForFilter] = useState([])
     const [posts, setPosts] = useState([])
     const [valueSearch, setValueSearch] = useState('')
     const [isLoad, setIsLoad] = useState(true)
@@ -25,7 +25,9 @@ const Main = () => {
 
     let citiesIDs = authContext.getLocalStorage('city')
 
-    const fetchApi = (isEmpty) => {
+    //* Get Posts
+
+    const GetAllPost = () => {
         citiesIDs = authContext.getLocalStorage('city')
         let JoinCitiesIDs = citiesIDs.map(city => city.id).join('|')
         if(citiesIDs && citiesIDs.length != 0){
@@ -33,21 +35,34 @@ const Main = () => {
             
             let Url = `${authContext.baseUrl}/v1/post/?city=${JoinCitiesIDs}`
             Url += categoryId ? `&categoryId=${categoryId}` : ''
-            Url += isEmpty && (valueSearch != '' ? `&search=${valueSearch}` : '')
+            Url += Boolean(valueSearch.trim()) ? `&search=${valueSearch}` : ''
     
             fetch(Url)
-                .then(res => res.json()).then(posts => {
+                .then(res => res.json()).then(resPosts => {
                     setIsLoad(false)
-                    setAllPost(posts.data.posts)
-                    ShowFiltredPost(posts.data.posts)
+                    setRepositoryPostsForFilter(resPosts.data.posts)
+                    ShowFiltredPost(resPosts.data.posts)
                 })
         }else{
             navigator('/')
         }
     }
 
-    const ShowFiltredPost = (postsData) => {
-        let filteredPosts = postsData
+    useEffect(() => {
+        GetAllPost()
+
+        fetch(`${authContext.baseUrl}/v1/category`)
+            .then(res => res.json()).then(category => {
+                setCategory(category.data.categories);
+            })      
+    }, [categoryId])
+
+
+    //* Show Posts By Filter
+    
+    const ShowFiltredPost = (AllDataPosts) => {
+        let filteredPosts = AllDataPosts
+        
 
 
         if (arryFilter.includes('justPhoto')) {
@@ -77,46 +92,17 @@ const Main = () => {
     }
 
     useEffect(() => {
-        fetchApi(true)
-
-        fetch(`${authContext.baseUrl}/v1/category`)
-            .then(res => res.json()).then(category => {
-                setCategory(category.data.categories);
-            })      
-    }, [categoryId])
-
-    useEffect(() => {
-        ShowFiltredPost(allPost)
+        ShowFiltredPost(repositoryPostsForFilter)
     }, [arryFilter, minPrice, maxPrice])
 
 
 
-
-    //* HeaderMain Func :)
-
-
-    const changeValueSearch = (value) => {
-        setValueSearch(value)
-    }
-    const emptyValueSearch = () => {
-        setValueSearch('')
-        fetchApi(false)
-    }
-    const keyUpInputHandler = (e) => {
-        if (e.keyCode == 13) {
-            fetchApi(true)
-        }
-    }
-
     return (
         <>
             <HeaderMain
-                changeValueSearch={(value) => changeValueSearch(value)}
-                emptyValueSearch={emptyValueSearch}
-                keyUpInputHandler={(event) => keyUpInputHandler(event)}
                 valueSearch={valueSearch}
                 setValueSearch={setValueSearch}
-                fetchApi={fetchApi}
+                GetAllPost={GetAllPost}
                 category={category}
             />
             <main className="main-container">
@@ -127,7 +113,6 @@ const Main = () => {
                                 setArryFilter={setArryFilter}
                                 setMinPrice={setMinPrice}
                                 setMaxPrice={setMaxPrice}
-                                cityName={citiesIDs[0]?.name}
                                 category={category} />
                         </div>
                         <div className="col-9">
@@ -159,4 +144,4 @@ const Main = () => {
 }
 
 
-export default Main;
+export default MainPage;

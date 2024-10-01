@@ -1,21 +1,21 @@
 import React, { useState, useContext, useEffect } from 'react';
 import AuthContext from '../../context/authContext';
-import { useNavigate , Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import './HeaderMain.css'
 
-const HeaderMain = ({ changeValueSearch,
-    emptyValueSearch,
-    keyUpInputHandler,
+const HeaderMain = ({
     valueSearch,
     setValueSearch,
-    fetchApi,
+    GetAllPost,
     category }) => {
     const navigetor = useNavigate()
 
     const authContext = useContext(AuthContext)
+
     const darkMode = authContext.getLocalStorage('theme')
     const [theme, setTheme] = useState('dark')
+
     const [activeModal, setActiveModal] = useState(false)
     const [activeModalCities, setActiveModalCities] = useState(false)
     const popularSearch = ['خودروسواری',
@@ -36,6 +36,8 @@ const HeaderMain = ({ changeValueSearch,
     const [showHeaderCategory, setShowHeaderCategory] = useState(false)
 
 
+    //* darkModeHandler
+
     const darkModeHandler = () => {
         setTheme(prevState => {
             let ThemeMode = prevState == 'dark' ? 'light' : 'dark'
@@ -44,15 +46,8 @@ const HeaderMain = ({ changeValueSearch,
         })
     }
 
-    const fetchAllLocation = () => {
-        fetch(`${authContext.baseUrl}/v1/location`)
-            .then(res => res.json()).then(cityAll => {
-                setAllLocation(cityAll.data)
-            })
-    }
-
     useEffect(() => {
-        fetchAllLocation()
+        GetAllLocation()
     }, [])
 
     useEffect(() => {
@@ -76,19 +71,17 @@ const HeaderMain = ({ changeValueSearch,
         }
     }, [theme])
 
-    useEffect(() => {
-        if (valueSearchCities.length) {
-            let FilterCityBySearch = allLocation.cities.filter((city) => city.name.includes(valueSearchCities))
-            if (FilterCityBySearch.length) {
-                setAllCity({ name: valueSearchCities, data: FilterCityBySearch })
-                setShowCityInModal(true)
-            }
-        } else {
-            setShowCityInModal(false)
-        }
+    //* Location
 
-    }, [valueSearchCities])
+    const GetAllLocation = () => {
+        fetch(`${authContext.baseUrl}/v1/location`)
+            .then(res => res.json()).then(cityAll => {
+                setAllLocation(cityAll.data)
+            })
+    }
 
+
+    //* Cities Modal
 
 
     const showCitiesHandler = (_id, name) => {
@@ -111,7 +104,7 @@ const HeaderMain = ({ changeValueSearch,
         let ArryCityLocal = cities
         if (!IsCity) { //* Create
             ArryCityLocal.push({ name, id })
-            fetchAllLocation()
+            GetAllLocation()
         } else { //! Delete
             ArryCityLocal = ArryCityLocal.filter(city => city.name != name)
         }
@@ -124,11 +117,24 @@ const HeaderMain = ({ changeValueSearch,
     const SetCitiesLocalStorage = () => {
         setActiveModalCities(false)
         authContext.setLocalStorage('city', cities)
-        fetchApi(true)
+        GetAllPost()
     }
     const EmptyCityLocalStorage = () => {
         setCities([])
     }
+
+    useEffect(() => {
+        if (valueSearchCities.length) {
+            let FilterCityBySearch = allLocation.cities.filter((city) => city.name.includes(valueSearchCities))
+            if (FilterCityBySearch.length) {
+                setAllCity({ name: valueSearchCities, data: FilterCityBySearch })
+                setShowCityInModal(true)
+            }
+        } else {
+            setShowCityInModal(false)
+        }
+
+    }, [valueSearchCities])
 
     // * Categories
 
@@ -136,6 +142,22 @@ const HeaderMain = ({ changeValueSearch,
         document.title = 'دیوار ' + cities[0].name
         navigetor('/main')
     }
+
+    //* HeaderMain Func :)
+    
+    const changeValueSearch = (value) => {
+        setValueSearch(value)
+    }
+    const emptyValueSearch = () => {
+        setValueSearch('')
+        GetAllPost()
+    }
+    const EnterSearchHandler = (e) => {
+        if (e.keyCode == 13) { //! Enter In Input
+            GetAllPost()
+        }
+    }
+
 
     return (
         <header className="header">
@@ -269,7 +291,7 @@ const HeaderMain = ({ changeValueSearch,
                                         {
                                             category.length && (
                                                 category.map((catMenu) => (
-                                                    <li className="header__category-menu-item">
+                                                    <li className="header__category-menu-item" key={catMenu._id}>
                                                         <a className="header__category-menu-link" href="#">
                                                             <div className="header__category-menu-link-right">
                                                                 <i className="header__category-menu-icon bi bi-house"></i>
@@ -283,12 +305,11 @@ const HeaderMain = ({ changeValueSearch,
                                                             <div className="row">
                                                                 {
                                                                     catMenu.subCategories.map((subCategory) => (
-                                                                        <div className="col-4">
+                                                                        <div className="col-4" key={subCategory._id}>
                                                                             <ul className="header__category-dropdown-list">
-                                                                                <Link className="header__category-dropdown-title" to={'/main/' + subCategory._id}>{subCategory.title}</Link>
-                                                                                {
+                                                                                <li><Link className="header__category-dropdown-title" to={'/main/' + subCategory._id}>{subCategory.title}</Link></li>                                                                                {
                                                                                     subCategory.subCategories.map((subSubCategory) => (
-                                                                                        <li className="header__category-dropdown-item">
+                                                                                        <li className="header__category-dropdown-item" key={subSubCategory._id}>
                                                                                             <Link className="header__category-dropdown-link"
                                                                                                 to={'/main/' + subSubCategory._id}>{subSubCategory.title}</Link>
                                                                                         </li>
@@ -310,7 +331,7 @@ const HeaderMain = ({ changeValueSearch,
                         </div>
                         <div className="header__searchbar" onMouseLeave={() => setActiveModal(false)}>
                             <div className="header__form">
-                                <input className="header__form-input" type="text" placeholder="جستجو در تمام آگهی ها..." value={valueSearch} onChange={(e) => changeValueSearch(e.target.value)} onMouseEnter={() => setActiveModal(true)} onKeyUp={(e) => keyUpInputHandler(e)} />
+                                <input className="header__form-input" type="text" placeholder="جستجو در تمام آگهی ها..." value={valueSearch} onChange={(e) => changeValueSearch(e.target.value)} onMouseEnter={() => setActiveModal(true)} onKeyUp={(e) => EnterSearchHandler(e)} />
                                 <i className={valueSearch?.length != 0 ? 'bi bi-x-circle active' : 'bi bi-x-circle'} onClick={emptyValueSearch}></i>
                             </div>
                             <i className="header__searchbar-icon bi bi-search"></i>
