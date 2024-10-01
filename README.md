@@ -1,13 +1,8 @@
-<!-- PROJECT LOGO -->
-<div align="center">
-  <a href="#">
-    <img src="https://s.cafebazaar.ir/1/upload/icons/divar-logo-512x512.png" alt="Logo" width="180" height="180">
-  </a>
-</div>
 
 <!-- ABOUT THE PROJECT -->
 ## <img src="https://upload.wikimedia.org/wikipedia/fa/thumb/a/a7/DivarLogo.png/1200px-DivarLogo.png" alt="Logo" width="30" height="20"> About Divar
- ssss
+
+<img src="https://s32.picofile.com/file/8479456268/s3030Divar.png" title="Divar">
 
 
 ## <img src="https://github.com/Tarikul-Islam-Anik/tarikul-islam-anik/raw/main/assets/images/Hot%20Beverage.png" alt="Slightly Smiling Face" width="25" height="25"/> Built With
