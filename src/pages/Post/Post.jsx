@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../context/authContext';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import swal from "sweetalert";
 import Carousel from 'react-bootstrap/Carousel';
-// import ExampleCarouselImage from 'components/ExampleCarouselImage';
-import './Post.css'
 import HeaderMain from '../../Components/HeaderMain/HeaderMain';
 import FooterPost from '../../Components/FooterPost/FooterPost';
+import swal from "sweetalert";
+import './Post.css'
 const Post = () => {
     const authContext = useContext(AuthContext)
     const { postId } = useParams()
@@ -158,7 +157,7 @@ const Post = () => {
                                                 placeholder="یادداشت شما..."
                                             ></textarea>
                                             <i id="note-trash-icon" className="bi bi-trash3-fill"></i>
-                                            <span className="post-preview__input-notics">یادداشت تنها برای شما قابل دیدن است و پس از حذف آگهی، پاک خواهد cشد.</span>
+                                            <span className="post-preview__input-notics">یادداشت تنها برای شما قابل دیدن است و پس از حذف آگهی، پاک خواهد شد.</span>
                                         </div>
 
                                         <div id="map"></div>
