@@ -1,0 +1,200 @@
+/* !=======================================Login Modal Style!======================================= */
+.login-modal {
+    position: fixed;
+    margin: auto;
+    inset: 0;
+    visibility: hidden;
+    width: 100%;
+    opacity: 0;
+    z-index: 99999;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(10px);
+}
+.login-modal--active {
+    visibility: visible;
+    opacity: 1;
+    top: 0;
+}
+
+.login-modal section {
+    z-index: 99999;
+    position: relative;
+    flex-direction: column;
+    width: 49rem;
+    margin: 10rem auto;
+    padding-bottom: 2rem;
+    box-shadow: 0 8px 48px 8px rgba(0, 0, 0, 0.04), 0 12px 16px -8px rgba(0, 0, 0, 0.12),
+        0 24px 32px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 0.5rem;
+    background-color: var(--white-color);
+    justify-content: space-between;
+}
+
+.login-modal__header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5rem 3rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+}
+
+.login-modal__title {
+    font-size: 1.8rem;
+    color: var(--black-color);
+    font-family: "iransans-medium";
+}
+
+.login-modal__header-btn {
+    padding: 0.7rem;
+    transition: all 0.4s ease;
+    border-radius: 50%;
+}
+
+.login-modal__header-btn:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.login-modal__icon {
+    font-size: 2.3rem;
+}
+
+.login-modal__main {
+    padding: 4rem 3rem;
+}
+
+.login-modal__main-title {
+    font-size: 1.6rem;
+    color: var(--black-color);
+    font-family: "iransans-medium";
+    margin-bottom: 3rem;
+    display: block;
+}
+
+.login-modal__main-notic {
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+}
+
+.login-modal__form-wrapper {
+    position: relative;
+    margin: 1.5rem 0;
+}
+
+.login-modal__input::placeholder {
+    text-align: right;
+}
+
+.login-modal__input {
+    width: 100%;
+    border: var(--border);
+    border-radius: 0.5rem;
+    text-align: left;
+    padding: 0.8rem 2rem 0.8rem 6rem;
+    direction: ltr;
+    font-size: 1.5rem;
+    background-color: transparent;
+}
+
+.login_modal_step_2 .login-modal__footer {
+    gap: 10px;
+}
+
+.login_modal_step_2 .login-modal__footer button:nth-child(1) {
+    background-color: var(--white-color);
+    color: #a62626;
+    border: 1px solid #a62626;
+}
+
+.login_modal_step_2 .login-modal__condition span {
+    align-items: center;
+    background-color: rgba(0, 0, 0, .04);
+    border: none;
+    border-radius: 2px;
+    display: inline-flex;
+    font-weight: 400;
+    cursor: pointer;
+    outline: none;
+    border-radius: 100px;
+    font-size: 1.4rem;
+    margin-right: auto;
+    display: block;
+    width: max-content;
+    padding: 6px 12px;
+}
+
+.login_modal_step_2 .login-modal__input {
+    padding-left: 2rem !important;
+}
+
+.login-modal__form-text {
+    position: absolute;
+    top: .7rem;
+    left: 0.9rem;
+    color: var(--black-color);
+    font-size: 1.2rem;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+}
+
+.login-modal__condition {
+    font-size: 1.4rem;
+}
+
+.login-modal__condition-link {
+    color: #a62626;
+}
+
+.login-modal__condition-link:hover {
+    color: #a62626;
+}
+
+.step-1-login-form__error,
+.step-2-login-form__error {
+    color: red;
+    font-size: 1.2rem;
+    margin-top: 4px;
+    display: block;
+}
+
+.login_modal_step_2 {
+    display: none;
+}
+
+.active_step_2 .login_modal_step_2 {
+    display: block !important;
+}
+
+.active_step_2 .login_modal_step_1 {
+    display: none !important;
+}
+
+.req_new_code_btn {
+    display: none;
+}
+
+.request_timer {
+    display: flex;
+    font-size: 1.5rem;
+    gap: 2rem;
+    margin-left: 3rem;
+}
+
+.login-modal__footer {
+    padding: 1rem 3rem;
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: end;
+    justify-content: flex-end;
+}
+
+.login-modal__footer-btn {
+    font-size: 1.6rem;
+    color: #fff;
+    background-color: #a62626;
+    padding: 1rem 2.5rem;
+    border-radius: 0.3rem;
+    font-family: "iransans-bold";
+}
+
+/* !=======================================End Login Modal Style!======================================= */

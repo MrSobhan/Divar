@@ -47,9 +47,14 @@ const App = () => {
     relativeTime = Math.floor((miliSecond / 3600000))
 
     let TimeReturn = relativeTime > 24 ? (Math.floor(relativeTime / 24) + ' روز پیش') : (relativeTime + 'ساعت پیش ')
-    
+
     return TimeReturn;
 
+  }
+  const isLogin = () => {
+    let IsToken = getLocalStorage('token')
+
+    return IsToken ? true : false
   }
 
 
@@ -61,7 +66,8 @@ const App = () => {
         baseUrl,
         setLocalStorage,
         getLocalStorage,
-        calcuteRelativeTimeDifference
+        calcuteRelativeTimeDifference,
+        isLogin
       }}
     >
       {router}

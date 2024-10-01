@@ -90,6 +90,7 @@ body::-webkit-scrollbar-track{
 #loading-container {
     position: fixed;
     top: 65px;
+    left: 0;
     z-index: 99999;
     background-color: var(--white-color);
     width: 100%;

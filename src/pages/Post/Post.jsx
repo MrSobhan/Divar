@@ -4,6 +4,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
 import HeaderMain from '../../Components/HeaderMain/HeaderMain';
 import FooterPost from '../../Components/FooterPost/FooterPost';
+import LoginModal from '../../Components/LoginModal/LoginModal';
 import swal from "sweetalert";
 import './Post.css'
 const Post = () => {
@@ -12,15 +13,17 @@ const Post = () => {
     const [isLoad, setIsLoad] = useState(true)
     const [postDetails, setPostDetails] = useState({})
     const [feedbackIcons, setFeedbackIcons] = useState(true)
+    const [isShowLoginModal, setIsShowLoginModal] = useState(false)
+    const [valueNoteTextarea, setValueNoteTextarea] = useState('')
 
+
+    const date = authContext.calcuteRelativeTimeDifference(postDetails.createdAt)
 
     useEffect(() => {
         fetch(`${authContext.baseUrl}/v1/post/${postId}`)
             .then(res => res.json()).then(resPost => {
                 setIsLoad(false)
-                console.log(resPost.data.post);
                 setPostDetails(resPost.data.post)
-
             })
     }, [])
 
@@ -31,7 +34,13 @@ const Post = () => {
             buttons: "تماس گرفتن",
         })
     }
-    const date = authContext.calcuteRelativeTimeDifference(postDetails.createdAt)
+
+    const ShowLoginModalHandler = () => {
+        if(!authContext.isLogin()){
+            setIsShowLoginModal(true)
+        }
+    }
+    
     return (
 
 
@@ -45,6 +54,7 @@ const Post = () => {
                 ) : (
                     <>
                         {/* <HeaderMain /> */}
+                        
                         <main className="main">
                             <div className="container">
                                 <ul className="main__breadcrumb" id="breadcrumb">
@@ -155,8 +165,11 @@ const Post = () => {
                                                 id="note-textarea"
                                                 className="post-preview__input"
                                                 placeholder="یادداشت شما..."
+                                                onClick={ShowLoginModalHandler}
+                                                value={valueNoteTextarea}
+                                                onChange={(e)=>setValueNoteTextarea(e.target.value)}
                                             ></textarea>
-                                            <i id="note-trash-icon" className="bi bi-trash3-fill"></i>
+                                            <i id="note-trash-icon" className="bi bi-trash3-fill" style={{display:`${valueNoteTextarea.length ? 'block' : 'none'}`}} onClick={()=>setValueNoteTextarea('')}></i>
                                             <span className="post-preview__input-notics">یادداشت تنها برای شما قابل دیدن است و پس از حذف آگهی، پاک خواهد شد.</span>
                                         </div>
 
@@ -175,8 +188,13 @@ const Post = () => {
                         </main>
 
                         <FooterPost />
+
+                        {/* Show Login Modal */}
+                        <LoginModal isShow={isShowLoginModal} setIsShow={(e) => setIsShowLoginModal(e)}/>
                     </>
                 )
+
+                
             }
         </>
     );

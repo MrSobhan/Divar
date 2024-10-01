@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import AuthContext from '../../context/authContext';
+import LoginModal from '../LoginModal/LoginModal';
 import { useNavigate, Link } from 'react-router-dom';
 
 import './HeaderMain.css'
@@ -34,6 +35,7 @@ const HeaderMain = ({
     const [cities, setCities] = useState(authContext.getLocalStorage('city'))
 
     const [showHeaderCategory, setShowHeaderCategory] = useState(false)
+    const [isShowLoginModal, setIsShowLoginModal] = useState(false)
 
 
     //* darkModeHandler
@@ -155,6 +157,11 @@ const HeaderMain = ({
     const EnterSearchHandler = (e) => {
         if (e.keyCode == 13) { //! Enter In Input
             GetAllPost()
+        }
+    }
+    const ShowLoginModalHandler = () => {
+        if(!authContext.isLogin()){
+            setIsShowLoginModal(true)
         }
     }
 
@@ -365,7 +372,7 @@ const HeaderMain = ({
                                 </a>
                             )
                         }
-                        <a className="header__left-link" href="#">
+                        <a className="header__left-link" href="#" onClick={ShowLoginModalHandler}>
                             <i className="header__left-icon bi bi-person"></i>
                             دیوار من
                         </a>
@@ -414,6 +421,8 @@ const HeaderMain = ({
                     </div>
                 </div>
             </div>
+            {/* Show Login Modal */}
+            <LoginModal isShow={isShowLoginModal} setIsShow={(e) => setIsShowLoginModal(e)}/>
         </header>
     );
 }
