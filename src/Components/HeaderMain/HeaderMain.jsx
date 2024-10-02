@@ -14,8 +14,7 @@ const HeaderMain = ({
 
     const authContext = useContext(AuthContext)
 
-    const darkMode = authContext.getLocalStorage('theme')
-    const [theme, setTheme] = useState('dark')
+    const [theme, setTheme] = useState(authContext.getLocalStorage('theme'))
 
     const [activeModal, setActiveModal] = useState(false)
     const [activeModalCities, setActiveModalCities] = useState(false)
@@ -42,38 +41,31 @@ const HeaderMain = ({
 
     const darkModeHandler = () => {
         setTheme(prevState => {
-            let ThemeMode = prevState == 'dark' ? 'light' : 'dark'
+            let ThemeMode = prevState == 'light' ? 'dark' : 'light'
             authContext.setLocalStorage('theme', ThemeMode)
             return ThemeMode
         })
     }
 
     useEffect(() => {
-        GetAllLocation()
-    }, [])
-
-    useEffect(() => {
-        if (darkMode) {
-            setTheme(darkMode)
-        }
-    }, [darkMode])
-
-    useEffect(() => {
-        if (theme == 'dark') {
-            document.documentElement.style.setProperty('--white-color', '#242424');
-            document.documentElement.style.setProperty('--text-color', 'rgba(255, 255, 255, 0.56)');
-            document.documentElement.style.setProperty('--black-color', '#fff');
-            document.documentElement.style.setProperty('--border', '1px solid rgba(255, 255, 255, 0.2)');
-        } else {
+        if (theme == 'light') {
             document.documentElement.style.setProperty('--white-color', '#f4f4f4');
             document.documentElement.style.setProperty('--text-color', 'rgba(0, 0, 0, 0.56)');
             document.documentElement.style.setProperty('--black-color', '#242424');
             document.documentElement.style.setProperty('--border', '1px solid rgba(0, 0, 0, 0.2)');
-
+        } else {
+            document.documentElement.style.setProperty('--white-color', '#242424');
+            document.documentElement.style.setProperty('--text-color', 'rgba(255, 255, 255, 0.56)');
+            document.documentElement.style.setProperty('--black-color', '#fff');
+            document.documentElement.style.setProperty('--border', '1px solid rgba(255, 255, 255, 0.2)');
         }
     }, [theme])
 
     //* Location
+
+    useEffect(() => {
+        GetAllLocation()
+    }, [])
 
     const GetAllLocation = () => {
         fetch(`${authContext.baseUrl}/v1/location`)
@@ -146,7 +138,7 @@ const HeaderMain = ({
     }
 
     //* HeaderMain Func :)
-    
+
     const changeValueSearch = (value) => {
         setValueSearch(value)
     }
@@ -169,7 +161,7 @@ const HeaderMain = ({
             <div className="container-fluid">
                 <div className="header__wrapper">
                     <div className="header__right">
-                        <a className="header__logo-link" href="#">
+                        <a className="header__logo-link" href="#" onClick={()=>navigetor('/main')}>
                             <img className="header__logo-img" src="../images/header/logo.svg" alt="logo" />
                         </a>
                         <button className="header__country" onClick={() => setActiveModalCities(true)}>
@@ -358,15 +350,16 @@ const HeaderMain = ({
                     </div>
                     <div className="header__left">
                         {
-                            theme == 'dark' ? (
-                                <a className="header__left-link" href="#" onClick={darkModeHandler}>
-                                    <i className="header__left-icon bi bi-brightness-high"></i>
-                                    حالت روشن
-                                </a>
-                            ) : (
+                            theme == 'light' ? (
                                 <a className="header__left-link" href="#" onClick={darkModeHandler}>
                                     <i className="header__left-icon bi bi-moon"></i>
                                     حالت تاریک
+                                </a>
+                            ) : (
+
+                                <a className="header__left-link" href="#" onClick={darkModeHandler}>
+                                    <i className="header__left-icon bi bi-brightness-high"></i>
+                                    حالت روشن
                                 </a>
                             )
                         }
@@ -420,7 +413,7 @@ const HeaderMain = ({
                 </div>
             </div>
             {/* Show Login Modal */}
-            <LoginModal isShow={isShowLoginModal} setIsShow={(e) => setIsShowLoginModal(e)}/>
+            <LoginModal isShow={isShowLoginModal} setIsShow={(e) => setIsShowLoginModal(e)} />
         </header>
     );
 }

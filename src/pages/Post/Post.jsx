@@ -15,6 +15,7 @@ const Post = () => {
     const [feedbackIcons, setFeedbackIcons] = useState(true)
     const [isShowLoginModal, setIsShowLoginModal] = useState(false)
     const [valueNoteTextarea, setValueNoteTextarea] = useState('')
+    const [theme, setTheme] = useState(authContext.getLocalStorage('theme'))
 
 
     const date = authContext.calcuteRelativeTimeDifference(postDetails.createdAt)
@@ -24,7 +25,7 @@ const Post = () => {
 
     useEffect(() => {
         authContext.isLogin().then(res => {
-            let headers = res && userToken ?  {Authorization: `Bearer ${userToken}`} : {"Content-Type": "application/json"}
+            let headers = res && userToken ? { Authorization: `Bearer ${userToken}` } : { "Content-Type": "application/json" }
 
 
             fetch(`${authContext.baseUrl}/v1/post/${postId}`, {
@@ -32,12 +33,31 @@ const Post = () => {
             })
                 .then(res => res.json()).then(resPost => {
                     setIsLoad(false)
-                    console.log(resPost.data.post);
                     setPostDetails(resPost.data.post)
                     setIsBookMark(resPost.data.post?.bookmarked)
+                    setValueNoteTextarea(resPost.data.post?.note.content ? resPost.data.post?.note.content : '')
+                    console.log(resPost.data.post);
                 })
         })
     }, [])
+
+    //* DarkMode Theme :)
+
+    useEffect(() => {
+        if (theme == 'light') {
+            document.documentElement.style.setProperty('--white-color', '#f4f4f4');
+            document.documentElement.style.setProperty('--text-color', 'rgba(0, 0, 0, 0.56)');
+            document.documentElement.style.setProperty('--black-color', '#242424');
+            document.documentElement.style.setProperty('--border', '1px solid rgba(0, 0, 0, 0.2)');
+        } else {
+            document.documentElement.style.setProperty('--white-color', '#242424');
+            document.documentElement.style.setProperty('--text-color', 'rgba(255, 255, 255, 0.56)');
+            document.documentElement.style.setProperty('--black-color', '#fff');
+            document.documentElement.style.setProperty('--border', '1px solid rgba(255, 255, 255, 0.2)');
+        }
+    }, [theme])
+
+    //* Post Func :)
 
     const ShowModalInfoCall = (PhoneNumber) => {
         swal({
@@ -46,7 +66,6 @@ const Post = () => {
             buttons: "تماس گرفتن",
         })
     }
-
     const ShowLoginModalHandler = () => {
         authContext.isLogin().then(res => !res && setIsShowLoginModal(true))
     }
@@ -77,6 +96,36 @@ const Post = () => {
                 if (res.status === 201) {
                     setIsBookMark(true)
                 }
+            }
+
+        }
+    }
+    const SaveNotes = async () => {
+        if (postDetails.note != undefined) {
+
+            if (postDetails.note._id) {
+                await fetch(`${authContext.baseUrl}/v1/note/${postDetails.note._id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${userToken}`,
+                    },
+                    body: JSON.stringify({
+                        content: valueNoteTextarea,
+                    }),
+                });
+            } else if(valueNoteTextarea.trim()) {
+                await fetch(`${authContext.baseUrl}/v1/note`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${userToken}`,
+                    },
+                    body: JSON.stringify({
+                        postId: postDetails._id,
+                        content: valueNoteTextarea,
+                    }),
+                });
             }
 
         }
@@ -162,7 +211,7 @@ const Post = () => {
 
                                                     {
                                                         postDetails.dynamicFields.map((filed) => (
-                                                            <li className="post__info-item">
+                                                            <li className="post__info-item" key={filed._id}>
                                                                 <span className="post__info-key">{filed.name}</span>
                                                                 <span className="post__info-value">{filed.data}</span>
                                                             </li>
@@ -187,20 +236,24 @@ const Post = () => {
                                             <div className="swiper mySwiper">
                                                 <div className="swiper-wrapper" id="secend-slider-wrapper"></div>
                                             </div> */}
-                                            <Carousel>
 
-                                                {
-                                                    postDetails.pics.map((pic) => (
-                                                        <Carousel.Item>
-                                                            <img
-                                                                className="d-block w-100 picSlider"
-                                                                src={authContext.baseUrl + '/' + pic.path}
-                                                                alt="First slide"
-                                                            />
-                                                        </Carousel.Item>
-                                                    ))
-                                                }
-                                            </Carousel>
+                                            {
+                                                postDetails.pics.length != 0 && (
+                                                    <Carousel>
+                                                        {
+                                                            postDetails.pics.map((pic) => (
+                                                                <Carousel.Item key={pic._id}>
+                                                                    <img
+                                                                        className="d-block w-100 picSlider"
+                                                                        src={authContext.baseUrl + '/' + pic.path}
+                                                                        alt="First slide"
+                                                                    />
+                                                                </Carousel.Item>
+                                                            ))
+                                                        }
+                                                    </Carousel>
+                                                )
+                                            }
                                         </div>
                                         <div className="note">
                                             <textarea
@@ -210,6 +263,7 @@ const Post = () => {
                                                 onClick={ShowLoginModalHandler}
                                                 value={valueNoteTextarea}
                                                 onChange={(e) => setValueNoteTextarea(e.target.value)}
+                                                onBlur={SaveNotes}
                                             ></textarea>
                                             <i id="note-trash-icon" className="bi bi-trash3-fill" style={{ display: `${valueNoteTextarea.length ? 'block' : 'none'}` }} onClick={() => setValueNoteTextarea('')}></i>
                                             <span className="post-preview__input-notics">یادداشت تنها برای شما قابل دیدن است و پس از حذف آگهی، پاک خواهد شد.</span>
