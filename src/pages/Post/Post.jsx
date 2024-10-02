@@ -19,12 +19,24 @@ const Post = () => {
 
     const date = authContext.calcuteRelativeTimeDifference(postDetails.createdAt)
 
+    const [isBookMark, setIsBookMark] = useState(false)
+    let userToken = authContext.getLocalStorage('token')
+
     useEffect(() => {
-        fetch(`${authContext.baseUrl}/v1/post/${postId}`)
-            .then(res => res.json()).then(resPost => {
-                setIsLoad(false)
-                setPostDetails(resPost.data.post)
+        authContext.isLogin().then(res => {
+            let headers = res && userToken ?  {Authorization: `Bearer ${userToken}`} : {"Content-Type": "application/json"}
+
+
+            fetch(`${authContext.baseUrl}/v1/post/${postId}`, {
+                headers,
             })
+                .then(res => res.json()).then(resPost => {
+                    setIsLoad(false)
+                    console.log(resPost.data.post);
+                    setPostDetails(resPost.data.post)
+                    setIsBookMark(resPost.data.post?.bookmarked)
+                })
+        })
     }, [])
 
     const ShowModalInfoCall = (PhoneNumber) => {
@@ -38,7 +50,38 @@ const Post = () => {
     const ShowLoginModalHandler = () => {
         authContext.isLogin().then(res => !res && setIsShowLoginModal(true))
     }
-    
+    const SaveBookmark = async () => {
+        if (postDetails.bookmarked != undefined) {
+
+            if (isBookMark) {
+                console.log('DELETE');
+
+                // const res = await fetch(`${authContext.baseUrl}/v1/bookmark/${postDetails._id}`, {
+                //   method: "DELETE",
+                //   headers: {
+                //     Authorization: `Bearer ${userToken}`,
+                //   },
+                // });
+
+                // if (res.status === 200) {
+                //   setIsBookMark(false)
+                // }
+            } else {
+                const res = await fetch(`${authContext.baseUrl}/v1/bookmark/${postDetails._id}`, {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                    },
+                });
+
+                if (res.status === 201) {
+                    setIsBookMark(true)
+                }
+            }
+
+        }
+    }
+
     return (
 
 
@@ -52,7 +95,7 @@ const Post = () => {
                 ) : (
                     <>
                         {/* <HeaderMain /> */}
-                        
+
                         <main className="main">
                             <div className="container">
                                 <ul className="main__breadcrumb" id="breadcrumb">
@@ -101,8 +144,9 @@ const Post = () => {
                                                     <button
                                                         className="post__btn-save post__btn"
                                                         id="bookmark-icon-btn"
+                                                        onClick={SaveBookmark}
                                                     >
-                                                        <i className="post__btn-icon bi bi-bookmark"></i>
+                                                        <i className={`post__btn-icon bi bi-bookmark ${isBookMark ? 'text-danger' : ''} `}></i>
                                                     </button>
                                                     <button className="post__btn-share post__btn" id="share-icon" onClick={() => Navigator.share(location.href)}>
                                                         <i className="post__btn-icon bi bi-share"></i>
@@ -111,16 +155,16 @@ const Post = () => {
                                             </div>
                                             <div className="post__infos">
                                                 <ul className="post__info-list" id="post-infoes-list">
-                                                    <li class="post__info-item">
-                                                        <span class="post__info-key">قیمت</span>
-                                                        <span class="post__info-value">{postDetails.price.toLocaleString()} تومان</span>
+                                                    <li className="post__info-item">
+                                                        <span className="post__info-key">قیمت</span>
+                                                        <span className="post__info-value">{postDetails.price.toLocaleString()} تومان</span>
                                                     </li>
 
                                                     {
                                                         postDetails.dynamicFields.map((filed) => (
-                                                            <li class="post__info-item">
-                                                                <span class="post__info-key">{filed.name}</span>
-                                                                <span class="post__info-value">{filed.data}</span>
+                                                            <li className="post__info-item">
+                                                                <span className="post__info-key">{filed.name}</span>
+                                                                <span className="post__info-value">{filed.data}</span>
                                                             </li>
                                                         ))
                                                     }
@@ -165,9 +209,9 @@ const Post = () => {
                                                 placeholder="یادداشت شما..."
                                                 onClick={ShowLoginModalHandler}
                                                 value={valueNoteTextarea}
-                                                onChange={(e)=>setValueNoteTextarea(e.target.value)}
+                                                onChange={(e) => setValueNoteTextarea(e.target.value)}
                                             ></textarea>
-                                            <i id="note-trash-icon" className="bi bi-trash3-fill" style={{display:`${valueNoteTextarea.length ? 'block' : 'none'}`}} onClick={()=>setValueNoteTextarea('')}></i>
+                                            <i id="note-trash-icon" className="bi bi-trash3-fill" style={{ display: `${valueNoteTextarea.length ? 'block' : 'none'}` }} onClick={() => setValueNoteTextarea('')}></i>
                                             <span className="post-preview__input-notics">یادداشت تنها برای شما قابل دیدن است و پس از حذف آگهی، پاک خواهد شد.</span>
                                         </div>
 
@@ -188,11 +232,11 @@ const Post = () => {
                         <FooterPost />
 
                         {/* Show Login Modal */}
-                        <LoginModal isShow={isShowLoginModal} setIsShow={(e) => setIsShowLoginModal(e)}/>
+                        <LoginModal isShow={isShowLoginModal} setIsShow={(e) => setIsShowLoginModal(e)} />
                     </>
                 )
 
-                
+
             }
         </>
     );

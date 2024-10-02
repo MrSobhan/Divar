@@ -74,7 +74,7 @@ const Sidebar = ({ setArryFilter, setMinPrice, setMaxPrice, category }) => {
                         categoryId ?
                             (mainCategory.length ? (mainCategory.map((category) => (
 
-                                <BodyCategoryItem {...category} key={category._id} backToAllCategories={backToAllCategories} cityName={cityName} />
+                                <BodyCategoryItem {...category} keyCode={category._id} backToAllCategories={backToAllCategories} cityName={cityName} />
 
                             ))) : (subCategory.length && (
                                 subCategory.map((category) => (

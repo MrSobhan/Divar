@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-const BodyCategoryItem = ({ backToAllCategories, title, subCategories , catID , cityName }) => {
+const BodyCategoryItem = ({ backToAllCategories, title, subCategories , catID , cityName , keyCode }) => {
     document.title = ` دیوار  ${cityName} - ${title} `
     return (
-        <li className="sidebar__category-item">
+        <li className="sidebar__category-item" key={keyCode}>
             <div className="all-categories" onClick={backToAllCategories}>
                 <p>همه اگهی ها</p>
                 <i className="bi bi-arrow-right"></i>
