@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../context/authContext';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
 import HeaderMain from '../../Components/HeaderMain/HeaderMain';
 import FooterPost from '../../Components/FooterPost/FooterPost';
@@ -36,9 +36,7 @@ const Post = () => {
     }
 
     const ShowLoginModalHandler = () => {
-        if(!authContext.isLogin()){
-            setIsShowLoginModal(true)
-        }
+        authContext.isLogin().then(res => !res && setIsShowLoginModal(true))
     }
     
     return (

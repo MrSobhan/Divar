@@ -51,20 +51,21 @@ const App = () => {
     return TimeReturn;
 
   }
-  const isLogin =  () => {
+  const isLogin =  async () => {
     let IsToken = getLocalStorage('token')
     
     if (IsToken) {
 
-      fetch(`${baseUrl}/v1/auth/me`, {
+      await fetch(`${baseUrl}/v1/auth/me`, {
         headers: {
           Authorization: `Bearer ${IsToken}`,
         },
       }).then((res)=>{
-        console.log("GetMe Respose ->", res);
-        return res.status == 200 ? true : false
+        // console.log("GetMe Respose ->", res);
+        IsToken = ( res.status == 200) ? true : false
       });
     }
+    
     return IsToken ? true : false
   }
 

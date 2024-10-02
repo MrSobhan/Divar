@@ -160,9 +160,7 @@ const HeaderMain = ({
         }
     }
     const ShowLoginModalHandler = () => {
-        if(!authContext.isLogin()){
-            setIsShowLoginModal(true)
-        }
+        authContext.isLogin().then(res => !res && setIsShowLoginModal(true))
     }
 
 
