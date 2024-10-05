@@ -35,6 +35,8 @@ const HeaderMain = ({
 
     const [showHeaderCategory, setShowHeaderCategory] = useState(false)
     const [isShowLoginModal, setIsShowLoginModal] = useState(false)
+    const [isShowDropdownDivarMe, setIsShowDropdownDivarMe] = useState(false)
+    const [isLoginUser, setIsLoginUser] = useState(false)
 
 
     //* darkModeHandler
@@ -152,8 +154,15 @@ const HeaderMain = ({
         }
     }
     const ShowLoginModalHandler = () => {
-        authContext.isLogin().then(res => !res && setIsShowLoginModal(true))
+        if (!isLoginUser) {
+            setIsShowLoginModal(true)
+        }
     }
+
+    // ! Is Login
+    useEffect(() => {
+        authContext.isLogin().then(res => setIsLoginUser(res))
+    }, [isShowLoginModal])
 
 
     return (
@@ -161,7 +170,7 @@ const HeaderMain = ({
             <div className="container-fluid">
                 <div className="header__wrapper">
                     <div className="header__right">
-                        <a className="header__logo-link" href="#" onClick={()=>navigetor('/main')}>
+                        <a className="header__logo-link" href="#" onClick={() => navigetor('/main')}>
                             <img className="header__logo-img" src="../images/header/logo.svg" alt="logo" />
                         </a>
                         <button className="header__country" onClick={() => setActiveModalCities(true)}>
@@ -363,42 +372,89 @@ const HeaderMain = ({
                                 </a>
                             )
                         }
-                        <a className="header__left-link" href="#" onClick={ShowLoginModalHandler}>
+                        <a className="header__left-link" href="#" onClick={() => setIsShowDropdownDivarMe(true)}>
                             <i className="header__left-icon bi bi-person"></i>
                             دیوار من
                         </a>
-                        <div className="header__left-dropdown">
+                        <div className={`header__left-dropdown ${isShowDropdownDivarMe ? 'header__left-dropdown--active' : ''}`} onMouseLeave={() => setIsShowDropdownDivarMe(false)}>
                             <ul className="header__left-dropdown-list">
-                                <li className="header__left-dropdown-item">
-                                    <a className="header__left-dropdown-link" href="#">
-                                        <i className="header__left-dropdown-icon bi bi-box-arrow-in-left"></i>
-                                        ورود
-                                    </a>
-                                </li>
-                                <li className="header__left-dropdown-item">
-                                    <a className="header__left-dropdown-link" href="#">
-                                        <i className="header__left-dropdown-icon bi bi-bookmark"></i>
-                                        نشان ها
-                                    </a>
-                                </li>
-                                <li className="header__left-dropdown-item">
-                                    <a className="header__left-dropdown-link" href="#">
-                                        <i className="header__left-dropdown-icon bi bi-journal"></i>
-                                        یادداشت ها
-                                    </a>
-                                </li>
-                                <li className="header__left-dropdown-item">
-                                    <a className="header__left-dropdown-link" href="#">
-                                        <i className="header__left-dropdown-icon bi bi-clock-history"></i>
-                                        بازدید های اخیر
-                                    </a>
-                                </li>
-                                <li className="header__left-dropdown-item">
-                                    <a className="header__left-dropdown-link" href="#">
-                                        <i className="header__left-dropdown-icon bi bi-shop"></i>
-                                        دیوار برای کسب و کارها
-                                    </a>
-                                </li>
+                                {
+                                    isLoginUser ? (
+                                        <>
+                                            <li class="header__left-dropdown-item header_dropdown-item_account">
+                                                <a
+                                                    href="/pages/userPanel/posts.html"
+                                                    class="header__left-dropdown-link login_dropdown_link"
+                                                >
+                                                    <i class="header__left-dropdown-icon bi bi-box-arrow-in-left"></i>
+                                                    <div>
+                                                        <span>کاربر دیوار </span>
+                                                        <p>تلفن </p>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="header__left-dropdown-item">
+                                                <a class="header__left-dropdown-link" href="/pages/userPanel/verify.html">
+                                                    <i class="header__left-dropdown-icon bi bi-bookmark"></i>
+                                                    تایید هویت
+                                                </a>
+                                            </li>
+                                            <li class="header__left-dropdown-item">
+                                                <a class="header__left-dropdown-link" href="/pages/userPanel/bookmarks.html">
+                                                    <i class="header__left-dropdown-icon bi bi-bookmark"></i>
+                                                    نشان ها
+                                                </a>
+                                            </li>
+                                            <li class="header__left-dropdown-item">
+                                                <a class="header__left-dropdown-link" href="/pages/userPanel/notes.html">
+                                                    <i class="header__left-dropdown-icon bi bi-journal"></i>
+                                                    یادداشت ها
+                                                </a>
+                                            </li>
+                                            <li class="header__left-dropdown-item logout-link" id="login_btn">
+                                                <p class="header__left-dropdown-link" href="#">
+                                                    <i class="header__left-dropdown-icon bi bi-shop"></i>
+                                                    خروج
+                                                </p>
+                                            </li>
+
+                                        </>
+                                    ) : (
+                                        <>
+
+                                            <li className="header__left-dropdown-item">
+                                                <a className="header__left-dropdown-link" href="#" onClick={ShowLoginModalHandler}>
+                                                    <i className="header__left-dropdown-icon bi bi-box-arrow-in-left"></i>
+                                                    ورود
+                                                </a>
+                                            </li>
+                                            <li className="header__left-dropdown-item">
+                                                <a className="header__left-dropdown-link" href="#">
+                                                    <i className="header__left-dropdown-icon bi bi-bookmark"></i>
+                                                    نشان ها
+                                                </a>
+                                            </li>
+                                            <li className="header__left-dropdown-item">
+                                                <a className="header__left-dropdown-link" href="#">
+                                                    <i className="header__left-dropdown-icon bi bi-journal"></i>
+                                                    یادداشت ها
+                                                </a>
+                                            </li>
+                                            <li className="header__left-dropdown-item">
+                                                <a className="header__left-dropdown-link" href="#">
+                                                    <i className="header__left-dropdown-icon bi bi-clock-history"></i>
+                                                    بازدید های اخیر
+                                                </a>
+                                            </li>
+                                            <li className="header__left-dropdown-item">
+                                                <a className="header__left-dropdown-link" href="#">
+                                                    <i className="header__left-dropdown-icon bi bi-shop"></i>
+                                                    دیوار برای کسب و کارها
+                                                </a>
+                                            </li>
+                                        </>
+                                    )
+                                }
                             </ul>
                         </div>
                         <a className="header__left-link" href="#">

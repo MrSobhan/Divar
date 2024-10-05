@@ -329,6 +329,12 @@
   transition: var(--transition);
 }
 
+.header__left-dropdown--active {
+  opacity: 1;
+  top: 4rem;
+  visibility: visible;
+}
+
 .header__left-dropdown-link {
   display: flex;
   padding: 1.5rem;

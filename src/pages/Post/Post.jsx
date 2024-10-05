@@ -7,6 +7,7 @@ import FooterPost from '../../Components/FooterPost/FooterPost';
 import LoginModal from '../../Components/LoginModal/LoginModal';
 import swal from "sweetalert";
 import './Post.css'
+import HeaderDefault from '../../Components/HeaderDefault/HeaderDefault';
 const Post = () => {
     const authContext = useContext(AuthContext)
     const { postId } = useParams()
@@ -114,7 +115,7 @@ const Post = () => {
                         content: valueNoteTextarea,
                     }),
                 });
-            } else if(valueNoteTextarea.trim()) {
+            } else if (valueNoteTextarea.trim()) {
                 await fetch(`${authContext.baseUrl}/v1/note`, {
                     method: "POST",
                     headers: {
@@ -144,7 +145,7 @@ const Post = () => {
                 ) : (
                     <>
                         {/* <HeaderMain /> */}
-
+                        <HeaderDefault />
                         <main className="main">
                             <div className="container">
                                 <ul className="main__breadcrumb" id="breadcrumb">

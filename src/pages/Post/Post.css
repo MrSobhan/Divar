@@ -101,7 +101,7 @@
     justify-content: space-between;
     align-items: center;
     font-size: 1.5rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: var(--border);
     padding: 1.5rem 0;
 }
 
