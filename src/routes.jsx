@@ -1,3 +1,4 @@
+import Article from "./pages/Article/Article";
 import Index from "./pages/Index/Index";
 import MainPage from "./pages/MainPage/MainPage";
 import Post from "./pages/Post/Post";
@@ -8,7 +9,8 @@ const routes = [
   { path: "/main", element: <MainPage /> },
   { path: "/main/:categoryId", element: <MainPage /> },
   { path: "/post/:postId", element: <Post /> },
-  { path: "/support", element: <Support/>}
+  { path: "/support", element: <Support/>},
+  { path: "/article/:articleId", element: <Article/>}
 ];
 
 export default routes;
