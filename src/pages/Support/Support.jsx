@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import HeaderDefault from '../../Components/HeaderDefault/HeaderDefault';
 import FooterPost from '../../Components/FooterPost/FooterPost';
 import AuthContext from '../../context/authContext';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import './Support.css';
 const Support = () => {
@@ -10,6 +10,9 @@ const Support = () => {
     const navigator = useNavigate()
     const [popularArticles, setPopularArticles] = useState([])
     const [supportArticlesCategory, setSupportArticlesCategory] = useState([])
+    const [valueSearchArticle, setValueSearchArticle] = useState('')
+    const [articles, setArticles] = useState([])
+    const [filteredArticles, setFilteredArticles] = useState([])
     useEffect(() => {
 
         fetch(`${authContext.baseUrl}/v1/support/category-articles`)
@@ -19,9 +22,26 @@ const Support = () => {
                 setPopularArticles(article.data.categories.find(
                     (category) => category.shortName === "popular_articles"
                 ))
+                
             })
 
     }, [])
+
+    useEffect(() => {
+        if (articles.length) {
+            setFilteredArticles(articles.filter((article) => article.title?.includes(valueSearchArticle)))
+        }
+    }, [articles])
+
+    const SearchArticleHandler = (e) => {
+        supportArticlesCategory.forEach((category) => {
+            let categoryArticles = category.articles;
+            setArticles([...categoryArticles])
+        })
+        if (e.keyCode == 13) {
+            navigator(`/support/search/${valueSearchArticle}`)
+        }
+    }
 
     return (
         <>
@@ -31,11 +51,33 @@ const Support = () => {
                     <p>به مرکز پشتیبانی دیوار خوش آمدید</p>
                     <span>چطور می‌توانیم کمکتان کنیم؟</span>
                     <div>
-                        <i id="remove-icon" className="bi bi-x"></i>
-                        <input autoComplete="off" id="search-input" type="text" placeholder="جستجو در مقالات" />
+                        <i id="remove-icon" className="bi bi-x" style={{ display: `${valueSearchArticle.length != 0 ? 'block' : 'none'}` }} onClick={() => setValueSearchArticle('')}></i>
+                        <input autoComplete="off" id="search-input" type="text" placeholder="جستجو در مقالات" value={valueSearchArticle} onChange={(e) => setValueSearchArticle(e.target.value)} onKeyUp={(e) => SearchArticleHandler(e)} />
                         <i className="bi bi-search input-search-icon"></i>
-                        <div className="result" id="search-result">
-
+                        <div className={`result ${valueSearchArticle.trim().length ? 'active' : ''}`} id="search-result">
+                            {
+                                filteredArticles.length ? (
+                                    <>
+                                        <Link to={`/support/search/${valueSearchArticle}`}>
+                                            <i className="bi bi-search"></i>
+                                            {valueSearchArticle}
+                                        </Link>
+                                        {
+                                            filteredArticles.map((article) => (
+                                                <Link to={`/article/${article._id}`} key={article._id}>
+                                                    <i className="bi bi-card-text"></i>
+                                                    {article.title}
+                                                </Link>
+                                            ))
+                                        }
+                                    </>
+                                ) : (
+                                    <Link to={`/support/search/${valueSearchArticle}`}>
+                                        <i className="bi bi-search"></i>
+                                        {valueSearchArticle}
+                                    </Link>
+                                )
+                            }
                         </div>
                     </div>
                 </div>
