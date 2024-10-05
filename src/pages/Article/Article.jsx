@@ -15,15 +15,14 @@ const Article = () => {
 
         fetch(`${authContext.baseUrl}/v1/support/articles/${articleId}`)
             .then(res => res.json()).then(res => {
-                // console.log(res.data.article);
                 setArticle(res.data.article)
                 document.title = res.data.article.title; //! Set Title Doc :)
-            })
 
 
-        fetch(`${authContext.baseUrl}/v1/support/categories/${article.categories[0]}/articles`)
-            .then(res => res.json()).then(res => {                
-                setSameArticles(res.data.articles)
+                fetch(`${authContext.baseUrl}/v1/support/categories/${res.data.article.categories[0]}/articles`)
+                    .then(res => res.json()).then(res => {
+                        setSameArticles(res.data.articles)
+                    })
             })
 
     }, [])
@@ -48,7 +47,7 @@ const Article = () => {
                 <div id="same-articles">
 
                     {
-                        sameArticles.length && sameArticles.map((article)=>(
+                        sameArticles.length && sameArticles.map((article) => (
                             <Link to={`/article/${article._id}`} key={article._id}>{article.title}</Link>
                         ))
                     }

@@ -1,0 +1,57 @@
+.main-articles {
+    margin: 7.8rem auto;
+    font-size: 1.5rem;
+    width: 584px;  
+}
+.breadcrumb .bi,.breadcrumb a{
+    color: black;
+}
+
+.breadcrumb{
+    font-size: 1.3rem;
+    display: flex;
+    gap: 5px;
+}
+.category-info-title{
+ font-size: 1.7rem;
+ font-weight: 800;
+ color: black;
+ margin-top: 1rem;
+}
+.category-info-icon{
+    object-fit: contain;
+    width: 115px;
+    height: 80px;
+    margin-top: 50px;
+}
+.category-info{
+    text-align: center;
+    margin-top: 3rem;
+}
+.articles{ 
+    margin-top: 4rem; 
+    margin-bottom: 40rem;
+}
+.articles .article img{
+    margin-bottom: 1.5rem;
+}
+.articles .article p{
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: black;
+}
+.articles .article .bi{
+    color: black;
+}
+.article{
+    display: flex;
+    border-radius: 5px;
+    margin-top: 2rem;
+    text-align: right;
+    padding: 2rem ;
+    border: var(--border);
+    justify-content: right;
+    align-items: center;
+    font-size: 1.4rem; 
+}
+
