@@ -32,7 +32,7 @@ const Support = () => {
                     <span>چطور می‌توانیم کمکتان کنیم؟</span>
                     <div>
                         <i id="remove-icon" className="bi bi-x"></i>
-                        <input autocomplete="off" id="search-input" type="text" placeholder="جستجو در مقالات" />
+                        <input autoComplete="off" id="search-input" type="text" placeholder="جستجو در مقالات" />
                         <i className="bi bi-search input-search-icon"></i>
                         <div className="result" id="search-result">
 
@@ -48,11 +48,11 @@ const Support = () => {
 
                             {
                                 popularArticles.articles?.map((article) => (
-                                    <Link to={`/article/${article._id}`} class="article">
+                                    <Link to={`/article/${article._id}`} className="article" key={article._id}>
                                         <p>{article.title}</p>
                                         <span>{article.body.slice(0, 180)} ...</span>
                                         <div>
-                                            <i class="bi bi-arrow-left"></i>
+                                            <i className="bi bi-arrow-left"></i>
                                             <p>ادامه مقاله</p>
                                         </div>
                                     </Link>
@@ -67,14 +67,14 @@ const Support = () => {
                     <div className="categories" id="categories-container">
                         {
                             supportArticlesCategory.map((category) => (
-                                <Link to={`/articles/${category._id}`}>
+                                <Link to={`/articles/${category._id}`} key={category._id}>
                                     <img src={`${authContext.baseUrl}/${category.pic.path}`} width="64" height="64" alt="" />
                                     <div>
                                         <p>{category.name}</p>
                                         <span>نحوه انجام پرداخت، استفاده از کیف پول، افزایش بازدید، استفاده از
                                         </span>
                                     </div>
-                                    <i class="bi bi-chevron-left"></i>
+                                    <i className="bi bi-chevron-left"></i>
                                 </Link>
                             ))
                         }
