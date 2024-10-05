@@ -461,9 +461,9 @@ const HeaderMain = ({
                             <i className="header__left-icon bi bi-chat"></i>
                             چت
                         </a>
-                        <a className="header__left-link" href="#">
+                        <Link className="header__left-link" to="/support">
                             پشتیبانی
-                        </a>
+                        </Link>
                         <button className="header__left-btn">ثبت آگهی</button>
                     </div>
                 </div>

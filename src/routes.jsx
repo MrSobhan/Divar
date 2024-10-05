@@ -1,12 +1,14 @@
 import Index from "./pages/Index/Index";
 import MainPage from "./pages/MainPage/MainPage";
 import Post from "./pages/Post/Post";
+import Support from "./pages/Support/Support";
 
 const routes = [
   { path: "/", element: <Index /> },
   { path: "/main", element: <MainPage /> },
   { path: "/main/:categoryId", element: <MainPage /> },
-  { path: "/post/:postId", element: <Post /> }
+  { path: "/post/:postId", element: <Post /> },
+  { path: "/support", element: <Support/>}
 ];
 
 export default routes;

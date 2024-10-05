@@ -2,12 +2,14 @@
 .footer {
     padding: 2rem 0;
     margin-top: 8rem;
+    width: 100%;
 }
 
 .footer__wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 }
 
 .footer__right {
@@ -22,6 +24,7 @@
 .footer__link {
     position: relative;
     margin: 0 1rem;
+    font-size: 1.2rem
 }
 
 .footer__link::before {

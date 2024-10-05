@@ -1,9 +1,10 @@
 import React from 'react';
+import Social from '../Social/Social';
 import './FooterPost.css'
 const FooterPost = () => {
     return (
-        <footer className="footer">
-            <div className="container">
+        <footer className='main'> 
+            <div className="container-fluid">
                 <div className="footer__wrapper">
                     <div className="footer__right">
                         <a className="footer__logo-link" href="#">
@@ -16,7 +17,9 @@ const FooterPost = () => {
                         </div>
                     </div>
                     <div className="footer__left">
-                        <div className="footer__social-media" id="footer__social-media"></div>
+                        <div className="footer__social-media" id="footer__social-media">
+                            <Social/>
+                        </div>
                     </div>
                 </div>
             </div>
