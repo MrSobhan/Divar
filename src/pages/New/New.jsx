@@ -56,7 +56,7 @@ const New = () => {
                 setIdSection(subCategoryParent._id)
 
             } else {
-                navigator(`/registerPost/${idSection}`)
+                navigator(`/registerPost/${categoryID}`)
             }
         }
     }
