@@ -3,6 +3,7 @@ import HeaderDefault from '../../Components/HeaderDefault/HeaderDefault';
 import FooterPost from '../../Components/FooterPost/FooterPost';
 import AuthContext from '../../context/authContext';
 import { Link, useParams } from 'react-router-dom';
+import swal from "sweetalert";
 
 import './RegisterPost.css';
 
@@ -10,7 +11,8 @@ const RegisterPost = () => {
     const authContext = useContext(AuthContext)
     const { categoryId } = useParams()
     const [subCategory, setSubCategory] = useState([])
-
+    const categoryFields = {};
+    const [pics, setPics] = useState([])
 
     useEffect(() => {
         console.log(categoryId);
@@ -18,12 +20,88 @@ const RegisterPost = () => {
         fetch(`${authContext.baseUrl}/v1/category/sub`)
             .then(res => res.json()).then(res => {
 
-                setSubCategory(res.data.categories.find(
+                const FindCategoryArry = res.data.categories.find(
                     (category) => category._id == categoryId
-                ))
+                )
+
+                setSubCategory(FindCategoryArry)
+                FindCategoryArry.productFields.forEach((field) => {
+                    if (field.type === "checkbox") {
+                        categoryFields[field.slug] = false;
+                    } else {
+                        categoryFields[field.slug] = null;
+                    }
+                });
+                // console.log(categoryFields);
+
             })
     }, [])
 
+    const fieldChangeHandler = (slug, data) => {
+        categoryFields[slug] = data;
+        // console.log(categoryFields);
+
+    };
+
+    const UploaderFileHandler = (imgFile) => {
+
+        if (imgFile.length) {
+            let fileData = imgFile[0];
+            console.log(fileData);
+            // Validation for type and size + pics.length (You)
+            if (
+                fileData.type === "image/jpeg" ||
+                fileData.type === "image/png" ||
+                fileData.type === "image/jpg"
+            ) {
+                if(pics.length){
+                    console.log("okk");
+                    
+                    setPics([...pics, fileData])
+                }else{
+                    setPics([fileData])
+                }
+                // generateImage(pics);
+                console.log("aaaaaaaaa ->", [pics, fileData]);
+
+            } else {
+                swal({
+                    title: "فرمت فایل آپلودی مجاز نیست ",
+                    icon: "error",
+                    buttons: "تلاش مجدد"
+                })
+            }
+        }
+    }
+
+    // useEffect(() => {
+    //     console.log(pics);
+
+    // }, [pics])
+
+    const RegisterBtn = async () => {
+        // 2 Validation (Dynamic - Static)
+
+        const formData = new FormData();
+        // formData.append()
+        // pics array
+
+        const res = await fetch(`${baseUrl}/v1/post/${subCategoryID}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+        });
+
+        if (res.status === 200) {
+            // Codes
+        }
+    }
+
+    const deleteImage = (picName) => {
+        setPics(pics.filter((pic) => pic.name !== picName))
+    };
     return (
         <>
             <HeaderDefault />
@@ -33,7 +111,7 @@ const RegisterPost = () => {
                     <p id="subCategory-title">{subCategory.title}</p>
                     <img
                         src="https://s100.divarcdn.com/statics/2024/02/entertainment.2ee67eb3.png"
-                        alt
+                        alt="Image/Find"
                     />
                     <Link to="/new">تغییر دسته‌بندی</Link>
                 </div>
@@ -66,9 +144,37 @@ const RegisterPost = () => {
                         <div className="uploader-box">
                             <i className="bi bi-image"></i>
                             <i className="bi bi-plus-circle-fill"></i>
-                            <input id="uploader" type="file" />
+                            <input id="uploader" type="file" onChange={(e) => UploaderFileHandler(e.target.files)} />
                         </div>
-                        <div className="images" id="images-container"></div>
+                        <div className="images" id="images-container">
+                            {
+                                pics.length != 0 && (
+                                    pics.map((pic) => {
+                                        // let reader = new FileReader();
+                                        // reader.readAsDataURL(pic);
+                                        // return reader.onloadend = function () {
+                                        //     let src = reader.result;
+                                        //     return (
+                                        //         <div className="image-box">
+                                        //             <div onclick="deleteImage('${pic.name}')">
+                                        //                 <i className="bi bi-trash"></i>
+                                        //             </div>
+                                        //             <img src={src} alt="post-image" />
+                                        //         </div>
+                                        //     )
+                                        // };
+                                        return (
+                                            <div className="image-box">
+                                                <div onClick={() => deleteImage(pic.name)}>
+                                                    <i className="bi bi-trash"></i>
+                                                </div>
+                                                <img src="https://s100.divarcdn.com/statics/2024/02/entertainment.2ee67eb3.png" alt="post-image" />
+                                            </div>
+                                        )
+                                    })
+                                )
+                            }
+                        </div>
                     </div>
                     <span>تعداد عکس‌های انتخاب شده نباید بیشتر از ۲۰ باشد.</span>
                 </div>
@@ -79,12 +185,10 @@ const RegisterPost = () => {
                             subCategory.productFields.map((field) => (
                                 field.type === "selectbox"
                                     ?
-                                    <div className="group">
+                                    <div className="group" key={field._id}>
                                         <p className="field-title">{field.name}</p>
                                         <div className="field-box">
-                                            <select required="required">
-                                                {/*  onchange="fieldChangeHandler('${field.slug
-                                    }', event.target.value)" */}
+                                            <select required="required" onChange={(e) => fieldChangeHandler(field.slug, e.target.value)}>
                                                 <option value="default">انتخاب</option>
                                                 {field.options.map(
                                                     (option) =>
@@ -92,7 +196,7 @@ const RegisterPost = () => {
                                                 )}
                                             </select>
                                             <svg>
-                                                <use xlink:href="#select-arrow-down"></use>
+                                                <use xlinkHref="#select-arrow-down"></use>
                                             </svg>
                                         </div>
                                         <svg className="sprites">
@@ -103,8 +207,8 @@ const RegisterPost = () => {
                                     </div>
 
                                     :
-                                    <div className="group checkbox-group">
-                                        <input className="checkbox" type="checkbox" onchange="fieldChangeHandler('${field.slug}', event.target.checked)" />
+                                    <div className="group checkbox-group" key={field._id}>
+                                        <input className="checkbox" type="checkbox" onChange={(e) => fieldChangeHandler(field.slug, e.target.checked)} />
                                         <p>{field.name}</p>
                                     </div>
 
@@ -142,7 +246,7 @@ const RegisterPost = () => {
                 </div>
                 <div className="post_controll">
                     <a href="/pages/posts.html">انصراف</a>
-                    <button id="register-btn">ارسال آگهی</button>
+                    <button id="register-btn" onClick={RegisterBtn}>ارسال آگهی</button>
                 </div>
             </main>
             <FooterPost />
