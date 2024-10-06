@@ -464,7 +464,11 @@ const HeaderMain = ({
                         <Link className="header__left-link" to="/support">
                             پشتیبانی
                         </Link>
-                        <button className="header__left-btn">ثبت آگهی</button>
+                        <Link to="/new">
+                            <button className="header__left-btn">
+                                ثبت آگهی
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -3,13 +3,13 @@ import '../HeaderMain/HeaderMain.css'
 import { useNavigate, Link } from 'react-router-dom';
 
 const HeaderDefault = () => {
-const navigetor = useNavigate()
-    return(
+    const navigetor = useNavigate()
+    return (
         <header className="header">
             <div className="container-fluid">
                 <div className="header__wrapper">
                     <div className="header__right">
-                        <a className="header__logo-link" href="#" onClick={()=>navigetor('/main')}>
+                        <a className="header__logo-link" href="#" onClick={() => navigetor('/main')}>
                             <img className="header__logo-img" src="../images/header/logo.svg" alt="logo" />
                         </a>
                     </div>
@@ -56,7 +56,11 @@ const navigetor = useNavigate()
                         <Link className="header__left-link" to="/support">
                             پشتیبانی
                         </Link>
-                        <button className="header__left-btn">ثبت آگهی</button>
+                        <Link to="/new">
+                            <button className="header__left-btn">
+                                ثبت آگهی
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
