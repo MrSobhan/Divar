@@ -17,6 +17,7 @@
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.3.1",
     "react-icons": "^4.4.0",
+    "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.26.2",
     "sweetalert": "^2.1.2"
   },

@@ -103,6 +103,7 @@ textarea {
 }
 
 #map {
+    position: relative;
     height: 300px;
     margin-top: 20px;
 }
@@ -463,4 +464,9 @@ select:hover+svg {
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 3px;
+}
+
+.leaflet-container{
+    width: 100%;
+    height: 100%;
 }

@@ -4,7 +4,15 @@ import FooterPost from '../../Components/FooterPost/FooterPost';
 import AuthContext from '../../context/authContext';
 import { Link, useParams } from 'react-router-dom';
 import swal from "sweetalert";
+
+
+import 'choices.js/public/assets/styles/choices.min.css';
+import 'leaflet/dist/leaflet.css';
+
 import Choices from "choices.js";
+import { MapContainer, TileLayer, useMap , Marker  } from 'react-leaflet'
+
+
 import './RegisterPost.css';
 
 const RegisterPost = () => {
@@ -16,7 +24,7 @@ const RegisterPost = () => {
     const [picsSrc, setPicsSrc] = useState([])
 
 
-
+    let mapView = { x: 35.715298, y: 51.404343 };
 
     useEffect(() => {
         fetch(`${authContext.baseUrl}/v1/category/sub`)
@@ -39,13 +47,13 @@ const RegisterPost = () => {
             })
 
 
-            const cityChoices = new Choices("#city-select", {
-                searchEnabled: true
-            });
-            const neighborhoodChoices = new Choices("#neighborhood-select", {
-                searchEnabled: true
-            });
-        
+        const cityChoices = new Choices("#city-select", {
+            searchEnabled: true
+        });
+        const neighborhoodChoices = new Choices("#neighborhood-select", {
+            searchEnabled: true
+        });
+
 
         fetch(`${authContext.baseUrl}/v1/location`)
             .then(res => res.json()).then(res => {
@@ -69,7 +77,7 @@ const RegisterPost = () => {
                 // neighborhoods
 
                 // console.log(res.data.neighborhoods);
-                
+
 
                 const tehranNeighborhood = res.data.neighborhoods.filter(
                     (neighborhood) => neighborhood.city_id === 301 // 301 is tehran code
@@ -177,17 +185,17 @@ const RegisterPost = () => {
     };
 
 
-    const AddItemCitySelectBox = ()=>{
+    const AddItemCitySelectBox = () => {
         console.log("se");
-        
+
         // neighborhoodChoices.clearStore();
         // const neighborhoods = data.neighborhoods.filter(
         //   (neighborhood) =>
         //     neighborhood.city_id === event.detail.customProperties.id
         // );
-  
+
         // console.log(neighborhoods);
-  
+
         // if (neighborhoods.length) {
         //   const neighborhoodChoicesConfigs = [
         //     {
@@ -201,7 +209,7 @@ const RegisterPost = () => {
         //       label: neighborhood.name,
         //     })),
         //   ];
-  
+
         //   neighborhoodChoices.setChoices(
         //     neighborhoodChoicesConfigs,
         //     "value",
@@ -249,7 +257,15 @@ const RegisterPost = () => {
                 </div>
                 <div>
                     <p className="field-title">موقعیت مکانی آگهی</p>
-                    <div id="map"></div>
+                    <div id="map">
+                        <MapContainer center={[35.715298, 51.404343]} zoom={13} scrollWheelZoom={false}>
+                            <TileLayer
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
+                            <Marker position={[35.715298, 51.404343]}></Marker>
+                        </MapContainer>
+                    </div>
                     <div className="map-controll">
                         <p>موقعیت دقیق نمایش داده نشود</p>
                         <label className="switch">
