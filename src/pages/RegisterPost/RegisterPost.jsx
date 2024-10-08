@@ -4,7 +4,7 @@ import FooterPost from '../../Components/FooterPost/FooterPost';
 import AuthContext from '../../context/authContext';
 import { Link, useParams } from 'react-router-dom';
 import swal from "sweetalert";
-
+import Choices from "choices.js";
 import './RegisterPost.css';
 
 const RegisterPost = () => {
@@ -14,6 +14,9 @@ const RegisterPost = () => {
     const categoryFields = {};
     const [pics, setPics] = useState([])
     const [picsSrc, setPicsSrc] = useState([])
+
+
+
 
     useEffect(() => {
         fetch(`${authContext.baseUrl}/v1/category/sub`)
@@ -34,6 +37,69 @@ const RegisterPost = () => {
                 // console.log(categoryFields);
 
             })
+
+
+            const cityChoices = new Choices("#city-select", {
+                searchEnabled: true
+            });
+            const neighborhoodChoices = new Choices("#neighborhood-select", {
+                searchEnabled: true
+            });
+        
+
+        fetch(`${authContext.baseUrl}/v1/location`)
+            .then(res => res.json()).then(res => {
+
+                // City
+
+                cityChoices.setChoices(
+                    res.data.cities.map((city) => {
+                        return {
+                            value: city.id,
+                            label: city.name,
+                            customProperties: { id: city.id },
+                            selected: city.name === "تهران" ? true : false,
+                        };
+                    }),
+                    "value",
+                    "label",
+                    false
+                );
+
+                // neighborhoods
+
+                // console.log(res.data.neighborhoods);
+                
+
+                const tehranNeighborhood = res.data.neighborhoods.filter(
+                    (neighborhood) => neighborhood.city_id === 301 // 301 is tehran code
+                );
+
+
+                const neighborhoodChoicesConfigs = [
+                    {
+                        value: "default",
+                        label: "انتخاب محله",
+                        disabled: true,
+                        selected: true,
+                    },
+                    ...tehranNeighborhood.map((neighborhood) => ({
+                        value: neighborhood.id,
+                        label: neighborhood.name,
+                    })),
+                ];
+
+                neighborhoodChoices.setChoices(
+                    neighborhoodChoicesConfigs,
+                    "value",
+                    "label",
+                    false
+                );
+
+            })
+
+
+
     }, [])
 
     const fieldChangeHandler = (slug, data) => {
@@ -109,6 +175,55 @@ const RegisterPost = () => {
         setPics(pics.filter((pic) => pic.name !== picName))
         setPicsSrc(picsSrc.filter((pic) => pic.name !== picName))
     };
+
+
+    const AddItemCitySelectBox = ()=>{
+        console.log("se");
+        
+        // neighborhoodChoices.clearStore();
+        // const neighborhoods = data.neighborhoods.filter(
+        //   (neighborhood) =>
+        //     neighborhood.city_id === event.detail.customProperties.id
+        // );
+  
+        // console.log(neighborhoods);
+  
+        // if (neighborhoods.length) {
+        //   const neighborhoodChoicesConfigs = [
+        //     {
+        //       value: "default",
+        //       label: "انتخاب محله",
+        //       disabled: true,
+        //       selected: true,
+        //     },
+        //     ...neighborhoods.map((neighborhood) => ({
+        //       value: neighborhood.id,
+        //       label: neighborhood.name,
+        //     })),
+        //   ];
+  
+        //   neighborhoodChoices.setChoices(
+        //     neighborhoodChoicesConfigs,
+        //     "value",
+        //     "label",
+        //     false
+        //   );
+        // } else {
+        //   neighborhoodChoices.setChoices(
+        //     [
+        //       {
+        //         value: 0,
+        //         label: "محله‌ای یافت نشد",
+        //         disabled: true,
+        //         selected: true,
+        //       },
+        //     ],
+        //     "value",
+        //     "label",
+        //     false
+        //   );
+        // }
+    }
     return (
         <>
             <HeaderDefault />
@@ -125,11 +240,11 @@ const RegisterPost = () => {
                 <div className="groups">
                     <div className="group">
                         <p className="field-title">شهر</p>
-                        <select id="city-select" required="required"></select>
+                        <select id="city-select" required="required" name="city-select"></select>
                     </div>
                     <div className="group">
                         <p className="field-title">محله</p>
-                        <select id="neighborhood-select" required="required"></select>
+                        <select id="neighborhood-select" required="required" name='neighborhood-select'></select>
                     </div>
                 </div>
                 <div>
