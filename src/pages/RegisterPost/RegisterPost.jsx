@@ -13,10 +13,9 @@ const RegisterPost = () => {
     const [subCategory, setSubCategory] = useState([])
     const categoryFields = {};
     const [pics, setPics] = useState([])
+    const [picsSrc, setPicsSrc] = useState([])
 
     useEffect(() => {
-        console.log(categoryId);
-
         fetch(`${authContext.baseUrl}/v1/category/sub`)
             .then(res => res.json()).then(res => {
 
@@ -47,22 +46,32 @@ const RegisterPost = () => {
 
         if (imgFile.length) {
             let fileData = imgFile[0];
-            console.log(fileData);
+            // console.log(fileData);
             // Validation for type and size + pics.length (You)
             if (
                 fileData.type === "image/jpeg" ||
                 fileData.type === "image/png" ||
                 fileData.type === "image/jpg"
             ) {
-                if(pics.length){
-                    console.log("okk");
-                    
+
+
+                if (pics.length != 0) {
                     setPics([...pics, fileData])
-                }else{
+                } else {
                     setPics([fileData])
                 }
-                // generateImage(pics);
-                console.log("aaaaaaaaa ->", [pics, fileData]);
+
+                let reader = new FileReader();
+                reader.readAsDataURL(fileData);
+                reader.onloadend = () => {
+                    let src = reader.result;
+                    if (picsSrc.length != 0) {
+                        setPicsSrc([...picsSrc, { name: fileData.name, src }])
+                    } else {
+                        setPicsSrc([{ name: fileData.name, src }])
+                    }
+                };
+
 
             } else {
                 swal({
@@ -74,10 +83,7 @@ const RegisterPost = () => {
         }
     }
 
-    // useEffect(() => {
-    //     console.log(pics);
 
-    // }, [pics])
 
     const RegisterBtn = async () => {
         // 2 Validation (Dynamic - Static)
@@ -101,6 +107,7 @@ const RegisterPost = () => {
 
     const deleteImage = (picName) => {
         setPics(pics.filter((pic) => pic.name !== picName))
+        setPicsSrc(picsSrc.filter((pic) => pic.name !== picName))
     };
     return (
         <>
@@ -148,30 +155,15 @@ const RegisterPost = () => {
                         </div>
                         <div className="images" id="images-container">
                             {
-                                pics.length != 0 && (
-                                    pics.map((pic) => {
-                                        // let reader = new FileReader();
-                                        // reader.readAsDataURL(pic);
-                                        // return reader.onloadend = function () {
-                                        //     let src = reader.result;
-                                        //     return (
-                                        //         <div className="image-box">
-                                        //             <div onclick="deleteImage('${pic.name}')">
-                                        //                 <i className="bi bi-trash"></i>
-                                        //             </div>
-                                        //             <img src={src} alt="post-image" />
-                                        //         </div>
-                                        //     )
-                                        // };
-                                        return (
-                                            <div className="image-box">
-                                                <div onClick={() => deleteImage(pic.name)}>
-                                                    <i className="bi bi-trash"></i>
-                                                </div>
-                                                <img src="https://s100.divarcdn.com/statics/2024/02/entertainment.2ee67eb3.png" alt="post-image" />
+                                picsSrc.length != 0 && (
+                                    picsSrc.map((pic) => (
+                                        <div className="image-box">
+                                            <div onClick={() => deleteImage(pic.name)}>
+                                                <i className="bi bi-trash"></i>
                                             </div>
-                                        )
-                                    })
+                                            <img src={pic.src} alt="post-image" />
+                                        </div>
+                                    ))
                                 )
                             }
                         </div>
