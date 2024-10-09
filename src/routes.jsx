@@ -4,6 +4,7 @@ import Index from "./pages/Index/Index";
 import MainPage from "./pages/MainPage/MainPage";
 import New from "./pages/New/New";
 import Post from "./pages/Post/Post";
+import Map from "./pages/RegisterPost/Map";
 import RegisterPost from "./pages/RegisterPost/RegisterPost";
 import Search from "./pages/Search/Search";
 import Support from "./pages/Support/Support";
@@ -18,7 +19,8 @@ const routes = [
   { path: "/articles/:articlesId", element: <Articles/>},
   { path: "/support/search/:searchKey", element: <Search/>},
   { path: "/new", element: <New/>},
-  { path: "/registerPost/:categoryId", element: <RegisterPost/>}
+  { path: "/registerPost/:categoryId", element: <RegisterPost/>},
+  { path: "/map", element: <Map/>}
 ];
 
 export default routes;

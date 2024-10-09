@@ -10,7 +10,7 @@ import 'choices.js/public/assets/styles/choices.min.css';
 import 'leaflet/dist/leaflet.css';
 
 import Choices from "choices.js";
-import { MapContainer, TileLayer, useMap , Marker  } from 'react-leaflet'
+import { MapContainer, TileLayer, useMap, Marker } from 'react-leaflet'
 
 
 import './RegisterPost.css';
@@ -23,8 +23,12 @@ const RegisterPost = () => {
     const [pics, setPics] = useState([])
     const [picsSrc, setPicsSrc] = useState([])
 
+    const [cityChoices, setNityChoices] = useState()
+    const [neighborhoodChoices, setNeighborhoodChoices] = useState()
 
     let mapView = { x: 35.715298, y: 51.404343 };
+
+
 
     useEffect(() => {
         fetch(`${authContext.baseUrl}/v1/category/sub`)
@@ -47,20 +51,34 @@ const RegisterPost = () => {
             })
 
 
-        const cityChoices = new Choices("#city-select", {
+        // const cityChoices = new Choices("#city-select", {
+        //     searchEnabled: true
+        // });
+        // const neighborhoodChoices = new Choices("#neighborhood-select", {
+        //     searchEnabled: true
+        // });
+
+        setNityChoices(new Choices("#city-select", {
             searchEnabled: true
-        });
-        const neighborhoodChoices = new Choices("#neighborhood-select", {
+        }))
+        setNeighborhoodChoices(new Choices("#neighborhood-select", {
             searchEnabled: true
-        });
+        }))
 
 
+        
+
+
+
+    }, [])
+
+    useEffect(() => {
         fetch(`${authContext.baseUrl}/v1/location`)
             .then(res => res.json()).then(res => {
 
                 // City
 
-                cityChoices.setChoices(
+                cityChoices?.setChoices(
                     res.data.cities.map((city) => {
                         return {
                             value: city.id,
@@ -97,7 +115,7 @@ const RegisterPost = () => {
                     })),
                 ];
 
-                neighborhoodChoices.setChoices(
+                neighborhoodChoices?.setChoices(
                     neighborhoodChoicesConfigs,
                     "value",
                     "label",
@@ -106,9 +124,7 @@ const RegisterPost = () => {
 
             })
 
-
-
-    }, [])
+    }, [cityChoices, neighborhoodChoices])
 
     const fieldChangeHandler = (slug, data) => {
         categoryFields[slug] = data;
@@ -185,8 +201,14 @@ const RegisterPost = () => {
     };
 
 
-    const AddItemCitySelectBox = () => {
+    const AddItemCitySelectBox = (event) => {
         console.log("se");
+        neighborhoodChoices.clearStore();
+        const neighborhoods = data.neighborhoods.filter(
+            (neighborhood) =>
+                neighborhood.city_id === event.detail.customProperties.id
+        );
+
 
         // neighborhoodChoices.clearStore();
         // const neighborhoods = data.neighborhoods.filter(
@@ -248,7 +270,7 @@ const RegisterPost = () => {
                 <div className="groups">
                     <div className="group">
                         <p className="field-title">شهر</p>
-                        <select id="city-select" required="required" name="city-select"></select>
+                        <select id="city-select" required="required" name="city-select" onChange={(event) => AddItemCitySelectBox(event)}></select>
                     </div>
                     <div className="group">
                         <p className="field-title">محله</p>
@@ -257,7 +279,7 @@ const RegisterPost = () => {
                 </div>
                 <div>
                     <p className="field-title">موقعیت مکانی آگهی</p>
-                    <div id="map">
+                    <div id="map" >
                         <MapContainer center={[35.715298, 51.404343]} zoom={13} scrollWheelZoom={false}>
                             <TileLayer
                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
