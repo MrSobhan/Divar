@@ -23,14 +23,19 @@ const RegisterPost = () => {
     const [pics, setPics] = useState([])
     const [picsSrc, setPicsSrc] = useState([])
 
-    const [cityChoices, setNityChoices] = useState()
-    const [neighborhoodChoices, setNeighborhoodChoices] = useState()
+    // const [cityChoices, setNityChoices] = useState()
+    // const [neighborhoodChoices, setNeighborhoodChoices] = useState()
 
     let mapView = { x: 35.715298, y: 51.404343 };
+
+    const [cities, setCities] = useState([])
+    const [neighborhoods, setNeighborhoods] = useState([])
 
 
 
     useEffect(() => {
+
+
         fetch(`${authContext.baseUrl}/v1/category/sub`)
             .then(res => res.json()).then(res => {
 
@@ -54,77 +59,65 @@ const RegisterPost = () => {
         // const cityChoices = new Choices("#city-select", {
         //     searchEnabled: true
         // });
-        // const neighborhoodChoices = new Choices("#neighborhood-select", {
-        //     searchEnabled: true
-        // });
-
-        setNityChoices(new Choices("#city-select", {
-            searchEnabled: true
-        }))
-        setNeighborhoodChoices(new Choices("#neighborhood-select", {
-            searchEnabled: true
-        }))
 
 
-        
+
+
+        fetch(`${authContext.baseUrl}/v1/location`)
+            .then(res => res.json()).then(res => {
+                console.log(res.data);
+
+                // City
+                setCities(res.data.cities)
+
+                // neighborhoods
+
+                const tehranNeighborhood = res.data.neighborhoods.filter(
+                    (neighborhood) => neighborhood.city_id === 301 // 301 is tehran code
+                );
+                setNeighborhoods(res.data.neighborhoods)
+
+
+            })
+
 
 
 
     }, [])
 
-    useEffect(() => {
-        fetch(`${authContext.baseUrl}/v1/location`)
-            .then(res => res.json()).then(res => {
+    const setNeighborhoodChoicesConfig = (config) => {
+        // new Choices("#neighborhood-select", {
+        //     searchEnabled: true
+        // }).clearStore();
+        console.log("clearStore", config);
 
-                // City
-
-                cityChoices?.setChoices(
-                    res.data.cities.map((city) => {
-                        return {
-                            value: city.id,
-                            label: city.name,
-                            customProperties: { id: city.id },
-                            selected: city.name === "تهران" ? true : false,
-                        };
-                    }),
-                    "value",
-                    "label",
-                    false
-                );
-
-                // neighborhoods
-
-                // console.log(res.data.neighborhoods);
-
-
-                const tehranNeighborhood = res.data.neighborhoods.filter(
-                    (neighborhood) => neighborhood.city_id === 301 // 301 is tehran code
-                );
-
-
-                const neighborhoodChoicesConfigs = [
+        if (config) {
+            new Choices("#neighborhood-select", {
+                searchEnabled: true
+            }).setChoices(
+                config,
+                "value",
+                "label",
+                false
+            );
+        } else {
+            new Choices("#neighborhood-select", {
+                searchEnabled: true
+            }).setChoices(
+                [
                     {
-                        value: "default",
-                        label: "انتخاب محله",
+                        value: 0,
+                        label: "محله‌ای یافت نشد",
                         disabled: true,
                         selected: true,
                     },
-                    ...tehranNeighborhood.map((neighborhood) => ({
-                        value: neighborhood.id,
-                        label: neighborhood.name,
-                    })),
-                ];
-
-                neighborhoodChoices?.setChoices(
-                    neighborhoodChoicesConfigs,
-                    "value",
-                    "label",
-                    false
-                );
-
-            })
-
-    }, [cityChoices, neighborhoodChoices])
+                ],
+                "value",
+                "label",
+                false
+            );
+        }
+    }
 
     const fieldChangeHandler = (slug, data) => {
         categoryFields[slug] = data;
@@ -202,57 +195,13 @@ const RegisterPost = () => {
 
 
     const AddItemCitySelectBox = (event) => {
-        console.log("se");
-        neighborhoodChoices.clearStore();
-        const neighborhoods = data.neighborhoods.filter(
-            (neighborhood) =>
-                neighborhood.city_id === event.detail.customProperties.id
-        );
+
+        console.log(event , neighborhoods);
 
 
-        // neighborhoodChoices.clearStore();
-        // const neighborhoods = data.neighborhoods.filter(
-        //   (neighborhood) =>
-        //     neighborhood.city_id === event.detail.customProperties.id
-        // );
-
-        // console.log(neighborhoods);
-
-        // if (neighborhoods.length) {
-        //   const neighborhoodChoicesConfigs = [
-        //     {
-        //       value: "default",
-        //       label: "انتخاب محله",
-        //       disabled: true,
-        //       selected: true,
-        //     },
-        //     ...neighborhoods.map((neighborhood) => ({
-        //       value: neighborhood.id,
-        //       label: neighborhood.name,
-        //     })),
-        //   ];
-
-        //   neighborhoodChoices.setChoices(
-        //     neighborhoodChoicesConfigs,
-        //     "value",
-        //     "label",
-        //     false
-        //   );
-        // } else {
-        //   neighborhoodChoices.setChoices(
-        //     [
-        //       {
-        //         value: 0,
-        //         label: "محله‌ای یافت نشد",
-        //         disabled: true,
-        //         selected: true,
-        //       },
-        //     ],
-        //     "value",
-        //     "label",
-        //     false
-        //   );
-        // }
+        setNeighborhoods(neighborhoods.filter(
+            (neighborhood) => neighborhood.city_id === Number(event)
+        ))
     }
     return (
         <>
@@ -270,11 +219,27 @@ const RegisterPost = () => {
                 <div className="groups">
                     <div className="group">
                         <p className="field-title">شهر</p>
-                        <select id="city-select" required="required" name="city-select" onChange={(event) => AddItemCitySelectBox(event)}></select>
+                        <select id="city-select" required="required" name="city-select" onChange={(event) => AddItemCitySelectBox(event.target.value)}>
+                            {
+                                cities.length && (
+                                    cities.map((city) => (
+                                        <option value={city.id}>{city.name}</option>
+                                    ))
+                                )
+                            }
+                        </select>
                     </div>
                     <div className="group">
                         <p className="field-title">محله</p>
-                        <select id="neighborhood-select" required="required" name='neighborhood-select'></select>
+                        <select id="neighborhood-select" required="required" name='neighborhood-select'>
+                            {
+                                neighborhoods.length && (
+                                    neighborhoods.map((neighborhood) => (
+                                        <option value={neighborhood.id}>{neighborhood.name}</option>
+                                    ))
+                                )
+                            }
+                        </select>
                     </div>
                 </div>
                 <div>
