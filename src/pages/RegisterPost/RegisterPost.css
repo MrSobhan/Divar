@@ -49,8 +49,8 @@
     display: flex;
     align-items: center;
     margin-top: 4rem;
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    background-color: transparent;
+    border: var(--border);
     border-radius: 4px;
 }
 
@@ -61,7 +61,7 @@
     line-height: 1.5;
     width: 14.625rem;
     margin-right: 8px;
-    color: rgba(0, 0, 0, 0.56);
+    color: var(--black-color);
     text-align: center;
 }
 
@@ -111,7 +111,7 @@ textarea {
 .category-title {
     font-size: 1.8rem;
     font-weight: 600;
-    color: black;
+    color: var(--black-color);
 }
 
 .group input:not(.checkbox-group input) {
@@ -159,7 +159,7 @@ textarea {
     border-radius: 5px;
     margin-top: 3rem;
     width: max-content;
-    border: dashed 2px rgba(0, 0, 0, 0.319);
+    border: dashed 2px var(--text-color);
 }
 
 .uploader-box:hover .bi-image {
@@ -204,6 +204,7 @@ textarea {
     margin-bottom: 4rem;
     font-weight: 500;
     padding: 1.2rem 1.5rem;
+    margin-left: 10px;
 }
 
 .post_controll button {
@@ -314,7 +315,7 @@ select:hover+svg {
     margin-top: 3rem;
     font-size: 1.5rem;
     margin-bottom: 2rem;
-    color: black;
+    color: var(--black-color);
 }
 
 .post-images {
@@ -385,7 +386,7 @@ select:hover+svg {
 }
 
 .map-controll p {
-    color: #000;
+    color: var(--black-color);
 }
 
 .map-controll {
@@ -469,4 +470,10 @@ select:hover+svg {
 .leaflet-container{
     width: 100%;
     height: 100%;
+}
+
+select , input , textarea{
+    background-color: transparent;
+    color: var(--black-color);
+    border: var(--border);
 }

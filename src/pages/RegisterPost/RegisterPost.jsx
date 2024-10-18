@@ -2,37 +2,41 @@ import React, { useContext, useEffect, useState } from 'react';
 import HeaderDefault from '../../Components/HeaderDefault/HeaderDefault';
 import FooterPost from '../../Components/FooterPost/FooterPost';
 import AuthContext from '../../context/authContext';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams , useNavigate } from 'react-router-dom';
 import swal from "sweetalert";
 
-
-import 'choices.js/public/assets/styles/choices.min.css';
 import 'leaflet/dist/leaflet.css';
-
-import Choices from "choices.js";
-import { MapContainer, TileLayer, useMap, Marker } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker } from 'react-leaflet'
 
 
 import './RegisterPost.css';
 
 const RegisterPost = () => {
     const authContext = useContext(AuthContext)
+    const navigator = useNavigate()
     const { categoryId } = useParams()
     const [subCategory, setSubCategory] = useState([])
-    const categoryFields = {};
+    const [itemCitySelectBox, setItemCitySelectBox] = useState('301')
+    const [neighborhoodSelectBox, setNeighborhoodSelectBox] = useState('')
+
+    const [lenCategoryFields, setLenCategoryFields] = useState(0)
+    let categoryFields = {};
+
     const [pics, setPics] = useState([])
     const [picsSrc, setPicsSrc] = useState([])
-
-    // const [cityChoices, setNityChoices] = useState()
-    // const [neighborhoodChoices, setNeighborhoodChoices] = useState()
 
     let mapView = { x: 35.715298, y: 51.404343 };
 
     const [cities, setCities] = useState([])
     const [neighborhoods, setNeighborhoods] = useState([])
+    const [showNeighborhoods, setShowNeighborhoods] = useState([])
 
 
-
+    // Value Static
+    const [postTitleInput, setPostTitleInput] = useState('')
+    const [postDescriptionTextarea, setPostDescriptionTextarea] = useState('')
+    const [postPriceInput, setPostPriceInput] = useState('')
+    const [exchangeCheckbox, setExchangeCheckbox] = useState(false)
     useEffect(() => {
 
 
@@ -44,40 +48,25 @@ const RegisterPost = () => {
                 )
 
                 setSubCategory(FindCategoryArry)
-                FindCategoryArry.productFields.forEach((field) => {
-                    if (field.type === "checkbox") {
-                        categoryFields[field.slug] = false;
-                    } else {
-                        categoryFields[field.slug] = null;
-                    }
-                });
-                // console.log(categoryFields);
+                setLenCategoryFields(FindCategoryArry.productFields.length)
 
             })
 
 
-        // const cityChoices = new Choices("#city-select", {
-        //     searchEnabled: true
-        // });
-
-
-
-
         fetch(`${authContext.baseUrl}/v1/location`)
             .then(res => res.json()).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
 
                 // City
                 setCities(res.data.cities)
 
                 // neighborhoods
+                setNeighborhoods(res.data.neighborhoods)
 
                 const tehranNeighborhood = res.data.neighborhoods.filter(
                     (neighborhood) => neighborhood.city_id === 301 // 301 is tehran code
                 );
-                setNeighborhoods(res.data.neighborhoods)
-
-
+                setShowNeighborhoods(tehranNeighborhood)
             })
 
 
@@ -85,43 +74,10 @@ const RegisterPost = () => {
 
     }, [])
 
-    const setNeighborhoodChoicesConfig = (config) => {
-        // new Choices("#neighborhood-select", {
-        //     searchEnabled: true
-        // }).clearStore();
-        console.log("clearStore", config);
-
-        if (config) {
-            new Choices("#neighborhood-select", {
-                searchEnabled: true
-            }).setChoices(
-                config,
-                "value",
-                "label",
-                false
-            );
-        } else {
-            new Choices("#neighborhood-select", {
-                searchEnabled: true
-            }).setChoices(
-                [
-                    {
-                        value: 0,
-                        label: "محله‌ای یافت نشد",
-                        disabled: true,
-                        selected: true,
-                    },
-                ],
-                "value",
-                "label",
-                false
-            );
-        }
-    }
-
     const fieldChangeHandler = (slug, data) => {
+
         categoryFields[slug] = data;
-        // console.log(categoryFields);
+        console.log(categoryFields);
 
     };
 
@@ -168,23 +124,59 @@ const RegisterPost = () => {
 
 
 
-    const RegisterBtn = async () => {
-        // 2 Validation (Dynamic - Static)
+    const RegisterBtn = async () => {  
+        // Static Fields Validation
+        if (
+            // !categoryFields.length ||
+            categoryFields.length == lenCategoryFields ||
+            itemCitySelectBox == "default" ||
+            !postTitleInput.trim().length ||
+            !postDescriptionTextarea.trim().length ||
+            !postPriceInput.trim().length
+        ) {
+            swal({
+                title: "لطفا همه مشخصات رو مشخص کنید",
+                icon: "error",
+                buttons: "تلاش مجدد"
+            })
+        } else {
+            console.log(categoryFields);
+            
+            const formData = new FormData();
+            formData.append("city", itemCitySelectBox);
+            formData.append("neighborhood", neighborhoodSelectBox);
+            formData.append("title", postTitleInput);
+            formData.append("description", postDescriptionTextarea);
+            formData.append("price", postPriceInput);
+            formData.append("exchange", exchangeCheckbox);
+            formData.append("map", JSON.stringify(mapView));
+            formData.append("categoryFields", JSON.stringify(categoryFields));
+            
+            
 
-        const formData = new FormData();
-        // formData.append()
-        // pics array
+            pics.map((pic) => {
+                formData.append("pics", pic);
+            });            
 
-        const res = await fetch(`${baseUrl}/v1/post/${subCategoryID}`, {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            body: formData,
-        });
+            const res = await fetch(`${authContext.baseUrl}/v1/post/${categoryId}`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${authContext.getLocalStorage('token')}`,
+                },
+                body: formData,
+            });
 
-        if (res.status === 200) {
-            // Codes
+            const data = await res.json();
+            console.log("Response Data ->", data);
+
+            if (res.status === 201) {
+                swal({
+                    title: "آگهی مورد نظر با موفقیت در صف انتشار قرار گرفت",
+                    icon: "success",
+                    buttons: "اوکی"
+                }).then(()=>navigator('/'))
+                // location.href = `/pages/userPanel/posts/preview.html`;
+            }
         }
     }
 
@@ -194,14 +186,15 @@ const RegisterPost = () => {
     };
 
 
-    const AddItemCitySelectBox = (event) => {
-
-        console.log(event , neighborhoods);
-
-
-        setNeighborhoods(neighborhoods.filter(
-            (neighborhood) => neighborhood.city_id === Number(event)
+    useEffect(() => {
+        setShowNeighborhoods(neighborhoods.filter(
+            (neighborhood) => neighborhood.city_id === Number(itemCitySelectBox)
         ))
+    }, [itemCitySelectBox])
+
+    const MoveMapHandler = (e) => {
+        console.log(e);
+
     }
     return (
         <>
@@ -219,11 +212,11 @@ const RegisterPost = () => {
                 <div className="groups">
                     <div className="group">
                         <p className="field-title">شهر</p>
-                        <select id="city-select" required="required" name="city-select" onChange={(event) => AddItemCitySelectBox(event.target.value)}>
+                        <select id="city-select" required="required" name="city-select" onChange={(event) => setItemCitySelectBox(event.target.value)}>
                             {
                                 cities.length && (
                                     cities.map((city) => (
-                                        <option value={city.id}>{city.name}</option>
+                                        <option value={city.id} selected={city.name == 'تهران' ? true : false }>{city.name}</option>
                                     ))
                                 )
                             }
@@ -231,12 +224,14 @@ const RegisterPost = () => {
                     </div>
                     <div className="group">
                         <p className="field-title">محله</p>
-                        <select id="neighborhood-select" required="required" name='neighborhood-select'>
+                        <select id="neighborhood-select" required="required" name='neighborhood-select' onChange={(event)=>setNeighborhoodSelectBox(event.target.value)}>
                             {
-                                neighborhoods.length && (
-                                    neighborhoods.map((neighborhood) => (
+                                showNeighborhoods.length ? (
+                                    showNeighborhoods.map((neighborhood) => (
                                         <option value={neighborhood.id}>{neighborhood.name}</option>
                                     ))
+                                ) : (
+                                    <option>محله ای برای این شهر وجود ندارد.</option>
                                 )
                             }
                         </select>
@@ -244,7 +239,7 @@ const RegisterPost = () => {
                 </div>
                 <div>
                     <p className="field-title">موقعیت مکانی آگهی</p>
-                    <div id="map" >
+                    <div id="map" onMouseMove={(e) => MoveMapHandler(e)}>
                         <MapContainer center={[35.715298, 51.404343]} zoom={13} scrollWheelZoom={false}>
                             <TileLayer
                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -330,10 +325,10 @@ const RegisterPost = () => {
                 <div className="groups">
                     <div className="group edit-post-title">
                         <p className="field-title">قیمت</p>
-                        <input id="post-price-input" type="number" />
+                        <input id="post-price-input" type="number" onChange={(e)=>setPostPriceInput(e.target.value)} value={postPriceInput}/>
                     </div>
                     <div className="group checkbox-group">
-                        <input className="checkbox" id="exchange-checkbox" type="checkbox" />
+                        <input className="checkbox" id="exchange-checkbox" type="checkbox" onChange={(e)=>setExchangeCheckbox(e.target.value)} value={exchangeCheckbox}/>
                         <p>مایلم معاوضه کنم</p>
                     </div>
                     <div className="group">
@@ -341,7 +336,7 @@ const RegisterPost = () => {
                         <span
                         >در عنوان آگهی به موارد مهمی مانند نوع ملک و متراژ اشاره کنید.
                         </span>
-                        <input id="post-title-input" type="text" />
+                        <input id="post-title-input" type="text" onChange={(e)=>setPostTitleInput(e.target.value)} value={postTitleInput}/>
                     </div>
 
                     <div className="group">
@@ -351,7 +346,9 @@ const RegisterPost = () => {
                         <textarea
                             id="post-description-textarea"
                             cols="30"
-                            rows="8"></textarea>
+                            rows="8"
+                            onChange={(e)=>setPostDescriptionTextarea(e.target.value)}
+                            >{postDescriptionTextarea}</textarea>
                     </div>
                 </div>
                 <div className="post_controll">
