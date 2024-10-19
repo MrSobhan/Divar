@@ -44,10 +44,10 @@ const SidebarUserPanel = () => {
                     </Link>
                 </li>
                 <li className="sidebar__menu-item">
-                    <a className="sidebar__menu-link" href="notes.html">
+                    <Link className="sidebar__menu-link" to="/userPanel/notes">
                         <i className="sidebar__menu-icon bi bi-journal"></i>
                         یادداشت ها
-                    </a>
+                    </Link>
                 </li>
                 <li className="sidebar__menu-item">
                     <a className="sidebar__menu-link" href="recent-seen.html">

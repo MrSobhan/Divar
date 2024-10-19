@@ -1,0 +1,54 @@
+.posts {
+    display: grid;
+    gap: 20px;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.post div {
+    display: flex;
+    gap: 20px;
+}
+
+.post div div {
+    flex-direction: column;
+    gap: 0px;
+}
+
+.post img {
+    width: 80px;
+    border-radius: 4px;
+    height: 80px;
+}
+
+.post p:nth-child(3) {
+    font-size: 1.2rem;
+}
+
+.post {
+    font-size: 1.5rem;
+    padding: 1.6rem;
+    border: 1px solid rgb(0 0 0 / 11%);
+    border-radius: 4px;
+    width: 640px;
+    padding-bottom: 6rem;
+    position: relative;
+}
+
+.title {
+    margin-bottom: 1.2rem;
+    font-weight: 700;
+    color: black;
+    font-size: 1.8rem;
+}
+
+.post i:hover {
+    color: black;
+}
+
+.post i {
+    position: absolute;
+    bottom: 15px;
+    cursor: pointer;
+    left: 15px;
+}

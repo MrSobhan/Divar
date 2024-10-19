@@ -14,6 +14,7 @@ import MainPagePanel from "./pages/UserPanel/MainPagePanel/MainPagePanel";
 import Verify from "./pages/UserPanel/Verify/Verify";
 import Posts from "./pages/UserPanel/Posts/Posts";
 import Bookmarks from "./pages/UserPanel/Bookmarks/Bookmarks";
+import Notes from "./pages/UserPanel/Notes/Notes";
 
 const routes = [
   { path: "/", element: <Index /> },
@@ -35,6 +36,7 @@ const routes = [
       { path: "verify", element: <Verify /> },
       { path: "posts", element: <Posts /> },
       { path: "bookmarks", element: <Bookmarks /> },
+      { path: "notes", element: <Notes /> },
     ],
   },
 ];
