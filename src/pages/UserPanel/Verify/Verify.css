@@ -1,0 +1,129 @@
+
+.verify {
+    max-width: 50rem;
+    margin: 2rem auto;
+}
+
+.verify__notic {
+    font-size: 1.4rem;
+    line-height: 2.5rem;
+}
+
+.verify__nationality {
+    margin-top: 4rem;
+}
+
+.verify__nationality-title {
+    display: block;
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    font-family: "iransans-medium";
+    color:#000;
+}
+
+.verify__nationality-subtitle {
+    font-size:1.2rem;
+}
+
+.verify__nationality-select {
+    position: relative;
+}
+
+.verify__nationality-select-wrapper select {
+    width: 100%;
+    border: 0;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border-left: 5px white solid;
+    border-right: 5px white solid;
+    padding: 1rem 0;
+}
+
+.verify__nationality-select-wrapper {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.3rem;
+    margin: 1rem 0;
+    cursor: pointer;
+}
+
+.verify__nationality-select-name {
+    font-size: 1.6rem;
+    font-family: "iransans-medium";
+    color:#000;
+}
+
+.verify__nationality-select-icon {
+    font-size: 1.4rem;
+}
+
+.verify__national-code {
+    margin-top: 4rem;
+}
+
+.verify__national-code-title {
+    display: block;
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    font-family: "iransans-medium";
+    color:#000;
+}
+
+.verify__national-code-subtitle {
+    font-size:1.2rem;
+}
+
+.verify__national-code-form {
+    margin: 1rem 0;
+}
+
+.verify__national-input {
+    display: block;
+    padding: 1rem 1.5rem;
+    border-radius: 0.3rem;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 1.4rem;
+}
+
+.verify__national-input:focus {
+    border: 1px solid #a62626;
+}
+
+.verify__national-btn {
+    margin-top: 3rem;
+    border-radius: 0.3rem;
+    width: 100%;
+    padding: 1.5rem 0;
+    background-color: #a62626;
+    color:#fff;
+    font-size: 1.6rem;
+}
+
+.error .bi {
+    color: red;
+}
+
+.error {
+    display: none;
+    color: red;
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    justify-content: right;
+    flex-direction: row-reverse;
+    gap: .5rem;
+}
+
+.verified span {
+    display: block;
+    font-size: 1.5rem;
+}
+.verified p {
+    font-size: 1.7rem;
+    color: black;
+    font-weight: 600;
+}
+.verified img{
+    margin: 60px 130px 60px; 
+}

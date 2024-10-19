@@ -1,0 +1,70 @@
+
+.posts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.post {
+    width: 100%;
+    padding: 1.5rem;
+    border: 1px solid rgb(0 0 0 / 11%);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+}
+
+.post div div div p:nth-child(1) {
+    margin-bottom: 8px;
+}
+
+.post div div div {
+    font-size: 1.5rem;
+}
+
+.post div div {
+    display: flex;
+    flex-direction: column;
+}
+
+.post div {
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    gap: 10px;
+}
+
+.post img {
+    width: 136px;
+    border-radius: 4px;
+    height: 136px;
+}
+
+.title {
+    font-weight: 700;
+    color: black;
+    font-size: 1.8rem;
+}
+
+.post button:hover {
+    background-color: rgba(0, 0, 0, .04);
+}
+
+.post button {
+    border: 1px solid black;
+    margin-top: 30px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    transition: .1s all ease-in;
+    padding: 5px 0;
+    justify-content: center;
+    gap: 17px;
+    color: black;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    flex-direction: row-reverse;
+}

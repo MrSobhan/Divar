@@ -9,6 +9,12 @@ import RegisterPost from "./pages/RegisterPost/RegisterPost";
 import Search from "./pages/Search/Search";
 import Support from "./pages/Support/Support";
 
+// UserPanel
+import MainPagePanel from "./pages/UserPanel/MainPagePanel/MainPagePanel";
+import Verify from "./pages/UserPanel/Verify/Verify";
+import Posts from "./pages/UserPanel/Posts/Posts";
+import Bookmarks from "./pages/UserPanel/Bookmarks/Bookmarks";
+
 const routes = [
   { path: "/", element: <Index /> },
   { path: "/main", element: <MainPage /> },
@@ -20,7 +26,17 @@ const routes = [
   { path: "/support/search/:searchKey", element: <Search/>},
   { path: "/new", element: <New/>},
   { path: "/registerPost/:categoryId", element: <RegisterPost/>},
-  { path: "/map", element: <Map/>}
+  { path: "/map", element: <Map/>},
+  {
+    path: "/userPanel/*",
+    element: <MainPagePanel />,
+    children: [
+      { path: "", element: <Verify /> },
+      { path: "verify", element: <Verify /> },
+      { path: "posts", element: <Posts /> },
+      { path: "bookmarks", element: <Bookmarks /> },
+    ],
+  },
 ];
 
 export default routes;

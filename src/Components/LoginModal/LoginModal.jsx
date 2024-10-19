@@ -80,7 +80,7 @@ const LoginModal = ({ isShow, setIsShow }) => {
                     title: "لاگین با موفقیت انجام شد",
                     icon: "success",
                     buttons: "ورود به پنل کاربری"
-                }).then(() => (navigator('/main')));
+                }).then(() => (navigator('/userPanel')));
 
             } else if (res.status === 400) {
                 setErrorLogin("کد وارد شده نامعتبر هست")

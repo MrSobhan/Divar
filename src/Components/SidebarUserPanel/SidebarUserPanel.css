@@ -1,0 +1,99 @@
+
+/* *====================Sidebar====================* */
+.sidebar {
+    position: fixed;
+    right: 55px;
+    top: 6rem;
+    bottom: 0;
+    overflow: auto;
+    width: 18%;
+    scrollbar-width: none;
+    padding: 4rem 2rem 1rem 2rem;
+}
+
+.sidebar__user {
+    display: flex;
+    margin-top: 30px;
+}
+
+.sidebar__user-right {
+    margin-left: 1rem;
+}
+
+.sidebar__user-icon {
+    font-size: 1.8rem;
+}
+
+.sidebar__user-text {
+    font-size: 1.4rem;
+    color:#000;
+    font-family: "iransans-bold";
+}
+
+.sidebar__user-phone {
+    font-size:1.2rem;
+    margin-top: 1rem;
+}
+
+.sidebar__menu-list {
+    padding:0 0 1.5rem 0;
+}
+
+.sidebar__menu-link {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 0;
+    font-size: 16px;
+    color:#000;
+}
+
+.sidebar__menu-icon {
+    margin-left: 1rem;
+}
+
+.sidebar__link-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    color:#000;
+    padding: 2.5rem 0;
+}
+
+ 
+
+.sidebar__link-icon {
+    margin-left: 1rem;
+}
+
+.sidebar__links {
+    margin: 2rem 0;
+    width: 100%;
+    display: grid;
+    font-size:1.2rem;
+    grid-template-columns: auto auto auto;
+}
+
+.sidebar__link {
+    padding: 0 1rem;
+    line-height: 3rem;
+white-space: nowrap;
+}
+
+.sidebar__social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.sidebar__social-link {
+    font-size: 1.6rem;
+    margin: 0 2rem;
+}
+
+.sidebar__logout{
+    cursor: pointer;
+}
+/* *====================End Sidebar====================* */

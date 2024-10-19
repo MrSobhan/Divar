@@ -6,7 +6,9 @@ const AuthContext = createContext({
     setLocalStorage: () => { },
     getLocalStorage: () => { },
     calcuteRelativeTimeDifference: () => { },
-    isLogin: () => { }
+    isLogin: () => { },
+    getMe: () => { },
+    LogOut: () => { }
 });
 
 export default AuthContext;
