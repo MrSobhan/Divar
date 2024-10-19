@@ -45,7 +45,7 @@
 
 .title {
     font-weight: 700;
-    color: black;
+    color: var(--black-color);
     font-size: 1.8rem;
 }
 
@@ -54,7 +54,7 @@
 }
 
 .post button {
-    border: 1px solid black;
+    border: var(--border);
     margin-top: 30px;
     width: 50%;
     display: flex;
@@ -63,7 +63,7 @@
     padding: 5px 0;
     justify-content: center;
     gap: 17px;
-    color: black;
+    color: var(--black-color);
     border-radius: 4px;
     font-size: 1.4rem;
     flex-direction: row-reverse;

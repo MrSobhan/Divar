@@ -121,7 +121,7 @@
 }
 .verified p {
     font-size: 1.7rem;
-    color: black;
+    color: var(--black-color);
     font-weight: 600;
 }
 .verified img{

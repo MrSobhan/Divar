@@ -32,7 +32,7 @@
 .post {
     font-size: 1.5rem;
     padding: 1.6rem;
-    border-bottom: 1px solid rgb(0 0 0 / 11%) !important;
+    border-bottom: var(--border) !important;
     border-radius: 4px;
     width: 790px;
     border: 0;
@@ -46,12 +46,12 @@
 .title {
     margin-bottom: 2.3rem;
     font-weight: 700;
-    color: black;
+    color: var(--black-color) !important;
     font-size: 1.6rem;
 }
 
 .post i:hover {
-    color: black;
+    color: var(--black-color);
 }
 
 .post i {
@@ -67,7 +67,7 @@
 }
 
 .post-status p:nth-child(1) {
-    color: black;
+    color: var(--black-color);
 }
 
 .publish {

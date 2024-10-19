@@ -1,4 +1,3 @@
-
 /* *====================Sidebar====================* */
 .sidebar {
     position: fixed;
@@ -26,7 +25,7 @@
 
 .sidebar__user-text {
     font-size: 1.4rem;
-    color:#000;
+    color:var(--black-color);
     font-family: "iransans-bold";
 }
 
@@ -44,7 +43,7 @@
     align-items: center;
     padding: 1.5rem 0;
     font-size: 16px;
-    color:#000;
+    color:var(--black-color);
 }
 
 .sidebar__menu-icon {
@@ -54,10 +53,10 @@
 .sidebar__link-item {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: var(--border);
+    border-top: var(--border);
     font-size: 16px;
-    color:#000;
+    color:var(--black-color);
     padding: 2.5rem 0;
 }
 
