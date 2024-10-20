@@ -3,9 +3,9 @@ import HeaderDefault from '../../../Components/HeaderDefault/HeaderDefault';
 import AuthContext from '../../../context/authContext';
 import { Link, useParams, useNavigate, Outlet } from 'react-router-dom';
 
-import SidebarUserPanel from '../../../Components/SidebarUserPanel/SidebarUserPanel';
-import './MainPagePanel.css'
-const MainPagePanel = () => {
+// import SidebarUserPanel from '../../../Components/SidebarUserPanel/SidebarUserPanel';
+import './DashboordPanel.css'
+const DashboordPanel = () => {
     const authContext = useContext(AuthContext)
     const navigator = useNavigate()
 
@@ -22,7 +22,7 @@ const MainPagePanel = () => {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-3">
-                            <SidebarUserPanel />
+                            {/* <SidebarUserPanel /> */}
                         </div>
                         <div className="col-9">
                             <Outlet />
@@ -35,4 +35,4 @@ const MainPagePanel = () => {
 }
 
 
-export default MainPagePanel;
+export default DashboordPanel;

@@ -15,6 +15,7 @@ import Verify from "./pages/UserPanel/Verify/Verify";
 import Posts from "./pages/UserPanel/Posts/Posts";
 import Bookmarks from "./pages/UserPanel/Bookmarks/Bookmarks";
 import Notes from "./pages/UserPanel/Notes/Notes";
+import RecentSeen from "./pages/UserPanel/RecentSeen/RecentSeen";
 
 const routes = [
   { path: "/", element: <Index /> },
@@ -37,6 +38,7 @@ const routes = [
       { path: "posts", element: <Posts /> },
       { path: "bookmarks", element: <Bookmarks /> },
       { path: "notes", element: <Notes /> },
+      { path: "recent-seen", element: <RecentSeen /> }
     ],
   },
 ];

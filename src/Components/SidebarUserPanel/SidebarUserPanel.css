@@ -46,6 +46,7 @@
     color:var(--black-color);
 }
 
+
 .sidebar__menu-icon {
     margin-left: 1rem;
 }
@@ -95,4 +96,9 @@ white-space: nowrap;
 .sidebar__logout{
     cursor: pointer;
 }
+
+.sidebar__menu-item a.active {
+    color: var(--primary-color);
+    display: flex !important;
+  }
 /* *====================End Sidebar====================* */

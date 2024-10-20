@@ -23,6 +23,7 @@ const Post = () => {
 
     const [isBookMark, setIsBookMark] = useState(false)
     let userToken = authContext.getLocalStorage('token')
+    const RecentSeenLocalID = authContext.getLocalStorage('recent-seen')
 
     useEffect(() => {
         authContext.isLogin().then(res => {
@@ -38,6 +39,14 @@ const Post = () => {
                     setIsBookMark(resPost.data.post?.bookmarked)
                     setValueNoteTextarea(resPost.data.post?.note.content ? resPost.data.post?.note.content : '')
                     console.log(resPost.data.post);
+                    if (RecentSeenLocalID) {
+                        let checkSomeId = RecentSeenLocalID.some((id) => id == postId)
+                        if(!checkSomeId){
+                            authContext.setLocalStorage('recent-seen' , [...RecentSeenLocalID , postId] )
+                        }
+                    }else{
+                        authContext.setLocalStorage('recent-seen' , [postId] )
+                    }
                 })
         })
     }, [])

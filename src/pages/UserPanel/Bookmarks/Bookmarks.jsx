@@ -67,7 +67,7 @@ const Bookmarks = () => {
                                         }</Link>
                                         <div>
                                             <p>{post.price.toLocaleString()} تومان</p>
-                                            <p>{date} در ${post.neighborhood.name}</p>
+                                            <p>{date} در {post.neighborhood.name}</p>
                                         </div>
                                     </div>
                                     {

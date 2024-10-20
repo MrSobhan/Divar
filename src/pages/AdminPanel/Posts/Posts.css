@@ -1,0 +1,104 @@
+.posts {
+    display: grid;
+    gap: 20px;
+    justify-content: center;
+}
+
+.post-info {
+    display: flex;
+    gap: 20px;
+}
+
+.post-info div {
+    flex-direction: column;
+    gap: 0px;
+    display: flex;
+}
+
+.post img {
+    width: 80px;
+    border-radius: 4px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.price,
+.location {
+    margin-bottom: 0;
+    margin-top: 0;
+    font-size: 12px;
+}
+
+.post {
+    font-size: 1.5rem;
+    padding: 1.6rem;
+    border-bottom: var(--border) !important;
+    border-radius: 4px;
+    width: 790px;
+    border: 0;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 2rem;
+    flex-direction: row;
+    position: relative;
+}
+
+.title {
+    margin-bottom: 2.3rem;
+    font-weight: 700;
+    color: var(--black-color) !important;
+    font-size: 1.6rem;
+}
+
+.post i:hover {
+    color: var(--black-color);
+}
+
+.post i {
+    position: absolute;
+    bottom: 15px;
+    cursor: pointer;
+    left: 15px;
+}
+
+.post-status div {
+    display: flex;
+    gap: 8px;
+}
+
+.post-status p:nth-child(1) {
+    color: var(--black-color);
+}
+
+.publish {
+    color: green;
+}
+
+.reject {
+    color: red;
+}
+
+.pending {
+    color: orange;
+}
+
+.controll-btn {
+    font-size: 12px;
+    cursor: pointer;
+    line-height: 20px;
+    margin-top: 1.6rem;
+    margin-right: auto;
+    display: block;
+    border: 1px solid #a62626;
+    border-radius: 4px;
+    width: max-content;
+    text-align: center;
+    padding: .8rem 1.3rem;
+    position: relative;
+    transition: color .36s ease, background-color .36s ease, box-shadow .36s ease, border-color .36s ease, transform .36s ease;
+    color: #a62626;
+}
+
+.controll-btn:hover {
+    background-color: rgba(166, 38, 38, .04);
+}

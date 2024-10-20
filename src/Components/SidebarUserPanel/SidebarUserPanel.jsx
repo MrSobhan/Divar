@@ -1,14 +1,16 @@
 import React, { useState , useContext } from 'react';
 import './SidebarUserPanel.css'
 import AuthContext from '../../context/authContext';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 const SidebarUserPanel = () => {
     const authContext = useContext(AuthContext)
     const [userPhone , setUserPhone] = useState('')
     authContext.getMe().then((user) => {
-        setUserPhone(user.phone)        
+        setUserPhone(user.phone)      
+        // console.log(location.href);
+          
     });
     return (
         <div className="sidebar">
@@ -23,37 +25,37 @@ const SidebarUserPanel = () => {
             </div>
             <ul className="sidebar__menu-list">
                 <li className="sidebar__menu-item">
-                    <Link
-                        className="sidebar__menu-link sidebar__menu-link--active"
+                    <NavLink
+                        className="sidebar__menu-link"
                         to="/userPanel/verify"
                     >
                         <i className="sidebar__menu-icon bi bi-patch-check"></i>
                         تایید هویت
-                    </Link>
+                    </NavLink>
                 </li>
                 <li className="sidebar__menu-item">
-                    <Link className="sidebar__menu-link" to="/userPanel/posts">
+                    <NavLink className="sidebar__menu-link" to="/userPanel/posts">
                         <i className="sidebar__menu-icon bi bi-journal"></i>
                         آگهی های من
-                    </Link>
+                    </NavLink>
                 </li>
                 <li className="sidebar__menu-item">
-                    <Link className="sidebar__menu-link" to="/userPanel/bookmarks">
+                    <NavLink className="sidebar__menu-link" to="/userPanel/bookmarks">
                         <i className="sidebar__menu-icon bi bi-bookmark"></i>
                         نشان ها
-                    </Link>
+                    </NavLink>
                 </li>
                 <li className="sidebar__menu-item">
-                    <Link className="sidebar__menu-link" to="/userPanel/notes">
+                    <NavLink className="sidebar__menu-link" to="/userPanel/notes">
                         <i className="sidebar__menu-icon bi bi-journal"></i>
                         یادداشت ها
-                    </Link>
+                    </NavLink>
                 </li>
                 <li className="sidebar__menu-item">
-                    <a className="sidebar__menu-link" href="recent-seen.html">
+                    <NavLink className="sidebar__menu-link" to="/userPanel/recent-seen">
                         <i className="sidebar__menu-icon bi bi-clock-history"></i>
                         بازدید های اخیر
-                    </a>
+                    </NavLink>
                 </li>
             </ul>
             <p className="sidebar__logout sidebar__link-item" id="logout-btn" onClick={()=>authContext.LogOut()}>
