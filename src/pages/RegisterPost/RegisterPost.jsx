@@ -128,7 +128,7 @@ const RegisterPost = () => {
         // Static Fields Validation
         if (
             // !categoryFields.length ||
-            categoryFields.length == lenCategoryFields ||
+            Object.keys(categoryFields).length == lenCategoryFields ||
             itemCitySelectBox == "default" ||
             !postTitleInput.trim().length ||
             !postDescriptionTextarea.trim().length ||
@@ -140,7 +140,7 @@ const RegisterPost = () => {
                 buttons: "تلاش مجدد"
             })
         } else {
-            console.log(categoryFields);
+            console.log(categoryFields , Object.keys(categoryFields).length);
             
             const formData = new FormData();
             formData.append("city", itemCitySelectBox);

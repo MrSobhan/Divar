@@ -6,6 +6,8 @@ import HeaderMain from '../../Components/HeaderMain/HeaderMain';
 import FooterPost from '../../Components/FooterPost/FooterPost';
 import LoginModal from '../../Components/LoginModal/LoginModal';
 import swal from "sweetalert";
+import "leaflet/dist/leaflet.css";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import './Post.css'
 import HeaderDefault from '../../Components/HeaderDefault/HeaderDefault';
 const Post = () => {
@@ -41,11 +43,11 @@ const Post = () => {
                     console.log(resPost.data.post);
                     if (RecentSeenLocalID) {
                         let checkSomeId = RecentSeenLocalID.some((id) => id == postId)
-                        if(!checkSomeId){
-                            authContext.setLocalStorage('recent-seen' , [...RecentSeenLocalID , postId] )
+                        if (!checkSomeId) {
+                            authContext.setLocalStorage('recent-seen', [...RecentSeenLocalID, postId])
                         }
-                    }else{
-                        authContext.setLocalStorage('recent-seen' , [postId] )
+                    } else {
+                        authContext.setLocalStorage('recent-seen', [postId])
                     }
                 })
         })
@@ -155,8 +157,8 @@ const Post = () => {
                     <>
                         {/* <HeaderMain /> */}
                         <HeaderDefault />
-                        <main className="main">
-                            <div className="container">
+                        <main className="mainPost">
+                            <div className="container-fluid">
                                 <ul className="main__breadcrumb" id="breadcrumb">
 
                                     <li className="main__breadcrumb-item">
@@ -279,7 +281,23 @@ const Post = () => {
                                             <span className="post-preview__input-notics">یادداشت تنها برای شما قابل دیدن است و پس از حذف آگهی، پاک خواهد شد.</span>
                                         </div>
 
-                                        <div id="map"></div>
+                                        {
+                                            postDetails.map.x && (
+                                                <div id="map">
+                                                    <MapContainer
+                                                        center={[postDetails.map.x, postDetails.map.y]}
+                                                        zoom={13}
+                                                        scrollWheelZoom={false}
+                                                    >
+                                                        <TileLayer
+                                                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                                        />
+                                                        <Marker position={[postDetails.map.x, postDetails.map.y]}></Marker>
+                                                    </MapContainer>
+                                                </div>
+                                            )
+                                        }
 
                                         <div className="post__feedback">
                                             <p>بازخورد شما دربارهٔ این آگهی چیست؟</p>

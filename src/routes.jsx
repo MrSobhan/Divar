@@ -17,6 +17,10 @@ import Bookmarks from "./pages/UserPanel/Bookmarks/Bookmarks";
 import Notes from "./pages/UserPanel/Notes/Notes";
 import RecentSeen from "./pages/UserPanel/RecentSeen/RecentSeen";
 
+// AdminPanel
+import DashboordPanel from "./pages/AdminPanel/DashboordPanel/DashboordPanel";
+import MainAdminPanel from "./pages/AdminPanel/MainAdminPanel/MainAdminPanel";
+
 const routes = [
   { path: "/", element: <Index /> },
   { path: "/main", element: <MainPage /> },
@@ -39,6 +43,18 @@ const routes = [
       { path: "bookmarks", element: <Bookmarks /> },
       { path: "notes", element: <Notes /> },
       { path: "recent-seen", element: <RecentSeen /> }
+    ],
+  },
+  {
+    path: "/adminPanel/*",
+    element: <DashboordPanel />,
+    children: [
+      { path: "", element: <MainAdminPanel /> },
+      // { path: "verify", element: <Verify /> },
+      // { path: "posts", element: <Posts /> },
+      // { path: "bookmarks", element: <Bookmarks /> },
+      // { path: "notes", element: <Notes /> },
+      // { path: "recent-seen", element: <RecentSeen /> }
     ],
   },
 ];

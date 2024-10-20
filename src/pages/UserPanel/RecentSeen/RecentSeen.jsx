@@ -12,14 +12,26 @@ const RecentSeen = () => {
         if (recentSeens) {
             setPosts([])
             for (const postID of recentSeens) {
-                fetch(`${authContext.baseUrl}/v1/post/${postID}`)
-                    .then(res => { if (res.status !== 404) { return res.json() } }).then((response) => {
-                        setPosts(prevPost => [...prevPost, response.data.post])
-                        // console.log(response.data.post)
-                    });
+                GetAllRecentPosts(postID)
             }
         }
     }, [])
+
+    const GetAllRecentPosts = async (postId) => {
+        await fetch(`${authContext.baseUrl}/v1/post/${postId}`)
+            .then(res => { if (res.status !== 404) { return res.json() } }).then((response) => {
+
+                if (!posts.includes(response.data.post)) {
+
+                    setPosts(prevPost => [...prevPost, response.data.post])
+                }
+
+            });
+
+
+
+    }
+
 
     const removeRecentSeen = (postID) => {
         const newRecentSeens = recentSeens.filter((post) => post !== postID);
@@ -49,7 +61,7 @@ const RecentSeen = () => {
                             const date = authContext.calcuteRelativeTimeDifference(post.createdAt);
 
                             return (
-                                <div className="post" key={post._id}>
+                                <div className="post">
                                     <div>
                                         {
                                             post.pics.length

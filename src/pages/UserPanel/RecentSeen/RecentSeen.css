@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     row-gap: 20px;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr ;
 }
 
 .post div {
