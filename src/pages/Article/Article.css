@@ -12,9 +12,12 @@
 .breadcrumb p{
     margin: 0;
 }
+.breadcrumb a{
+    color: var(--black-color) !important;
+}
  .title{
     font-size: 2rem;
-    color: black;
+    color: var(--black-color);
     margin-top: 3rem;
     font-weight: 600;
  }
@@ -23,7 +26,7 @@
     margin-top: 3rem;
  }
  .content {
-    color: black;
+    color: var(--black-color);
     line-height: 2.7rem;
     font-size: 1.7rem;
     margin-top: 10px;
@@ -47,9 +50,11 @@
     width: 300px;
     padding: 15px 0;
     padding-right: 2rem;
-    border-right: 1px solid rgba(0, 0, 0, 0.095);
+    border-right: var(--border);
 }
 .same_articles-container p{
     font-weight: 600;
 }
- 
+.bi-chevron-left::before{
+    color: var(--black-color);
+}

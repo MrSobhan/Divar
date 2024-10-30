@@ -1,7 +1,11 @@
 .posts {
-    display: grid;
+    display: flex;
     gap: 20px;
     justify-content: center;
+    background-color: transparent !important;
+    min-width: 360px;
+    max-width: 600px;
+    margin: 6rem auto;
 }
 
 .post-info {

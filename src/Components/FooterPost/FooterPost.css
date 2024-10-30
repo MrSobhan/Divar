@@ -10,6 +10,9 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    padding: 0 50px;
+    border-top: var(--border);
+    margin-top: 60px;
 }
 
 .footer__right {

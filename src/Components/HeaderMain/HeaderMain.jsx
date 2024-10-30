@@ -15,6 +15,7 @@ const HeaderMain = ({
     const authContext = useContext(AuthContext)
 
     const [theme, setTheme] = useState(authContext.getLocalStorage('theme'))
+    const [userPhone, setUserPhone] = useState('')
 
     const [activeModal, setActiveModal] = useState(false)
     const [activeModalCities, setActiveModalCities] = useState(false)
@@ -67,6 +68,13 @@ const HeaderMain = ({
 
     useEffect(() => {
         GetAllLocation()
+
+
+        authContext.getMe().then((user) => {
+            setUserPhone(user.phone)
+            // console.log(location.href);
+
+        });
     }, [])
 
     const GetAllLocation = () => {
@@ -289,10 +297,10 @@ const HeaderMain = ({
                             </button>
                             <div className={`header__category-menu ${showHeaderCategory ? 'header__category-menu--active' : ''}`}>
                                 <div className="header__category-menu-right">
-                                    <a className="header__category-menu-btn" href="#" onClick={backToAllCategories}>
+                                    <button className="header__category-menu-btn" onClick={backToAllCategories}>
                                         <i className="header__category-menu-btn-icon bi bi-arrow-right"></i>
                                         همه آگهی ها
-                                    </a>
+                                    </button>
                                     <ul className="haeder__category-menu-list">
                                         {
                                             category.length && (
@@ -372,7 +380,7 @@ const HeaderMain = ({
                                 </a>
                             )
                         }
-                        <a className="header__left-link" href="#" onClick={() => setIsShowDropdownDivarMe(true)}>
+                        <a className="header__left-link" onClick={() => setIsShowDropdownDivarMe(true)}>
                             <i className="header__left-icon bi bi-person"></i>
                             دیوار من
                         </a>
@@ -389,27 +397,27 @@ const HeaderMain = ({
                                                     <i className="header__left-dropdown-icon bi bi-box-arrow-in-left"></i>
                                                     <div>
                                                         <span>کاربر دیوار </span>
-                                                        <p>تلفن </p>
+                                                        <p>{userPhone} </p>
                                                     </div>
                                                 </a>
                                             </li>
                                             <li className="header__left-dropdown-item">
-                                                <a className="header__left-dropdown-link" href="/pages/userPanel/verify.html">
+                                                <Link className="header__left-dropdown-link" to="/userPanel/verify">
                                                     <i className="header__left-dropdown-icon bi bi-bookmark"></i>
                                                     تایید هویت
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li className="header__left-dropdown-item">
-                                                <a className="header__left-dropdown-link" href="/pages/userPanel/bookmarks.html">
+                                                <Link className="header__left-dropdown-link" to="/userPanel/bookmarks">
                                                     <i className="header__left-dropdown-icon bi bi-bookmark"></i>
                                                     نشان ها
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li className="header__left-dropdown-item">
-                                                <a className="header__left-dropdown-link" href="/pages/userPanel/notes.html">
+                                                <Link className="header__left-dropdown-link" to="/userPanel/notes">
                                                     <i className="header__left-dropdown-icon bi bi-journal"></i>
                                                     یادداشت ها
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li className="header__left-dropdown-item logout-link" id="login_btn">
                                                 <p className="header__left-dropdown-link" href="#">

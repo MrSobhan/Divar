@@ -3,7 +3,7 @@ import Social from '../Social/Social';
 import './FooterPost.css'
 const FooterPost = () => {
     return (
-        <footer className='main'> 
+        <footer> 
             <div className="container-fluid">
                 <div className="footer__wrapper">
                     <div className="footer__right">

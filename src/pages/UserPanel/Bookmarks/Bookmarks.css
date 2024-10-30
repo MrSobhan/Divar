@@ -1,20 +1,24 @@
 
 .posts {
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     gap: 20px;
     justify-content: space-between;
+    align-items: center;
 }
 
 .post {
-    width: 100%;
-    padding: 1.5rem;
-    border: 1px solid rgb(0 0 0 / 11%);
+    /* width: 100%; */
+    min-width: 360px !important;
+    max-width: 600px !important;
+    /* padding: 1.5rem; */
+    border: var(--border);
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-flow: column;
+    margin: 0 auto;
 }
 
 .post div div div p:nth-child(1) {

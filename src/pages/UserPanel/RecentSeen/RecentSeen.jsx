@@ -9,26 +9,31 @@ const RecentSeen = () => {
     let recentSeens = authContext.getLocalStorage('recent-seen')
 
     useEffect(() => {
+        loadFunc()
+    }, [])
+
+    const loadFunc = async () => {
         if (recentSeens) {
             setPosts([])
             for (const postID of recentSeens) {
-                GetAllRecentPosts(postID)
+                await GetAllRecentPosts(postID)
             }
         }
-    }, [])
-
+    }
+    const RecentPostsArry = []
     const GetAllRecentPosts = async (postId) => {
         await fetch(`${authContext.baseUrl}/v1/post/${postId}`)
             .then(res => { if (res.status !== 404) { return res.json() } }).then((response) => {
-
-                if (!posts.includes(response.data.post)) {
-
-                    setPosts(prevPost => [...prevPost, response.data.post])
+                let CheckDouData = RecentPostsArry.some(data => data._id == response.data.post._id)
+                
+                if (!CheckDouData) {
+                    RecentPostsArry.push(response.data.post)
                 }
 
             });
 
-
+        // console.log([...new Set(RecentPostsArry)]);
+        setPosts([...new Set(RecentPostsArry)])
 
     }
 

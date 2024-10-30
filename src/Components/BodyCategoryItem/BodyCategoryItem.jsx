@@ -19,7 +19,7 @@ const BodyCategoryItem = ({ backToAllCategories, title, subCategories , catID , 
                     {subCategories?.map(subCategory => (
 
                         <li key={subCategory._id} >
-                            <Link to={'/main/' + subCategory._id} className={subCategory._id == catID ? 'text-danger' : ''}>{subCategory.title}</Link>
+                            <Link to={'/main/' + subCategory._id} className={subCategory._id == catID ? 'text-danger activeSubSubCat' : ''}>{subCategory.title}</Link>
                             {/* {subCategory.title} */}
                         </li>
 

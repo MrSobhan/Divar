@@ -35,9 +35,9 @@ const Notes = () => {
                     },
                 }).then((res) => {
                     if (res.status === 200) {
-                        posts = posts.filter((post) => post.note._id !== noteID);
-                        if (posts.length) {
-                            setPosts(posts)
+                        let postsFilterd = posts.filter((post) => post.note._id !== noteID);
+                        if (postsFilterd.length) {
+                            setPosts(postsFilterd)
                         }
                     }
                 });

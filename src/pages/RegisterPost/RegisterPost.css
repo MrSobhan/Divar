@@ -192,15 +192,15 @@ textarea {
 }
 
 .post_controll a {
-    background-color: white;
+    background-color: var(--white-color);
     border: 0;
     width: max-content;
     margin-top: 2rem;
     width: max-content;
     margin-right: auto;
     border-radius: 5px;
-    color: black;
-    border: 1px solid rgba(0, 0, 0, 0.48);
+    color: var(--black-color);
+    border: var(--border);
     margin-bottom: 4rem;
     font-weight: 500;
     padding: 1.2rem 1.5rem;

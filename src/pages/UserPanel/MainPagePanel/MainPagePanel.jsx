@@ -18,7 +18,7 @@ const MainPagePanel = () => {
     return (
         <>
             <HeaderDefault />
-            <main className="main">
+            <main>
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-3">

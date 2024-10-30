@@ -2,7 +2,7 @@
 .main-container {
     margin-top: 8rem;
     /* background-color: aqua; */
-    width: 1530px;
+    width: 100% !important;
     padding: 0 50px;
 }
 

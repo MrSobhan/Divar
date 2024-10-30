@@ -352,7 +352,7 @@ const RegisterPost = () => {
                     </div>
                 </div>
                 <div className="post_controll">
-                    <a href="/pages/posts.html">انصراف</a>
+                    <Link to="/main">انصراف</Link>
                     <button id="register-btn" onClick={RegisterBtn}>ارسال آگهی</button>
                 </div>
             </main>

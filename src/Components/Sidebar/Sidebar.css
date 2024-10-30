@@ -1,4 +1,7 @@
 /* ==========Sidebar Filter========== */
+.sidebar{
+    width: 22% !important;
+}
 .sidebar__filter {
     border-bottom: var(--border);
     padding: 0 0.5rem;
@@ -290,5 +293,9 @@ display: block !important;
     width: 4px;
 }
 
+.activeSubSubCat{
+    border-right: 2px solid var(--primary-color) ;
+    padding-right: 7px;
+}
 
 /* ==========End Sidebar Category========== */

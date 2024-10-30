@@ -1,12 +1,11 @@
   .post {
       font-size: 1.5rem;
-
   }
 
   .main-container {
       margin-top: 8rem;
       /* background-color: aqua; */
-      width: 1630px;
+      padding: 0 !important;
   }
 
   .topbar {
