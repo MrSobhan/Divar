@@ -201,7 +201,7 @@ const Post = () => {
                                                         اطلاعات تماس
                                                     </button>
                                                 </div>
-                                                <div className="post__btns-left">
+                                                <span className="post__btns-left">
                                                     <button
                                                         className="post__btn-save post__btn"
                                                         id="bookmark-icon-btn"
@@ -212,7 +212,7 @@ const Post = () => {
                                                     <button className="post__btn-share post__btn" id="share-icon" onClick={() => Navigator.share(location.href)}>
                                                         <i className="post__btn-icon bi bi-share"></i>
                                                     </button>
-                                                </div>
+                                                </span>
                                             </div>
                                             <div className="post__infos">
                                                 <ul className="post__info-list" id="post-infoes-list">

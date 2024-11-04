@@ -30,19 +30,30 @@
 .title {
     font-size: 2.4rem;
     color: var(--black-color);
-    font-family: "iransans-bold";
+    width: 100%;
 }
 
 .location {
     display: block;
     margin-top: 2rem;
     font-size: 1.6rem;
+    width: 100%;
 }
+
+.post__btns-left{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
 
 .post__verify {
     margin-top: 1.5rem;
     display: flex;
     align-items: center;
+    justify-content: right !important;
     border: var(--border);
     gap: 5px;
     width: fit-content;
@@ -82,18 +93,24 @@
 }
 
 .post__btn {
+    position: relative;
     padding: 1rem;
-    border-radius: 50%;
-    transition: all 0.4s ease;
+    display: flex ;
+    align-items: center ;
+    justify-content: center ;
+    width: 30px !important;
+    height: 30px;
+    border: none !important;
 }
 
-.post__btn:hover {
-    background-color: rgba(0, 0, 0, 0.04);
+.post__btn i {
+    transform: translateX(-14px) translateY(16px);
 }
 
 .post__info-list {
     margin-top: 2rem;
     padding-right: 0;
+    width: 100%;
 }
 
 .post__info-item {
@@ -103,6 +120,7 @@
     font-size: 1.5rem;
     border-bottom: var(--border);
     padding: 1.5rem 0;
+    /* width: 100% !important; */
 }
 
 .post__info-value {
@@ -111,6 +129,7 @@
 
 .post__intro {
     margin-top: 2.5rem;
+    display: block !important;
 }
 
 .post__intro h2 {
