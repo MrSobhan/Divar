@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import AuthContext from '../../context/authContext'
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import Social from '../Social/Social';
-import BodyCategoryItem from '../bodyCategoryItem/bodyCategoryItem';
+import BodyCategoryItem from '../BodyCategoryItem/BodyCategoryItem';
 import Accordion from 'react-bootstrap/Accordion';
 import './Sidebar.css'
 

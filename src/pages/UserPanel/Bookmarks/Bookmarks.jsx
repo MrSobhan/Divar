@@ -32,10 +32,10 @@ const Bookmarks = () => {
                     headers: { Authorization: `Bearer ${token}` },
                 }).then((res) => {
                     if (res.status === 200) {
-                        posts = posts.filter((post) => post._id !== postID);
+                       let myPosts = posts.filter((post) => post._id !== postID);
 
-                        if (posts.length) {
-                            setPosts(posts)
+                        if (myPosts.length) {
+                            setPosts(myPosts)
                         }
                     }
                 });
